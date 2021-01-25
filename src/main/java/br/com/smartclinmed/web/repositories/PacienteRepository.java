@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import br.com.smartclinmed.web.domain.Paciente;
 
 @Repository
-public interface PacienteRepository extends JpaRepository<Paciente, Integer> {
+public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	
 	
 

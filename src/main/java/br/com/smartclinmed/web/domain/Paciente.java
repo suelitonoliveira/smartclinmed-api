@@ -15,7 +15,7 @@ public class Paciente implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Long id;
 	private String nome;
 	private String nomeSocial;
 	private String rg;
@@ -34,7 +34,7 @@ public class Paciente implements Serializable {
 		
 	}
 
-	public Paciente(Integer id, String nome, String nomeSocial, String rg, String cpf, String email,
+	public Paciente(Long id, String nome, String nomeSocial, String rg, String cpf, String email,
 			LocalDate dataNascimento, Integer sexo, Integer tipoPaciente, Integer statusComum, String idade,
 			String nomeTitular, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
@@ -54,11 +54,11 @@ public class Paciente implements Serializable {
 		this.dtAlteracao = dtAlteracao;
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
