@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,10 @@ public class DBService {
 		Paciente paciente = new Paciente(null, "Maria", "nomeSocial", "rg", "cpf", "email", LocalDate.now(), 1, 1, 1,
 			"idade", "nomeTitular", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), null);
 		
-		pacienteRepository.save(paciente);
+		Paciente paciente1 = new Paciente(null, "Maria", "nomeSocial", "rg", "cpf", "email", LocalDate.now(), 1, 1, 1,
+				"idade", "nomeTitular", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), null);
+		
+		pacienteRepository.saveAll(Arrays.asList(paciente,paciente1));
 
 	}
 
