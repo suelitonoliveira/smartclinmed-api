@@ -1,4 +1,4 @@
-package br.com.smarclinmed.web.domain;
+package br.com.smartclinmed.web.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;

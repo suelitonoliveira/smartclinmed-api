@@ -1,4 +1,4 @@
-package br.com.smarclinmed.web.config;
+package br.com.smartclinmed.web.config;
 
 import java.time.format.DateTimeFormatter;
 

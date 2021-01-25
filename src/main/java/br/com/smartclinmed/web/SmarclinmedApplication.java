@@ -1,4 +1,4 @@
-package br.com.smarclinmed.web;
+package br.com.smartclinmed.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

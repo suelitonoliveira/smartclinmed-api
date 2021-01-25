@@ -1,4 +1,4 @@
-package br.com.smarclinmed.web.config;
+package br.com.smartclinmed.web.config;
 
 import java.text.ParseException;
 
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import br.com.smarclinmed.web.services.DBService;
+import br.com.smartclinmed.web.services.DBService;
 
 @Configuration
 @Profile("dev")
