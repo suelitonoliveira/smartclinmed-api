@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.smartclinmed.web.enums.TipoPaciente;
+import br.com.smartclinmed.web.enums.TipoSexo;
+import br.com.smartclinmed.web.enums.TipoStatusComum;
+
 @Entity
 public class Paciente implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -35,7 +39,7 @@ public class Paciente implements Serializable {
 	}
 
 	public Paciente(Long id, String nome, String nomeSocial, String rg, String cpf, String email,
-			LocalDate dataNascimento, Integer sexo, Integer tipoPaciente, Integer statusComum, String idade,
+			LocalDate dataNascimento, TipoSexo sexo, TipoPaciente tipoPaciente, TipoStatusComum statusComum, String idade,
 			String nomeTitular, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
@@ -45,9 +49,9 @@ public class Paciente implements Serializable {
 		this.cpf = cpf;
 		this.email = email;
 		this.dataNascimento = dataNascimento;
-		this.sexo = sexo;
-		this.tipoPaciente = tipoPaciente;
-		this.statusComum = statusComum;
+		this.sexo = (sexo == null)? 1: sexo.getCod();
+		this.tipoPaciente = (tipoPaciente == null) ? 1: tipoPaciente.getCod();
+		this.statusComum = (statusComum == null)? 1: statusComum.getCod();
 		this.idade = idade;
 		this.nomeTitular = nomeTitular;
 		this.dtInclusao = dtInclusao;
@@ -110,28 +114,28 @@ public class Paciente implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public Integer getSexo() {
-		return sexo;
+	public TipoSexo getSexo() {
+		return TipoSexo.toEnum(sexo);
 	}
 
-	public void setSexo(Integer sexo) {
-		this.sexo = sexo;
+	public void setSexo(TipoSexo sexo) {
+		this.sexo = sexo.getCod();
 	}
 
-	public Integer getTipoPaciente() {
-		return tipoPaciente;
+	public TipoPaciente getTipoPaciente() {
+		return TipoPaciente.toEnum(tipoPaciente);
 	}
 
-	public void setTipoPaciente(Integer tipoPaciente) {
-		this.tipoPaciente = tipoPaciente;
+	public void setTipoPaciente(TipoPaciente tipoPaciente) {
+		this.tipoPaciente = tipoPaciente.getCod();
 	}
 
-	public Integer getStatusComum() {
-		return statusComum;
+	public TipoStatusComum getStatusComum() {
+		return TipoStatusComum.toEnum(statusComum);
 	}
 
-	public void setStatusComum(Integer statusComum) {
-		this.statusComum = statusComum;
+	public void setStatusComum(TipoStatusComum statusComum) {
+		this.statusComum = statusComum.getCod();
 	}
 
 	public String getIdade() {
