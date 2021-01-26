@@ -23,6 +23,8 @@ public class PacienteService {
 
 	public Paciente find(Long id) {
 		Optional<Paciente> obj = repo.findById(id);
+		
+		
 		/*
 		 * if (obj.isEmpty()) { throw new
 		 * ObjectNotFoundException("Objeto não encontrato! ID: " + id + ", Tipo: " +
