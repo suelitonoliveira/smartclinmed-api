@@ -32,12 +32,12 @@ public class PacienteService {
 		 */
 		return obj.orElse(null);  //.orElseThrow(() -> new ObjectNotFoundException("Not found"));
 	}
-	
+	@Transactional
 	public Paciente insert(Paciente obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
-	
+	@Transactional
 	public Paciente update(Paciente obj) {
 		find(obj.getId());
 		return repo.save(obj);

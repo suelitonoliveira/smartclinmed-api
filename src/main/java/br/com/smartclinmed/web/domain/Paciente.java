@@ -8,7 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.TipoPaciente;
 import br.com.smartclinmed.web.enums.TipoSexo;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
@@ -20,6 +25,11 @@ public class Paciente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "inquilino_id")
+	private Inquilino inquilino;
+	
 	private String nome;
 	private String nomeSocial;
 	private String rg;
@@ -38,20 +48,21 @@ public class Paciente implements Serializable {
 
 	}
 
-	public Paciente(Long id, String nome, String nomeSocial, String rg, String cpf, String email,
-			LocalDate dataNascimento, TipoSexo sexo, TipoPaciente tipoPaciente, TipoStatusComum statusComum, String idade,
-			String nomeTitular, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
+	public Paciente(Long id, Inquilino inquilino, String nome, String nomeSocial, String rg, String cpf, String email,
+			LocalDate dataNascimento, TipoSexo sexo, TipoPaciente tipoPaciente, TipoStatusComum statusComum,
+			String idade, String nomeTitular, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
+		this.inquilino = inquilino;
 		this.nome = nome;
 		this.nomeSocial = nomeSocial;
 		this.rg = rg;
 		this.cpf = cpf;
 		this.email = email;
 		this.dataNascimento = dataNascimento;
-		this.sexo = (sexo == null)? 1: sexo.getCod();
-		this.tipoPaciente = (tipoPaciente == null) ? 1: tipoPaciente.getCod();
-		this.statusComum = (statusComum == null)? 1: statusComum.getCod();
+		this.sexo = (sexo == null) ? 1 : sexo.getCod();
+		this.tipoPaciente = (tipoPaciente == null) ? 1 : tipoPaciente.getCod();
+		this.statusComum = (statusComum == null) ? 1 : statusComum.getCod();
 		this.idade = idade;
 		this.nomeTitular = nomeTitular;
 		this.dtInclusao = dtInclusao;
@@ -170,11 +181,20 @@ public class Paciente implements Serializable {
 		this.dtAlteracao = dtAlteracao;
 	}
 
+	public Inquilino getInquilino() {
+		return inquilino;
+	}
+
+	public void setInquilino(Inquilino inquilino) {
+		this.inquilino = inquilino;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((inquilino == null) ? 0 : inquilino.hashCode());
 		return result;
 	}
 
@@ -191,6 +211,11 @@ public class Paciente implements Serializable {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (inquilino == null) {
+			if (other.inquilino != null)
+				return false;
+		} else if (!inquilino.equals(other.inquilino))
 			return false;
 		return true;
 	}
