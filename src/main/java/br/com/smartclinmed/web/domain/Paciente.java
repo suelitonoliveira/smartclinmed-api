@@ -53,10 +53,6 @@ public class Paciente implements Serializable {
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
-	/*
-	 * @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch =
-	 * FetchType.LAZY) private List<Endereco> enderecos = new ArrayList<>();
-	 */
 	@ManyToOne
 	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
@@ -212,13 +208,6 @@ public class Paciente implements Serializable {
 	public void setInquilino(Inquilino inquilino) {
 		this.inquilino = inquilino;
 	}
-
-	/*
-	 * public List<Endereco> getEnderecos() { return enderecos; }
-	 * 
-	 * public void setEnderecos(List<Endereco> enderecos) { this.enderecos =
-	 * enderecos; }
-	 */
 
 	public Set<String> getTelefones() {
 		return telefones;
