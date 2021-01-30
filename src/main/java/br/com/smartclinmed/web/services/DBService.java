@@ -3,7 +3,6 @@ package br.com.smartclinmed.web.services;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,21 +64,26 @@ public class DBService {
 		indicacaoRepository.save(ind1);
 		
 
+		
+		
+		
+		Endereco e1 = new Endereco(null, inq1, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
+		Endereco e2 = new Endereco(null, inq1, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
+		
 		Paciente pac1 = new Paciente(null, inq1, "Maria", "nomeSocial", "rg", "cpf", "teste@email", null,
-				TipoSexo.FEMININO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1,
+				TipoSexo.FEMININO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1,e2,
 				LocalDateTime.now(), null);
 		pac1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
-
-		Paciente pac2 = new Paciente(null, inq1, "Jose", "Jade", "rg", "cpf", "teste@email", null, TipoSexo.MASCULINO,
-				TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1, LocalDateTime.now(), null);
-		pac2.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
-		Endereco e1 = new Endereco(null, inq1, pac1, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
-		Endereco e2 = new Endereco(null, inq1, pac2, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
-		pac1.getEnderecos().add(e1);
-		pac2.getEnderecos().add(e2);
 		
-		pacienteRepository.saveAll(Arrays.asList(pac1, pac2));
+		Paciente pac2 = new Paciente(null, inq1, "Jose", "Jade", "rg", "cpf", "teste@email", null, TipoSexo.MASCULINO,
+				TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1,e1, LocalDateTime.now(), null);
+		pac2.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
+	
+		e1.getPacientes().add(pac1);
+		e2.getPacientes().add(pac2);
 		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		pacienteRepository.saveAll(Arrays.asList(pac1, pac2));
+	
 
 	}
 

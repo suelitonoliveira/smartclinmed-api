@@ -1,6 +1,8 @@
 package br.com.smartclinmed.web.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,9 +29,8 @@ public class Endereco implements Serializable {
 	private Inquilino inquilino;
 
 	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "paciente_id")
-	private Paciente paciente;
+	@OneToMany(mappedBy = "endereco")
+	private Set<Paciente> pacientes = new HashSet<Paciente>();
 
 	private String cep;
 	private String logradouro;
@@ -44,12 +46,11 @@ public class Endereco implements Serializable {
 
 	}
 
-	public Endereco(Long id, Inquilino inquilino, Paciente paciente, String cep, String logradouro, String numero,
-			String complemento, String bairro, Cidade cidade) {
+	public Endereco(Long id, Inquilino inquilino, String cep, String logradouro, String numero, String complemento,
+			String bairro, Cidade cidade) {
 		super();
 		this.id = id;
 		this.inquilino = inquilino;
-		this.paciente = paciente;
 		this.cep = cep;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -74,12 +75,12 @@ public class Endereco implements Serializable {
 		this.inquilino = inquilino;
 	}
 
-	public Paciente getPaciente() {
-		return paciente;
+	public Set<Paciente> getPacientes() {
+		return pacientes;
 	}
 
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
+	public void setPacientes(Set<Paciente> pacientes) {
+		this.pacientes = pacientes;
 	}
 
 	public String getCep() {

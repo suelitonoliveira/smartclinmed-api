@@ -3,22 +3,17 @@ package br.com.smartclinmed.web.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -58,8 +53,13 @@ public class Paciente implements Serializable {
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
-	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Endereco> enderecos = new ArrayList<>();
+	/*
+	 * @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch =
+	 * FetchType.LAZY) private List<Endereco> enderecos = new ArrayList<>();
+	 */
+	@ManyToOne
+	@JoinColumn(name = "endereco_id")
+	private Endereco endereco;
 
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
@@ -71,7 +71,7 @@ public class Paciente implements Serializable {
 
 	public Paciente(Long id, Inquilino inquilino, String nome, String nomeSocial, String rg, String cpf, String email,
 			LocalDate dataNascimento, TipoSexo sexo, TipoPaciente tipoPaciente, TipoStatusComum statusComum,
-			String idade, String nomeTitular, Indicacao indicacao, LocalDateTime dtInclusao,
+			String idade, String nomeTitular, Indicacao indicacao, Endereco endereco, LocalDateTime dtInclusao,
 			LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
@@ -88,6 +88,7 @@ public class Paciente implements Serializable {
 		this.idade = idade;
 		this.nomeTitular = nomeTitular;
 		this.indicacao = indicacao;
+		this.endereco = endereco;
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
 	}
@@ -212,16 +213,23 @@ public class Paciente implements Serializable {
 		this.inquilino = inquilino;
 	}
 
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
+	/*
+	 * public List<Endereco> getEnderecos() { return enderecos; }
+	 * 
+	 * public void setEnderecos(List<Endereco> enderecos) { this.enderecos =
+	 * enderecos; }
+	 */
 
 	public Set<String> getTelefones() {
 		return telefones;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	public void setTelefones(Set<String> telefones) {
