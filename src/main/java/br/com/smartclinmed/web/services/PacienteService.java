@@ -14,8 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-
-
 import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.PacienteRepository;
@@ -49,13 +47,10 @@ public class PacienteService {
 
 	@Transactional
 	public Paciente update(Paciente obj) {
-		try {
-			find(obj.getId());
-			return repo.save(obj);
-		} catch (Exception e) {
-			throw new ObjectNotFoundException("Not Found");
-		}
-		
+
+		find(obj.getId());
+		return repo.save(obj);
+
 	}
 
 	@Transactional
@@ -66,7 +61,7 @@ public class PacienteService {
 			obj.setDtAlteracao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 			repo.save(obj);
 		} catch (DataIntegrityViolationException e) {
-			 throw new DataIntegrityException("Exclusão não permitida, itens vinculados");
+			throw new DataIntegrityException("Exclusão não permitida, itens vinculados");
 		}
 
 	}
@@ -79,7 +74,5 @@ public class PacienteService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
-
-
 
 }
