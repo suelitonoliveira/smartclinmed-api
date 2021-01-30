@@ -39,7 +39,7 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(DataIntegrityException.class)
 	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
 		ValidationError err = new ValidationError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(),
-				"Validation error", "Check the inconsistencies noted below", request.getRequestURI());
+				"Validation error", "Verifique as inconsistências observadas abaixo", request.getRequestURI());
 		err.addError("Data integrity", e.getMessage());
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
 	}
@@ -48,8 +48,8 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> contraintIntegrity(ConstraintViolationException e,
 			HttpServletRequest request) {
 		ValidationError err = new ValidationError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(),
-				"Validation error", "Check the inconsistencies noted below", request.getRequestURI());
-		err.addError("Data integrity", "Change not allowed, linked items");
+				"Validation error", "Verifique as inconsistências observadas abaixo", request.getRequestURI());
+		err.addError("Data integrity", "alteração não permitida, itens vinculados");
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
 	}
 
@@ -57,7 +57,7 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
 
 		ValidationError err = new ValidationError(System.currentTimeMillis(), HttpStatus.UNPROCESSABLE_ENTITY.value(),
-				"Validation error", "Check the inconsistencies noted below", request.getRequestURI());
+				"Validation error", "Verifique as inconsistências observadas abaixo", request.getRequestURI());
 		for (FieldError x : e.getBindingResult().getFieldErrors()) {
 			err.addError(x.getField(), x.getDefaultMessage());
 		}
@@ -67,7 +67,7 @@ public class ResourceExceptionHandler {
 	@ExceptionHandler(AuthorizationException.class)
 	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
 
-		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Access denied",
+		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Acesso Negado",
 				e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 	}
@@ -76,7 +76,7 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> accesDenied(AccessDeniedException e, HttpServletRequest request) {
 
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
-				"Function not enabled for your user", "Access denied", request.getRequestURI());
+				"Função não habilitada para o seu usuário", "Acesso Negado", request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
 	}
 
