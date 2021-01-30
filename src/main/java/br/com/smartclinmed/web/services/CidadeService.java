@@ -1,7 +1,5 @@
 package br.com.smartclinmed.web.services;
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,70 +12,63 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-
-
-import br.com.smartclinmed.web.domain.Paciente;
-import br.com.smartclinmed.web.enums.TipoStatusComum;
-import br.com.smartclinmed.web.repositories.PacienteRepository;
+import br.com.smartclinmed.web.domain.Cidade;
+import br.com.smartclinmed.web.repositories.CidadeRepository;
 import br.com.smartclinmed.web.services.exceptions.DataIntegrityException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class PacienteService {
+public class CidadeService {
 
 	@Autowired
-	private PacienteRepository repo;
+	private CidadeRepository repo;
 
-	public Paciente find(Long id) {
-		Optional<Paciente> obj = repo.findById(id);
+	public Cidade find(Long id) {
+		Optional<Cidade> obj = repo.findById(id);
 
 		if (obj.isEmpty()) {
 			throw new ObjectNotFoundException(
-					"Objeto não encontrato! ID: " + id + ", Tipo: " + Paciente.class.getName());
+					"Objeto não encontrato! ID: " + id + ", Tipo: " + Cidade.class.getName());
 		}
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Not found"));
 	}
 
 	@Transactional
-	public Paciente insert(Paciente obj) {
+	public Cidade insert(Cidade obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 
 	@Transactional
-	public Paciente update(Paciente obj) {
+	public Cidade update(Cidade obj) {
 		try {
 			find(obj.getId());
 			return repo.save(obj);
 		} catch (Exception e) {
 			throw new ObjectNotFoundException("Not Found");
 		}
-		
+
 	}
 
 	@Transactional
 	public void delete(Long id) {
-		Paciente obj = find(id);
+		find(id);
 		try {
-			obj.setStatusComum(TipoStatusComum.INATIVO);
-			obj.setDtAlteracao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-			repo.save(obj);
+			repo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			 throw new DataIntegrityException("Exclusão não permitida, itens vinculados");
+			throw new DataIntegrityException("Exclusão não permitida, itens vinculados");
 		}
 
 	}
 
-	public List<Paciente> findAll() {
+	public List<Cidade> findAll() {
 		return repo.findAll();
 	}
 
-	public Page<Paciente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+	public Page<Cidade> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
-
-
 
 }
