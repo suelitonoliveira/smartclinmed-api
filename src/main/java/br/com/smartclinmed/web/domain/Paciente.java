@@ -3,13 +3,22 @@ package br.com.smartclinmed.web.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,7 +38,7 @@ public class Paciente implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
-	
+
 	private String nome;
 	private String nomeSocial;
 	private String rg;
@@ -41,8 +50,20 @@ public class Paciente implements Serializable {
 	private Integer statusComum;
 	private String idade;
 	private String nomeTitular;
+
+	@ManyToOne
+	@JoinColumn(name = "indicacao_id")
+	private Indicacao indicacao;
+
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
+
+	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Endereco> enderecos = new ArrayList<>();
+
+	@ElementCollection
+	@CollectionTable(name = "TELEFONE")
+	private Set<String> telefones = new HashSet<>();
 
 	public Paciente() {
 
@@ -50,7 +71,8 @@ public class Paciente implements Serializable {
 
 	public Paciente(Long id, Inquilino inquilino, String nome, String nomeSocial, String rg, String cpf, String email,
 			LocalDate dataNascimento, TipoSexo sexo, TipoPaciente tipoPaciente, TipoStatusComum statusComum,
-			String idade, String nomeTitular, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
+			String idade, String nomeTitular, Indicacao indicacao, LocalDateTime dtInclusao,
+			LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
 		this.inquilino = inquilino;
@@ -65,6 +87,7 @@ public class Paciente implements Serializable {
 		this.statusComum = (statusComum == null) ? 1 : statusComum.getCod();
 		this.idade = idade;
 		this.nomeTitular = nomeTitular;
+		this.indicacao = indicacao;
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
 	}
@@ -187,6 +210,30 @@ public class Paciente implements Serializable {
 
 	public void setInquilino(Inquilino inquilino) {
 		this.inquilino = inquilino;
+	}
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
+
+	public Indicacao getIndicacao() {
+		return indicacao;
+	}
+
+	public void setIndicacao(Indicacao indicacao) {
+		this.indicacao = indicacao;
 	}
 
 	@Override
