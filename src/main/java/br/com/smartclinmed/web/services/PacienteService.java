@@ -41,7 +41,9 @@ public class PacienteService {
 
 	@Transactional
 	public Paciente insert(Paciente obj) {
+		obj.setDtInclusao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 		obj.setId(null);
+		obj.setInquilino(obj.getInquilino());
 		return repo.save(obj);
 	}
 

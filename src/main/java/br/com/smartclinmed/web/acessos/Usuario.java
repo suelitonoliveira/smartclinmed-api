@@ -36,8 +36,6 @@ public class Usuario implements Serializable {
 	private Integer statusComum;
 	@JsonIgnore
 	private String senha;
-	private String imagem;
-	private String imagem64;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "UsuarioPerfis", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "usuarioperfil_id"))
@@ -51,15 +49,13 @@ public class Usuario implements Serializable {
 	}
 
 	public Usuario(Integer id, Inquilino inquilino, String email, TipoStatusComum statusComum, String senha,
-			String imagem, String imagem64, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
+			LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
 		this.inquilino = inquilino;
 		this.email = email;
 		this.statusComum = (statusComum == null) ? 1 : statusComum.getCod();
 		this.senha = senha;
-		this.imagem = imagem;
-		this.imagem64 = imagem64;
 		this.dtAlteracao = dtAlteracao;
 		this.dtInclusao = dtInclusao;
 	}
@@ -94,22 +90,6 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public String getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(String imagem) {
-		this.imagem = imagem;
-	}
-
-	public String getImagem64() {
-		return imagem64;
-	}
-
-	public void setImagem64(String imagem64) {
-		this.imagem64 = imagem64;
 	}
 
 	public LocalDateTime getDtInclusao() {
