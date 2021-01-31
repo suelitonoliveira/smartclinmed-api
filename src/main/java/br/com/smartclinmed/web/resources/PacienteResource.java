@@ -2,6 +2,7 @@ package br.com.smartclinmed.web.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.smartclinmed.web.domain.Paciente;
+import br.com.smartclinmed.web.dto.PacienteDTOFind;
 import br.com.smartclinmed.web.services.PacienteService;
 
 @RestController
@@ -24,9 +26,10 @@ public class PacienteResource {
 	private PacienteService service;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Paciente>> findAll() {
+	public ResponseEntity<List<PacienteDTOFind>> findAll() {
 		List<Paciente> list = service.findAll();
-		return ResponseEntity.ok().body(list);
+		List<PacienteDTOFind> listDto = list.stream().map(obj -> new PacienteDTOFind(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDto);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
