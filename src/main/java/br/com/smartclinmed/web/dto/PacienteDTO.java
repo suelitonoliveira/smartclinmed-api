@@ -35,13 +35,9 @@ public class PacienteDTO implements Serializable {
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String email;
 	@Past
-	@NotEmpty(message = "Preenchimento obrigatório")
 	private LocalDate dataNascimento;
-	@NotEmpty(message = "Preenchimento obrigatório")
 	private TipoSexo sexo;
-	@NotEmpty(message = "Preenchimento obrigatório")
 	private TipoPaciente tipoPaciente;
-	@NotEmpty(message = "Preenchimento obrigatório")
 	private TipoStatusComum statusComum;
 	private String nomeTitular;
 

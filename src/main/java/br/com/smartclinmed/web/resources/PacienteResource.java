@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.smartclinmed.web.domain.Paciente;
+import br.com.smartclinmed.web.dto.PacienteDTO;
 import br.com.smartclinmed.web.dto.PacienteFindDTO;
 import br.com.smartclinmed.web.dto.PacienteNewDTO;
 import br.com.smartclinmed.web.services.PacienteService;
@@ -61,7 +62,8 @@ public class PacienteResource {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody Paciente obj, @PathVariable Long id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody PacienteDTO objDto, @PathVariable Long id) {
+		Paciente obj = service.fromDto(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
