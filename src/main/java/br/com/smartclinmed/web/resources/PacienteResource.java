@@ -19,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.dto.PacienteFindDTO;
+import br.com.smartclinmed.web.dto.PacienteNewDTO;
 import br.com.smartclinmed.web.services.PacienteService;
 
 @RestController
@@ -52,7 +53,8 @@ public class PacienteResource {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody Paciente obj) {
+	public ResponseEntity<Void> insert(@Valid @RequestBody PacienteNewDTO objDto) {
+		Paciente obj = service.fromDTO(objDto);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();

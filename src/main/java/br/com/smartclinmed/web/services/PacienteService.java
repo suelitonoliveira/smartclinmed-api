@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import br.com.smartclinmed.web.domain.Paciente;
+import br.com.smartclinmed.web.dto.PacienteNewDTO;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.PacienteRepository;
 import br.com.smartclinmed.web.services.exceptions.DataIntegrityException;
@@ -73,6 +74,13 @@ public class PacienteService {
 	public Page<Paciente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+
+	public Paciente fromDTO(PacienteNewDTO objDto) {
+		return new Paciente(null, null, objDto.getNome(), objDto.getNomeSocial(), objDto.getRg(), objDto.getCpf(),
+				objDto.getEmail(), objDto.getDataNascimento(), objDto.getSexo(), objDto.getTipoPaciente(),
+				TipoStatusComum.ATIVO, null, objDto.getNomeTitular(), objDto.getIndicacao(), objDto.getEndereco(), null,
+				null);
 	}
 
 }
