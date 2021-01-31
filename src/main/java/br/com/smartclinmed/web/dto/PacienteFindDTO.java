@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 import br.com.smartclinmed.web.domain.Paciente;
 
-public class PacienteDTOFind implements Serializable {
+public class PacienteFindDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private String nome;
 	private String nomeSocial;
 
-	public PacienteDTOFind() {
+	public PacienteFindDTO() {
 
 	}
 
-	public PacienteDTOFind(Paciente obj) {
+	public PacienteFindDTO(Paciente obj) {
 		id = obj.getId();
 		nome = obj.getNome();
 		nomeSocial = obj.getNomeSocial();
