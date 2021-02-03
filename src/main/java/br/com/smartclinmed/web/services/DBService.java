@@ -61,7 +61,8 @@ public class DBService {
 		Cidade cid1 = new Cidade(null, "Goiânia", "GYN", 62, est1);
 		cidadeRepository.save(cid1);
 		Indicacao ind1 = new Indicacao(null, inq1, "Google");
-		indicacaoRepository.save(ind1);
+		Indicacao ind2 = new Indicacao(null, inq1, "Site");
+		indicacaoRepository.saveAll(Arrays.asList(ind1,ind2));
 		
 
 		
