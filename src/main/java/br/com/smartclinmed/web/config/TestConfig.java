@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import br.com.smartclinmed.web.services.DBService;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class TestConfig {
 
 	@Autowired
