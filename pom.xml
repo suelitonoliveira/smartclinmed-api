@@ -8,10 +8,10 @@
 		<version>2.4.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>br.com.smarclinmed</groupId>
-	<artifactId>smarclinmed</artifactId>
+	<groupId>br.com.smartclinmed</groupId>
+	<artifactId>smartclinmed</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>smarclinmed</name>
+	<name>smartclinmed</name>
 	<description>api-smartclinmed</description>
 	<properties>
 		<java.version>11</java.version>
