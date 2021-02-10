@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 import br.com.smartclinmed.web.services.DBService;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class DevConfig {
 
 	@Autowired
@@ -22,7 +22,7 @@ public class DevConfig {
 
 	@Bean
 	public boolean instatiateDatabase() throws ParseException {
-		if ("create".equals(strategy)) {
+		if (!"create".equals(strategy)) {
 			return false;
 		}
 		dbservice.instantiateTestDatabase();
@@ -31,6 +31,12 @@ public class DevConfig {
 
 	/*
 	 * @Bean public EmailService emailService() { return new SmtpEmailService(); }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * @Bean public boolean instatiateDatabase() throws ParseException {
+	 * dbservice.instantiateTestDatabase(); return true; }
+	 * 
 	 */
-
 }
