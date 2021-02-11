@@ -66,7 +66,7 @@ public class Paciente implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "paciente")
-	private List<Agendamento> consulta = new ArrayList<>();
+	private List<Agendamento> agendamento = new ArrayList<>();
 
 	public Paciente() {
 
@@ -240,12 +240,12 @@ public class Paciente implements Serializable {
 		this.indicacao = indicacao;
 	}
 
-	public List<Agendamento> getConsulta() {
-		return consulta;
+	public List<Agendamento> getAgendamento() {
+		return agendamento;
 	}
 
-	public void setConsulta(List<Agendamento> consulta) {
-		this.consulta = consulta;
+	public void setAgendamento(List<Agendamento> agendamento) {
+		this.agendamento = agendamento;
 	}
 
 	@Override

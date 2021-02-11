@@ -1,7 +1,6 @@
 package br.com.smartclinmed.web.domain;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,10 +12,10 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
-import br.com.smartclinmed.web.enums.TipoAgendamento;
+import br.com.smartclinmed.web.enums.EstadoPagamento;
 
 @Entity
-public class Agendamento implements Serializable {
+public class Pagamento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -28,27 +27,20 @@ public class Agendamento implements Serializable {
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
 
-	private LocalDateTime data;
-	private Pagamento pagamento;
+	private EstadoPagamento estadoPagamento;
 
-	@ManyToOne
-	@JoinColumn(name = "paciente_id")
-	private Paciente paciente;
-	private Integer tipoAgendamento;
+	private Agendamento agendamento;
 
-	public Agendamento() {
+	public Pagamento() {
 
 	}
 
-	public Agendamento(Long id, Inquilino inquilino, LocalDateTime data, Pagamento pagamento, Paciente paciente,
-			TipoAgendamento tipoAgendamento) {
+	public Pagamento(Long id, Inquilino inquilino, EstadoPagamento estadoPagamento, Agendamento agendamento) {
 		super();
 		this.id = id;
 		this.inquilino = inquilino;
-		this.data = data;
-		this.pagamento = pagamento;
-		this.paciente = paciente;
-		this.tipoAgendamento = (tipoAgendamento == null) ? 1: tipoAgendamento.getCod();
+		this.estadoPagamento = estadoPagamento;
+		this.agendamento = agendamento;
 	}
 
 	public Long getId() {
@@ -67,36 +59,20 @@ public class Agendamento implements Serializable {
 		this.inquilino = inquilino;
 	}
 
-	public LocalDateTime getData() {
-		return data;
+	public EstadoPagamento getEstadoPagamento() {
+		return estadoPagamento;
 	}
 
-	public void setData(LocalDateTime data) {
-		this.data = data;
+	public void setEstadoPagamento(EstadoPagamento estadoPagamento) {
+		this.estadoPagamento = estadoPagamento;
 	}
 
-	public Pagamento getPagamento() {
-		return pagamento;
+	public Agendamento getAgendamento() {
+		return agendamento;
 	}
 
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
-	}
-
-	public Paciente getPaciente() {
-		return paciente;
-	}
-
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
-	}
-
-	public TipoAgendamento getTipoAgendamento() {
-		return TipoAgendamento.toEnum(tipoAgendamento);
-	}
-
-	public void setTipoAgendamento(TipoAgendamento tipoAgendamento) {
-		this.tipoAgendamento = tipoAgendamento.getCod();
+	public void setAgendamento(Agendamento agendamento) {
+		this.agendamento = agendamento;
 	}
 
 	@Override
@@ -116,7 +92,7 @@ public class Agendamento implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Agendamento other = (Agendamento) obj;
+		Pagamento other = (Pagamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -129,7 +105,5 @@ public class Agendamento implements Serializable {
 			return false;
 		return true;
 	}
-
-
 
 }
