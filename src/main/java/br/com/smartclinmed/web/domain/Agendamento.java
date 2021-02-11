@@ -28,7 +28,7 @@ public class Agendamento implements Serializable {
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
 
-	private LocalDateTime data;
+	private LocalDateTime dataAgendamento;
 	private Pagamento pagamento;
 
 	@ManyToOne
@@ -36,19 +36,24 @@ public class Agendamento implements Serializable {
 	private Paciente paciente;
 	private Integer tipoAgendamento;
 
+	private LocalDateTime dtInclusao;
+	private LocalDateTime dtAlteracao;
+
 	public Agendamento() {
 
 	}
 
-	public Agendamento(Long id, Inquilino inquilino, LocalDateTime data, Pagamento pagamento, Paciente paciente,
-			TipoAgendamento tipoAgendamento) {
+	public Agendamento(Long id, Inquilino inquilino, LocalDateTime dataAgendamento, Pagamento pagamento,
+			Paciente paciente, TipoAgendamento tipoAgendamento, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
 		this.inquilino = inquilino;
-		this.data = data;
+		this.setDataAgendamento(dataAgendamento);
 		this.pagamento = pagamento;
 		this.paciente = paciente;
-		this.tipoAgendamento = (tipoAgendamento == null) ? 1: tipoAgendamento.getCod();
+		this.tipoAgendamento = (tipoAgendamento == null) ? 1 : tipoAgendamento.getCod();
+		this.dtInclusao = dtInclusao;
+		this.dtAlteracao = dtAlteracao;
 	}
 
 	public Long getId() {
@@ -65,14 +70,6 @@ public class Agendamento implements Serializable {
 
 	public void setInquilino(Inquilino inquilino) {
 		this.inquilino = inquilino;
-	}
-
-	public LocalDateTime getData() {
-		return data;
-	}
-
-	public void setData(LocalDateTime data) {
-		this.data = data;
 	}
 
 	public Pagamento getPagamento() {
@@ -97,6 +94,30 @@ public class Agendamento implements Serializable {
 
 	public void setTipoAgendamento(TipoAgendamento tipoAgendamento) {
 		this.tipoAgendamento = tipoAgendamento.getCod();
+	}
+
+	public LocalDateTime getDataAgendamento() {
+		return dataAgendamento;
+	}
+
+	public void setDataAgendamento(LocalDateTime dataAgendamento) {
+		this.dataAgendamento = dataAgendamento;
+	}
+
+	public LocalDateTime getDtInclusao() {
+		return dtInclusao;
+	}
+
+	public void setDtInclusao(LocalDateTime dtInclusao) {
+		this.dtInclusao = dtInclusao;
+	}
+
+	public LocalDateTime getDtAlteracao() {
+		return dtAlteracao;
+	}
+
+	public void setDtAlteracao(LocalDateTime dtAlteracao) {
+		this.dtAlteracao = dtAlteracao;
 	}
 
 	@Override
@@ -130,6 +151,24 @@ public class Agendamento implements Serializable {
 		return true;
 	}
 
-
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Agendamento: ");
+		builder.append(getId());
+		builder.append(", inquilino: ");
+		builder.append(getInquilino());
+		builder.append(", Data do Agendamento: ");
+		builder.append(getDataAgendamento());
+		builder.append(", pagamento: ");
+		builder.append(getPagamento());
+		builder.append(", paciente: ");
+		builder.append(getPaciente());
+		builder.append(", Tipo do Agendamento: ");
+		builder.append(getTipoAgendamento());
+		builder.append("Situação do Pagamento");
+		builder.append(getPagamento().getEstadoPagamento().getDescricao());
+		return builder.toString();
+	}
 
 }
