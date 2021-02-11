@@ -12,10 +12,12 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import br.com.smartclinmed.web.services.exceptions.AuthorizationException;
 import br.com.smartclinmed.web.services.exceptions.DataIntegrityException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
+
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -78,6 +80,17 @@ public class ResourceExceptionHandler {
 		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(),
 				"Função não habilitada para o seu usuário", "Acesso Negado", request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
+	}
+
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public ResponseEntity<StandardError> handleFileUploadException(MaxUploadSizeExceededException e,
+			HttpServletRequest request) {
+
+		StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(),
+				"File Size Limit exceeded. Please make sure the file size is well within 128KB.",
+				"File Size Limit exceeded", request.getRequestURI());
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
 	// @ExceptionHandler(FileException.class)
