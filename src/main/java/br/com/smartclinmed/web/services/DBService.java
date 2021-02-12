@@ -72,12 +72,12 @@ public class DBService {
 		Endereco e1 = new Endereco(null, inq1, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
 		Endereco e2 = new Endereco(null, inq1, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
 
-		Paciente pac1 = new Paciente(null, inq1, "Maria", "nomeSocial", "rg", "cpf", "teste@email", null,
+		Paciente pac1 = new Paciente(null, inq1, "Maria", "nomeSocial", "rg", "cpf", "suelitondeoliveira@gmail.com", null,
 				TipoSexo.FEMININO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1, e2,
 				LocalDateTime.now(), null);
 		pac1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
 
-		Paciente pac2 = new Paciente(null, inq1, "Jose", "Jade", "rg", "cpf", "teste@email", null, TipoSexo.MASCULINO,
+		Paciente pac2 = new Paciente(null, inq1, "Jose", "Jade", "rg", "cpf", "suelitondeoliveira@gmail.com", null, TipoSexo.MASCULINO,
 				TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1, e1, LocalDateTime.now(),
 				null);
 		pac2.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
@@ -89,7 +89,7 @@ public class DBService {
 
 		Agendamento ag1 = new Agendamento(null, inq1, null, null, pac1, TipoAgendamento.CONSULTA, LocalDateTime.now(),
 				null);
-		Agendamento ag2 = new Agendamento(null, inq1, null, null, pac1, TipoAgendamento.EXAME, LocalDateTime.now(),
+		Agendamento ag2 = new Agendamento(null, inq1, null, null, pac2, TipoAgendamento.EXAME, LocalDateTime.now(),
 				null);
 		agendamentoRepository.saveAll(Arrays.asList(ag1,ag2));
 

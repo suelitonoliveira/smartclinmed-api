@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Profile;
 import br.com.smartclinmed.web.services.DBService;
 import br.com.smartclinmed.web.services.EmailService;
 import br.com.smartclinmed.web.services.MockEmailService;
-
+import br.com.smartclinmed.web.services.SmtpEmailService;
 
 @Configuration
 @Profile("test")
@@ -30,4 +30,8 @@ public class TestConfig {
 		return new MockEmailService();
 	}
 
+	/*
+	 * @Bean public EmailService smtpemailService() { return new SmtpEmailService();
+	 * }
+	 */
 }
