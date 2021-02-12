@@ -165,7 +165,7 @@ public class Agendamento implements Serializable {
 		builder.append(", Tipo do Agendamento: ");
 		builder.append(getTipoAgendamento());
 		builder.append("Situação do Pagamento");
-		builder.append(getPagamento().getEstadoPagamento().getDescricao());
+		//builder.append(getPagamento().getEstadoPagamento().getDescricao());
 		return builder.toString();
 	}
 

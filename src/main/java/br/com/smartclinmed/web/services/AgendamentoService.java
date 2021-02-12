@@ -26,6 +26,9 @@ public class AgendamentoService {
 
 	@Autowired
 	private AgendamentoRepository repo;
+	
+	@Autowired
+	private EmailService emailService;
 
 	public Agendamento find(Long id) {
 		Optional<Agendamento> obj = repo.findById(id);
@@ -43,6 +46,7 @@ public class AgendamentoService {
 		obj.setDtInclusao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 		obj.setId(null);
 		obj.setInquilino(obj.getInquilino());
+		emailService.sendOrderConfirmationEmail(obj);
 		return repo.save(obj);
 	}
 

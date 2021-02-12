@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.smartclinmed.web.services.DBService;
+import br.com.smartclinmed.web.services.EmailService;
+import br.com.smartclinmed.web.services.MockEmailService;
+
 
 @Configuration
 @Profile("test")
@@ -22,7 +25,9 @@ public class TestConfig {
 		return true;
 	}
 
-	/*
-	 * @Bean public EmailService emailService() { return new MockEmailService(); }
-	 */
+	@Bean
+	public EmailService emailService() {
+		return new MockEmailService();
+	}
+
 }
