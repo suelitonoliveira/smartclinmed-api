@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import br.com.smartclinmed.web.domain.Agendamento;
 import br.com.smartclinmed.web.dto.AgendamentoDTO;
 import br.com.smartclinmed.web.dto.AgendamentoNewDTO;
-import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.AgendamentoRepository;
 import br.com.smartclinmed.web.services.exceptions.DataIntegrityException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
@@ -78,12 +77,15 @@ public class AgendamentoService {
 
 	public Agendamento fromDTO(AgendamentoNewDTO objDto) {
 		return new Agendamento(null, null, objDto.getDataAgendamento(), objDto.getPagamento(), objDto.getPaciente(),
-				objDto.getTipoAgendamento(), null, null);
+				objDto.getTipoAgendamento(), LocalDateTime.now(), null);
 	}
 
 	public Agendamento fromDto(AgendamentoDTO objDto) {
-		return new Agendamento(objDto.getId(), null, objDto.getDataAgendamento(), objDto.getPagamento(),
-				objDto.getPaciente(), objDto.getTipoAgendamento(), null, null);
+		Optional<Agendamento> objAtual = Optional.ofNullable(find(objDto.getId()));
+		Agendamento obj = new Agendamento(objDto.getId(), null, objDto.getDataAgendamento(), objDto.getPagamento(),
+				objDto.getPaciente(), objDto.getTipoAgendamento(), null, LocalDateTime.now());
+		
+		return obj;
 
 	}
 }

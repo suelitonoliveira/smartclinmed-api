@@ -8,6 +8,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.smartclinmed.web.domain.Agendamento;
 import br.com.smartclinmed.web.domain.Cidade;
 import br.com.smartclinmed.web.domain.Endereco;
 import br.com.smartclinmed.web.domain.Estado;
@@ -15,11 +16,13 @@ import br.com.smartclinmed.web.domain.Indicacao;
 import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.domain.Pais;
 import br.com.smartclinmed.web.domain.software.Inquilino;
+import br.com.smartclinmed.web.enums.TipoAgendamento;
 import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
 import br.com.smartclinmed.web.enums.TipoPaciente;
 import br.com.smartclinmed.web.enums.TipoSexo;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
+import br.com.smartclinmed.web.repositories.AgendamentoRepository;
 import br.com.smartclinmed.web.repositories.CidadeRepository;
 import br.com.smartclinmed.web.repositories.EnderecoRepository;
 import br.com.smartclinmed.web.repositories.EstadoRepository;
@@ -44,6 +47,8 @@ public class DBService {
 	private CidadeRepository cidadeRepository;
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	@Autowired
+	private AgendamentoRepository agendamentoRepository;
 
 	public void instantiateTestDatabase() throws ParseException {
 
@@ -62,29 +67,31 @@ public class DBService {
 		cidadeRepository.save(cid1);
 		Indicacao ind1 = new Indicacao(null, inq1, "Google");
 		Indicacao ind2 = new Indicacao(null, inq1, "Site");
-		indicacaoRepository.saveAll(Arrays.asList(ind1,ind2));
-		
+		indicacaoRepository.saveAll(Arrays.asList(ind1, ind2));
 
-		
-		
-		
 		Endereco e1 = new Endereco(null, inq1, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
 		Endereco e2 = new Endereco(null, inq1, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
-		
+
 		Paciente pac1 = new Paciente(null, inq1, "Maria", "nomeSocial", "rg", "cpf", "teste@email", null,
-				TipoSexo.FEMININO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1,e2,
+				TipoSexo.FEMININO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1, e2,
 				LocalDateTime.now(), null);
 		pac1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
-		
+
 		Paciente pac2 = new Paciente(null, inq1, "Jose", "Jade", "rg", "cpf", "teste@email", null, TipoSexo.MASCULINO,
-				TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1,e1, LocalDateTime.now(), null);
+				TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1, e1, LocalDateTime.now(),
+				null);
 		pac2.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
-	
+
 		e1.getPacientes().add(pac1);
 		e2.getPacientes().add(pac2);
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		pacienteRepository.saveAll(Arrays.asList(pac1, pac2));
-	
+
+		Agendamento ag1 = new Agendamento(null, inq1, null, null, pac1, TipoAgendamento.CONSULTA, LocalDateTime.now(),
+				null);
+		Agendamento ag2 = new Agendamento(null, inq1, null, null, pac1, TipoAgendamento.EXAME, LocalDateTime.now(),
+				null);
+		agendamentoRepository.saveAll(Arrays.asList(ag1,ag2));
 
 	}
 

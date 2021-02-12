@@ -2,7 +2,6 @@ package br.com.smartclinmed.web.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -28,13 +27,11 @@ public class AgendamentoResource {
 	@Autowired
 	private AgendamentoService service;
 
-	/*
-	 * @RequestMapping(method = RequestMethod.GET) public
-	 * ResponseEntity<List<Agendamento>> findAll() { List<Agendamento> list =
-	 * service.findAll(); List<Agendamento> list = list.stream().map(obj -> new
-	 * Agendamento(obj)).collect(Collectors.toList()); return
-	 * ResponseEntity.ok().body(list); }
-	 */
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<Agendamento>> findAll() {
+		List<Agendamento> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Agendamento> find(@PathVariable Long id) {
@@ -49,7 +46,6 @@ public class AgendamentoResource {
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 		Page<Agendamento> list = service.findPage(page, linesPerPage, orderBy, direction);
-		//Page<AgendamentoFindDTO> listDto = list.map(obj -> new AgendamentoFindDTO(obj));
 		return ResponseEntity.ok().body(list);
 	}
 
