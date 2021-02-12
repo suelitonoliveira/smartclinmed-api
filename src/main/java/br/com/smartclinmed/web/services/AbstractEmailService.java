@@ -2,8 +2,11 @@ package br.com.smartclinmed.web.services;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import br.com.smartclinmed.web.domain.Agendamento;
 
@@ -11,6 +14,9 @@ public abstract class AbstractEmailService implements EmailService {
 	
 	@Value("${default.sender}")
 	private String sender;
+	
+	@Autowired
+	private  TemplateEngine templateEngine;
 	
 	@Override
 	public void sendOrderConfirmationEmail(Agendamento obj) {
@@ -26,6 +32,12 @@ public abstract class AbstractEmailService implements EmailService {
 		sm.setSentDate(new Date(System.currentTimeMillis()));
 		sm.setText(obj.toString());
 		return sm;
+	}
+	
+	protected String htmlFromTemplatePedido(Agendamento obj) {
+		Context context = new Context();
+		context.setVariable("agendamento", obj);
+		return templateEngine.process("email/confirmacaoAgendamento", context);
 	}
 
 }
