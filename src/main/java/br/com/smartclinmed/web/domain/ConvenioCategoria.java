@@ -13,47 +13,39 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
-import br.com.smartclinmed.web.enums.TipoAgendamento;
+import br.com.smartclinmed.web.enums.TipoStatusComum;
 
 @Entity
-public class Agendamento implements Serializable {
+public class ConvenioCategoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
 
-	private LocalDateTime dataAgendamento;
-	private Pagamento pagamento;
-
-	@ManyToOne
-	@JoinColumn(name = "paciente_id")
-	private Paciente paciente;
-	private Integer tipoAgendamento;
-
+	private String nomeConvenio;
+	private Integer statusComum;
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
-	public Agendamento() {
+	public ConvenioCategoria() {
 
 	}
 
-	public Agendamento(Long id, Inquilino inquilino, LocalDateTime dataAgendamento, Pagamento pagamento,
-			Paciente paciente, TipoAgendamento tipoAgendamento, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
-		super();
+	public ConvenioCategoria(Long id, Inquilino inquilino, String nomeConvenio, TipoStatusComum statusComum,
+			LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
+
 		this.id = id;
 		this.inquilino = inquilino;
-		this.setDataAgendamento(dataAgendamento);
-		this.pagamento = pagamento;
-		this.paciente = paciente;
-		this.tipoAgendamento = (tipoAgendamento == null) ? 1 : tipoAgendamento.getCod();
+		this.nomeConvenio = nomeConvenio;
+		this.statusComum = (statusComum == null) ? 1 :statusComum.getCod();
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
+
 	}
 
 	public Long getId() {
@@ -72,36 +64,20 @@ public class Agendamento implements Serializable {
 		this.inquilino = inquilino;
 	}
 
-	public Pagamento getPagamento() {
-		return pagamento;
+	public String getNomeConvenio() {
+		return nomeConvenio;
 	}
 
-	public void setPagamento(Pagamento pagamento) {
-		this.pagamento = pagamento;
+	public void setNomeConvenio(String nomeConvenio) {
+		this.nomeConvenio = nomeConvenio;
 	}
 
-	public Paciente getPaciente() {
-		return paciente;
+	public TipoStatusComum getStatusComum() {
+		return TipoStatusComum.toEnum(statusComum);
 	}
 
-	public void setPaciente(Paciente paciente) {
-		this.paciente = paciente;
-	}
-
-	public TipoAgendamento getTipoAgendamento() {
-		return TipoAgendamento.toEnum(tipoAgendamento);
-	}
-
-	public void setTipoAgendamento(TipoAgendamento tipoAgendamento) {
-		this.tipoAgendamento = tipoAgendamento.getCod();
-	}
-
-	public LocalDateTime getDataAgendamento() {
-		return dataAgendamento;
-	}
-
-	public void setDataAgendamento(LocalDateTime dataAgendamento) {
-		this.dataAgendamento = dataAgendamento;
+	public void setStatusComum(TipoStatusComum statusComum) {
+		this.statusComum = statusComum.getCod();
 	}
 
 	public LocalDateTime getDtInclusao() {
@@ -137,7 +113,7 @@ public class Agendamento implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Agendamento other = (Agendamento) obj;
+		ConvenioCategoria other = (ConvenioCategoria) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -149,24 +125,6 @@ public class Agendamento implements Serializable {
 		} else if (!inquilino.equals(other.inquilino))
 			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Agendamento: ");
-		builder.append(getId());
-		builder.append(", inquilino: ");
-		builder.append(getInquilino());
-		builder.append(", Data do Agendamento: ");
-		builder.append(getDataAgendamento());
-		builder.append(", paciente: ");
-		builder.append(getPaciente().getNome());
-		builder.append(", Tipo do Agendamento: ");
-		builder.append(getTipoAgendamento());
-		builder.append("Situação do Pagamento");
-		builder.append(getPagamento().getEstadoPagamento().getDescricao());
-		return builder.toString();
 	}
 
 }

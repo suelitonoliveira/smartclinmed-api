@@ -83,7 +83,7 @@ public class AgendamentoService {
 	public Agendamento fromDto(AgendamentoDTO objDto) {
 		Optional<Agendamento> objAtual = Optional.ofNullable(find(objDto.getId()));
 		Agendamento obj = new Agendamento(objDto.getId(), null, objDto.getDataAgendamento(), objDto.getPagamento(),
-				objDto.getPaciente(), objDto.getTipoAgendamento(), null, LocalDateTime.now());
+				objDto.getPaciente(), objDto.getTipoAgendamento(), objAtual.get().getDtInclusao(), LocalDateTime.now());
 		
 		return obj;
 
