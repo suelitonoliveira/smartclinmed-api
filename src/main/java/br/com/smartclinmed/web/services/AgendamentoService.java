@@ -46,7 +46,7 @@ public class AgendamentoService {
 		obj.setDtInclusao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 		obj.setId(null);
 		obj.setInquilino(obj.getInquilino());
-		emailService.sendOrderConfirmationEmail(obj);
+		emailService.sendOrderConfirmationHtmlEmail(obj);
 		return repo.save(obj);
 	}
 
