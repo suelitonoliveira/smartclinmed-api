@@ -13,8 +13,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.membbers.web.security.UserSS;
-
 import br.com.smartclinmed.web.acessos.Permissao;
 import br.com.smartclinmed.web.acessos.Usuario;
 import br.com.smartclinmed.web.acessos.UsuarioPerfil;
@@ -25,6 +23,7 @@ import br.com.smartclinmed.web.dto.acessos.UsuarioPermissoesDTO;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioPerfilRepository;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioRepository;
+import br.com.smartclinmed.web.security.UserSS;
 import br.com.smartclinmed.web.services.exceptions.AuthorizationException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
 

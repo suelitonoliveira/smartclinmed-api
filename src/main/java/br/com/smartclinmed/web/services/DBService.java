@@ -20,6 +20,7 @@ import br.com.smartclinmed.web.domain.Indicacao;
 import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.domain.Pais;
 import br.com.smartclinmed.web.domain.software.Inquilino;
+import br.com.smartclinmed.web.enums.Perfil;
 import br.com.smartclinmed.web.enums.TipoAgendamento;
 import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
@@ -76,12 +77,17 @@ public class DBService {
 		permissoesRepository.saveAll(Arrays.asList(perm1, perm2, perm3, perm4));
 
 		Inquilino inq1 = new Inquilino(null, "SMARTCLINMED", "SMARTICLINMED - SISTEMA INTELIGENTE PARA CLINICAS",
-				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "nRegistro",
+				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
 				"imagem", "imagem64", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), null);
 		inquilinoRepository.save(inq1);
 
 		Usuario user1 = new Usuario(null, "sueliton", inq1, "suelitondeoliveira@gmail.com", TipoStatusComum.ATIVO,
 				pe.encode("102030"), LocalDateTime.now(), null);
+		user1.addPerfil(Perfil.ADMIN);
+		
+		Usuario user2 = new Usuario(null, "Usuario", inq1, "sueliton.oliveira@htomail.com", TipoStatusComum.ATIVO,
+				pe.encode("102030"), LocalDateTime.now(), null);
+		user2.addPerfil(Perfil.USUARIO);
 		
 		UsuarioPerfil perf1 = new UsuarioPerfil(null, "PROPRIETÁRIO", LocalDateTime.now(), null);
 		UsuarioPerfil perf2 = new UsuarioPerfil(null, "GESTOR", LocalDateTime.now(), null);
@@ -91,10 +97,11 @@ public class DBService {
 		perf1.addPermissao(perm4);
 				
 		usuarioPerfilRepository.saveAll(Arrays.asList(perf1, perf2));
-		user1.addPerfil(perf1);
-		user1.addPerfil(perf2);
+		/*
+		 * user1.addPerfil(perf1); user1.addPerfil(perf2);
+		 */
 	
-		usuarioRepository.saveAll(Arrays.asList(user1));
+		usuarioRepository.saveAll(Arrays.asList(user1, user2));
 
 		Pais p1 = new Pais(null, "Brasil", "BRA");
 		paisRepository.save(p1);
