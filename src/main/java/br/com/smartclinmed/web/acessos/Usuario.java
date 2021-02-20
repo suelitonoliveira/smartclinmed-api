@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,11 +28,13 @@ public class Usuario implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	private String nome;
 
 	@ManyToOne
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
 
+	@Column(unique = true)
 	private String email;
 	private Integer statusComum;
 	@JsonIgnore
@@ -48,10 +51,11 @@ public class Usuario implements Serializable {
 
 	}
 
-	public Usuario(Integer id, Inquilino inquilino, String email, TipoStatusComum statusComum, String senha,
+	public Usuario(Integer id,String nome, Inquilino inquilino, String email, TipoStatusComum statusComum, String senha,
 			LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
+		this.nome = nome;
 		this.inquilino = inquilino;
 		this.email = email;
 		this.statusComum = (statusComum == null) ? 1 : statusComum.getCod();
@@ -66,6 +70,14 @@ public class Usuario implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmail() {
@@ -152,5 +164,7 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
+
+
 
 }

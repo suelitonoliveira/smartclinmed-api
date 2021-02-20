@@ -2,12 +2,23 @@ package br.com.smartclinmed.web.acessos;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class UsuarioPerfil implements Serializable {
@@ -18,17 +29,13 @@ public class UsuarioPerfil implements Serializable {
 	private Integer id;
 	@Column(unique = true)
 	private String descricao;
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @ManyToMany(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinTable(name = "UsuarioPerfilPermissoes", joinColumns = @JoinColumn(name =
-	 * "usuarioperfil_id"), inverseJoinColumns = @JoinColumn(name = "permissao_id"))
-	 * 
-	 * @Fetch(FetchMode.SUBSELECT) private List<Permissao> permissoes = new
-	 * ArrayList<>();
-	 */
+
+	@JsonIgnore
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "UsuarioPerfilPermissoes", joinColumns = @JoinColumn(name = "usuarioperfil_id"), inverseJoinColumns = @JoinColumn(name = "permissao_id"))
+	@Fetch(FetchMode.SUBSELECT)
+	private List<Permissao> permissoes = new ArrayList<>();
+
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
@@ -60,14 +67,18 @@ public class UsuarioPerfil implements Serializable {
 		this.descricao = descricao;
 	}
 
-	/*
-	 * public List<Permissao> getPermissoes() { return permissoes; }
-	 * 
-	 * public void setPermissoes(List<Permissao> permissoes) { this.permissoes =
-	 * permissoes; }
-	 * 
-	 * public void addPermissao(Permissao permissao) { permissoes.add(permissao); }
-	 */
+	public List<Permissao> getPermissoes() {
+		return permissoes;
+	}
+
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
+
+	public void addPermissao(Permissao permissao) {
+		permissoes.add(permissao);
+	}
+
 	public LocalDateTime getDtInclusao() {
 		return dtInclusao;
 	}
