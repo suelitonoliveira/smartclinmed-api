@@ -20,6 +20,7 @@ import br.com.smartclinmed.web.dto.acessos.UsuarioDTO;
 import br.com.smartclinmed.web.dto.acessos.UsuarioNewDTO;
 import br.com.smartclinmed.web.dto.acessos.UsuarioPerfilDTO;
 import br.com.smartclinmed.web.dto.acessos.UsuarioPermissoesDTO;
+import br.com.smartclinmed.web.enums.Perfil;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioPerfilRepository;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioRepository;
@@ -38,7 +39,12 @@ public class UsuarioService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
-	public Usuario find(Integer id) {
+	public Usuario find(Long id) {
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Usuario> obj = repo.findById(id);
 		if (obj.isEmpty()) {
 			throw new ObjectNotFoundException("Not Found");
@@ -60,7 +66,7 @@ public class UsuarioService {
 		return repo.save(obj);
 	}
 
-	public void delete(Integer id) {
+	public void delete(Long id) {
 		Usuario user = find(id);
 		user.setStatusComum(TipoStatusComum.INATIVO);
 		repo.save(user);

@@ -13,7 +13,7 @@ import br.com.smartclinmed.web.acessos.Usuario;
 import br.com.smartclinmed.web.domain.software.Inquilino;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
 	@Transactional(readOnly=true)
 	Usuario findByEmail(String email);
@@ -22,7 +22,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 	Usuario findByEmailAndInquilino(String email, Inquilino inquilino);
 	
 	@Transactional(readOnly=true)
-	Optional<Usuario> findByIdAndInquilino(Integer Id, Inquilino inquilino);
+	Optional<Usuario> findByIdAndInquilino(Long Id, Inquilino inquilino);
 	
 	@Transactional(readOnly=true)
 	List<Usuario> findByInquilino(Inquilino inquilino);

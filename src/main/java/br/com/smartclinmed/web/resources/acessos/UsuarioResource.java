@@ -47,7 +47,7 @@ public class UsuarioResource {
 
 	@PreAuthorize("hasAnyRole('Usuario_List')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<?> find(@PathVariable Long id) {
 		Optional<Usuario> obj = Optional.ofNullable(service.find(id));
 		return ResponseEntity.ok(obj);
 	}
@@ -91,7 +91,7 @@ public class UsuarioResource {
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		Usuario obj = service.find(id);
 		obj.setStatusComum(TipoStatusComum.INATIVO);
 		service.update(obj);
