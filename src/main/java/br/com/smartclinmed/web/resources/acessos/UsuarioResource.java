@@ -39,6 +39,7 @@ public class UsuarioResource {
 
 	@Transactional
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<Usuario> find(@RequestParam(value = "value") String email) {
 		Usuario obj = service.findMyEmail(email);
 		return ResponseEntity.ok().body(obj);
@@ -51,7 +52,7 @@ public class UsuarioResource {
 		return ResponseEntity.ok(obj);
 	}
 
-	@PreAuthorize("hasAnyRole('Usuario_List')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> findAll() {
 		List<Usuario> obj = service.findAll();
@@ -63,8 +64,7 @@ public class UsuarioResource {
 		Usuario user = service.findDadosUsuario();
 		return ResponseEntity.ok().body(user);
 	}
-
-	@PreAuthorize("hasAnyRole('Usuario_List')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<Usuario>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -73,7 +73,7 @@ public class UsuarioResource {
 		Page<Usuario> list = service.findPage(page, linesPerPage, orderBy, direction);
 		return ResponseEntity.ok().body(list);
 	}
-
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/permissoes", method = RequestMethod.GET)
 	public ResponseEntity<Set<Permissao>> findPermissoes() {
 		Set<Permissao> list = service.findPermissoes();
@@ -89,7 +89,7 @@ public class UsuarioResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PreAuthorize("hasAnyRole('Usuario_Delete')")
+	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		Usuario obj = service.find(id);
