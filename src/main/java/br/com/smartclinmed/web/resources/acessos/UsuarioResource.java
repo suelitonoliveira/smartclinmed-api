@@ -73,21 +73,23 @@ public class UsuarioResource {
 		Page<Usuario> list = service.findPage(page, linesPerPage, orderBy, direction);
 		return ResponseEntity.ok().body(list);
 	}
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(value = "/permissoes", method = RequestMethod.GET)
-	public ResponseEntity<Set<Permissao>> findPermissoes() {
-		Set<Permissao> list = service.findPermissoes();
-		return ResponseEntity.ok().body(list);
-	}
+	/*
+	 * @PreAuthorize("hasAnyRole('ADMIN')")
+	 * 
+	 * @RequestMapping(value = "/permissoes", method = RequestMethod.GET) public
+	 * ResponseEntity<Set<Permissao>> findPermissoes() { Set<Permissao> list =
+	 * service.findPermissoes(); return ResponseEntity.ok().body(list); }
+	 */
 
-	@PreAuthorize("hasAnyRole('Usuario_Update')")
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDto, @PathVariable Integer id) {
-		objDto.setId(id);
-		Usuario obj = service.fromDTO(objDto);
-		obj = service.update(obj);
-		return ResponseEntity.noContent().build();
-	}
+	/*
+	 * @PreAuthorize("hasAnyRole('Usuario_Update')")
+	 * 
+	 * @RequestMapping(value = "/{id}", method = RequestMethod.PUT) public
+	 * ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO
+	 * objDto, @PathVariable Long id) { objDto.setId(id); Usuario obj =
+	 * service.fromDTO(objDto); obj = service.update(obj); return
+	 * ResponseEntity.noContent().build(); }
+	 */
 
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -98,26 +100,27 @@ public class UsuarioResource {
 		return ResponseEntity.noContent().build();
 	}
 
-	@PreAuthorize("hasAnyRole('Usuario_Insert')")
-	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioNewDTO objDto) {
-		Usuario obj = service.fromDTO(objDto);
-		obj = service.insert(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-	}
+	/*
+	 * @PreAuthorize("hasAnyRole('Usuario_Insert')")
+	 * 
+	 * @RequestMapping(method = RequestMethod.POST) public ResponseEntity<Void>
+	 * insert(@Valid @RequestBody UsuarioNewDTO objDto) { Usuario obj =
+	 * service.fromDTO(objDto); obj = service.insert(obj); URI uri =
+	 * ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand
+	 * (obj.getId()).toUri(); return ResponseEntity.created(uri).build(); }
+	 */
 
-	@RequestMapping(value = "/profile", method = RequestMethod.PUT)
-	public ResponseEntity<Void> updateProfile(@Valid @RequestBody UsuarioPerfilDTO objDto) {
-		Usuario obj = service.fromDTO(objDto);
-		obj = service.update(obj);
-		return ResponseEntity.noContent().build();
-	}
+	/*
+	 * @RequestMapping(value = "/profile", method = RequestMethod.PUT) public
+	 * ResponseEntity<Void> updateProfile(@Valid @RequestBody UsuarioPerfilDTO
+	 * objDto) { // Usuario obj = service.fromDTO(objDto); obj =
+	 * service.update(obj); return ResponseEntity.noContent().build(); }
+	 */
 
 	@PreAuthorize("hasAnyRole('Usuario_Update')")
 	@RequestMapping(value = "/perfil", method = RequestMethod.POST)
 	public ResponseEntity<Void> insertPermissao(@Valid @RequestBody UsuarioPermissoesDTO obj) {
-		obj = service.insertPerfil(obj);
+		//obj = service.insertPerfil(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdUsuario())
 				.toUri();
 		return ResponseEntity.created(uri).build();

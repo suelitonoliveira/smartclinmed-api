@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.Perfil;
 
 public class UserSS implements UserDetails {
@@ -17,21 +18,32 @@ public class UserSS implements UserDetails {
 	private String email;
 	private String senha;
 	private Collection<? extends GrantedAuthority> authorities;
+	private Inquilino inquilino;
 
 	public UserSS() {
 
 	}
 
-	public UserSS(Long id, String email, String senha, Set<Perfil> perfis) {
+	public UserSS(Long id, String email, String senha, Set<Perfil> perfis, Inquilino inquilino) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
-		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
+		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao()))
+				.collect(Collectors.toList());
+		this.inquilino = inquilino;
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public Inquilino getInquilino() {
+		return inquilino;
+	}
+
+	public void setInquilino(Inquilino inquilino) {
+		this.inquilino = inquilino;
 	}
 
 	@Override
@@ -69,9 +81,8 @@ public class UserSS implements UserDetails {
 		return true;
 	}
 
-	
 	public boolean hasRole(Perfil perfil) {
 		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
 	}
-	
+
 }

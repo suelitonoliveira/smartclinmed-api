@@ -11,8 +11,10 @@ import br.com.smartclinmed.web.enums.TipoStatusComum;
 public class UsuarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private Long id;
+	private String nome;
 	private String senha;
+	private String email;
 	private TipoStatusComum statusComum;
 	private List<UsuarioPerfil> perfis = new ArrayList<>();
 
@@ -20,12 +22,28 @@ public class UsuarioDTO implements Serializable {
 
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getSenha() {

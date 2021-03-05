@@ -44,8 +44,8 @@ public class UsuarioService {
 		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
 			throw new AuthorizationException("Acesso negado");
 		}
-		
-		Optional<Usuario> obj = repo.findById(id);
+
+		Optional<Usuario> obj = repo.findByIdAndInquilino(id, user.getInquilino());
 		if (obj.isEmpty()) {
 			throw new ObjectNotFoundException("Not Found");
 		}
@@ -79,6 +79,10 @@ public class UsuarioService {
 
 	public Page<Usuario> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		UserSS user = UserService.authenticated();
+
+		if (user == null) {
+			throw new AuthorizationException("Acesso Negado");
+		}
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findByInquilino(user.getInquilino(), pageRequest);
 	}
@@ -107,63 +111,53 @@ public class UsuarioService {
 		return perfis;
 	}
 
-	public Set<Permissao> findPermissoes() {
-		// UserSS userAuth = UserService.authenticated();
-		Optional<Usuario> user = repo.findById(userAuth.getId());
-		List<UsuarioPerfil> perfis = user.get().getPerfis();
-		Set<Permissao> hashsetContains = new HashSet<>();
-		for (int i = 0; i < perfis.size(); ++i) {
-			UsuarioPerfil perfil = perfis.get(i);
-			hashsetContains.addAll(perfil.getPermissoes());
-		}
-
-		return hashsetContains;
-	}
-
-	public UsuarioPermissoesDTO insertPerfil(UsuarioPermissoesDTO objDto) {
-		Optional<Usuario> user = repo.findById(objDto.getIdUsuario());
-		if (user == null) {
-			throw new ObjectNotFoundException("User Not Found");
-		}
-		Optional<UsuarioPerfil> perfil = repoPerfil.findById(objDto.getIdPerfil());
-		if (perfil == null) {
-			throw new ObjectNotFoundException("Profile Not Found");
-		}
-		user.get().addPerfil(perfil.get());
-		return objDto;
-	}
+	/*
+	 * public Set<Permissao> findPermissoes() { UserSS userAuth =
+	 * UserService.authenticated(); Optional<Usuario> user =
+	 * repo.findById(userAuth.getId()); Set<Perfil> perfis = user.get().getPerfis();
+	 * Set<Permissao> hashsetContains = new HashSet<>(); for (int i = 0; i <
+	 * perfis.size(); ++i) { Perfil perfil = perfis.get(i);
+	 * hashsetContains.addAll(perfil.getPermissoes()); }
+	 * 
+	 * return hashsetContains; }
+	 */
+	/*
+	 * public UsuarioPermissoesDTO insertPerfil(UsuarioPermissoesDTO objDto) {
+	 * Optional<Usuario> user = repo.findById(objDto.getIdUsuario()); if (user ==
+	 * null) { throw new ObjectNotFoundException("User Not Found"); }
+	 * Optional<UsuarioPerfil> perfil = repoPerfil.findById(objDto.getIdPerfil());
+	 * if (perfil == null) { throw new ObjectNotFoundException("Profile Not Found");
+	 * } user.get().addPerfil(perfil.get()); return objDto; }
+	 */
 
 	public Usuario findDadosUsuario() {
-		// UserSS userAuth = UserService.authenticated();
+		UserSS userAuth = UserService.authenticated();
 		Optional<Usuario> user = repo.findById(userAuth.getId());
 		return user.get();
 	}
-
-	public Usuario fromDTO(UsuarioDTO objDto) {
-		// UserSS user = UserService.authenticated();
-		Optional<Usuario> objAtual = repo.findByIdAndInquilino(objDto.getId(), user.getInquilino());
-		Usuario obj = new Usuario(objDto.getId(), user.getInquilino(), objAtual.get().getEmail(),
-				objDto.getStatusComum(), objDto, objAtual.get().getDtInclusao(), LocalDateTime.now());
-		obj.setPerfis(objDto.getPerfis());
-		return obj;
-	}
-
-	public Usuario fromDTO(UsuarioPerfilDTO objDto) {
-		// UserSS user = UserService.authenticated();
-		Optional<Usuario> objAtual = repo.findByIdAndInquilino(user.getId(), user.getInquilino());
-		Usuario obj = new Usuario(user.getId(), user.getInquilino(), objAtual.get().getEmail(),
-				objAtual.get().getStatusComum(), objDto.getSenha(), objAtual.get().getDtInclusao(),
-				LocalDateTime.now());
-		obj.setPerfis(objAtual.get().getPerfis());
-		return obj;
-	}
-
-	public Usuario fromDTO(UsuarioNewDTO objDto) {
-		// UserSS user = UserService.authenticated();
-		Usuario obj = new Usuario(null, user.getInquilino(), objDto.getEmail(), TipoStatusComum.ATIVO,
-				objDto.getSenha(), LocalDateTime.now(), null);
-		obj.setPerfis(objDto.getPerfis());
-		return obj;
-	}
+	/*
+	 * public Usuario fromDTO(UsuarioDTO objDto) { UserSS user =
+	 * UserService.authenticated(); Optional<Usuario> objAtual =
+	 * repo.findByIdAndInquilino(objDto.getId(), user.getInquilino()); Usuario obj =
+	 * new Usuario(objDto.getId(), user.getInquilino(), objDto.getNome(),
+	 * objDto.getEmail(), objDto.getStatusComum(), objDto.getSenha());
+	 * 
+	 * 
+	 * return obj; }
+	 * 
+	 * public Usuario fromDTO(UsuarioPerfilDTO objDto) { UserSS user =
+	 * UserService.authenticated(); Optional<Usuario> objAtual =
+	 * repo.findByIdAndInquilino(user.getId(), user.getInquilino()); Usuario obj =
+	 * new Usuario(user.getId(), user.getInquilino(), objAtual.get().getEmail(),
+	 * objAtual.get().getStatusComum(), objDto.getSenha(),
+	 * objAtual.get().getDtInclusao(), LocalDateTime.now());
+	 * obj.setPerfis(objAtual.get().getPerfis()); return obj; }
+	 * 
+	 * public Usuario fromDTO(UsuarioNewDTO objDto) { UserSS user =
+	 * UserService.authenticated(); Usuario obj = new Usuario(null,
+	 * user.getInquilino(), objDto.getEmail(), TipoStatusComum.ATIVO,
+	 * objDto.getSenha(), LocalDateTime.now(), null);
+	 * obj.setPerfis(objDto.getPerfis()); return obj; }
+	 */
 
 }
