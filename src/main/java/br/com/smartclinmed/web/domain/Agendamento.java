@@ -151,22 +151,17 @@ public class Agendamento implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Agendamento: ");
-		builder.append(getId());
-		builder.append(", inquilino: ");
-		builder.append(getInquilino());
-		builder.append(", Data do Agendamento: ");
-		builder.append(getDataAgendamento());
-		builder.append(", paciente: ");
-		builder.append(getPaciente().getNome());
-		builder.append(", Tipo do Agendamento: ");
-		builder.append(getTipoAgendamento());
-		builder.append("Situação do Pagamento");
-		//builder.append(getPagamento().getEstadoPagamento().getDescricao());
-		return builder.toString();
-	}
-
+	/*
+	 * @Override public String toString() { StringBuilder builder = new
+	 * StringBuilder(); builder.append("Agendamento: "); builder.append(getId());
+	 * builder.append(", inquilino: "); builder.append(getInquilino());
+	 * builder.append(", Data do Agendamento: ");
+	 * builder.append(getDataAgendamento()); builder.append(", paciente: ");
+	 * builder.append(getPaciente().getNome());
+	 * builder.append(", Tipo do Agendamento: ");
+	 * builder.append(getTipoAgendamento());
+	 * builder.append("Situação do Pagamento"); //
+	 * builder.append(getPagamento().getEstadoPagamento().getDescricao()); return
+	 * builder.toString(); }
+	 */
 }
