@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.smartclinmed.web.services.software.InquilinoService;
 import br.com.smartclinmed.web.domain.software.Inquilino;
+import br.com.smartclinmed.web.dto.software.InquilinoDTO;
+import br.com.smartclinmed.web.dto.software.InquilinoNewDTO;
 
 
 
@@ -31,7 +33,7 @@ public class InquilinoResource {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable Long id) {
         Inquilino obj = service.find(id);
-        return ResponseEntity.ok().body(obj);
+        return ResponseEntity.ok(obj);
     }
 
      @RequestMapping(method = RequestMethod.GET)
@@ -49,14 +51,16 @@ public class InquilinoResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody Inquilino obj) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody InquilinoNewDTO objDto) {
+    	Inquilino obj = service.fromDTO(objDto);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
     
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody Inquilino obj, @PathVariable Long  id) {
+	public ResponseEntity<Void> update(@Valid @RequestBody InquilinoDTO objDto, @PathVariable Long  id) {
+		Inquilino obj = service.fromDTO(objDto);
 		obj.setId(id);
 		obj = service.update(obj);
 		return ResponseEntity.noContent().build();

@@ -31,6 +31,7 @@ public class Inquilino implements Serializable {
 	private String nRegistro;
 	private String imagem;
 	private String imagem64;
+	private String email;
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
@@ -43,7 +44,7 @@ public class Inquilino implements Serializable {
 	}
 
 	public Inquilino(Long id, String fantasia, String razaoSocial, TipoCliente tipoCliente, TipoStatusComum statusComum,
-			TipoContratacaoInquilino tipoContratacao, String nRegistro, String imagem, String imagem64,
+			TipoContratacaoInquilino tipoContratacao, String nRegistro, String imagem, String imagem64, String email,
 			LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
@@ -55,6 +56,7 @@ public class Inquilino implements Serializable {
 		this.nRegistro = nRegistro;
 		this.imagem = imagem;
 		this.imagem64 = imagem64;
+		this.email = email;
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
 
@@ -130,6 +132,14 @@ public class Inquilino implements Serializable {
 
 	public void setImagem64(String imagem64) {
 		this.imagem64 = imagem64;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public LocalDateTime getDtInclusao() {

@@ -5,35 +5,35 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
+
+import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
-import br.com.smartclinmed.web.enums.TipoStatusComum;
+import br.com.smartclinmed.web.services.validation.software.InquilinoInsert;
 
-public class InquilinoDTO implements Serializable {
+@InquilinoInsert
+public class InquilinoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	@NotEmpty(message="Preenchimento obrigatório")
+	@Length(min=5, max = 200, message = "O tamanho deve ser entre 5 e 200 caracteres  ")
 	private String fantasia;
 	private String razaoSocial;
-	private TipoStatusComum statusComum;
+	private TipoCliente tipoCliente;
 	private TipoContratacaoInquilino tipoContratacao;
+	private String nRegistro;
 	private String imagem;
 	private String imagem64;
-	@Email
+	@Email(message = "Email inválido!")
+	@NotEmpty(message = "Preenchimento obrigatório")
 	private String email;
 
 	private Set<String> telefones = new HashSet<>();
 
-	public InquilinoDTO() {
+	public InquilinoNewDTO() {
 
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getFantasia() {
@@ -52,12 +52,12 @@ public class InquilinoDTO implements Serializable {
 		this.razaoSocial = razaoSocial;
 	}
 
-	public TipoStatusComum getStatusComum() {
-		return statusComum;
+	public TipoCliente getTipoCliente() {
+		return tipoCliente;
 	}
 
-	public void setStatusComum(TipoStatusComum statusComum) {
-		this.statusComum = statusComum;
+	public void setTipoCliente(TipoCliente tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 	public TipoContratacaoInquilino getTipoContratacao() {
@@ -66,6 +66,14 @@ public class InquilinoDTO implements Serializable {
 
 	public void setTipoContratacao(TipoContratacaoInquilino tipoContratacao) {
 		this.tipoContratacao = tipoContratacao;
+	}
+
+	public String getnRegistro() {
+		return nRegistro;
+	}
+
+	public void setnRegistro(String nRegistro) {
+		this.nRegistro = nRegistro;
 	}
 
 	public String getImagem() {
