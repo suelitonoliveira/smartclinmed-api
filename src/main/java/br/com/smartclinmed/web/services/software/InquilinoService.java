@@ -81,7 +81,7 @@ public class InquilinoService {
 			obj.setStatusComum(TipoStatusComum.INATIVO);
 
 		} catch (Exception e) {
-			throw new DataIntegrityException("Exclusion not allowed, linked items.");
+			throw new DataIntegrityException("Exclusão não permitida, itens vinculados.");
 		}
 
 	}
