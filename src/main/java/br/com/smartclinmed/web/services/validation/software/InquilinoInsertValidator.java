@@ -69,7 +69,7 @@ public class InquilinoInsertValidator implements ConstraintValidator<InquilinoIn
 		}
 		
 		Optional<Inquilino> aux1 = Optional.ofNullable(repo.findByEmail(objDto.getEmail()));
-		if (!aux.isEmpty()) {
+		if (!aux1.isEmpty()) {
 			list.add(new FieldMessage("Email", "Email already registered"));
 		}
 
