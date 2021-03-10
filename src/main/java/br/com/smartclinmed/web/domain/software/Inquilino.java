@@ -2,7 +2,11 @@ package br.com.smartclinmed.web.domain.software;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,6 +34,10 @@ public class Inquilino implements Serializable {
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
+	@ElementCollection
+	@CollectionTable(name = "TELEFONE_INQUILINO")
+	private Set<String> telefones = new HashSet<>();
+
 	public Inquilino() {
 
 	}
@@ -43,12 +51,13 @@ public class Inquilino implements Serializable {
 		this.razaoSocial = razaoSocial;
 		this.tipoCliente = (tipoCliente == null) ? 1 : tipoCliente.getCod();
 		this.statusComum = (statusComum == null) ? 1 : statusComum.getCod();
-		this.tipoContratacao = (tipoContratacao == null) ? 8 : tipoContratacao.getCod(); //tipo de contratação básica
+		this.tipoContratacao = (tipoContratacao == null) ? 8 : tipoContratacao.getCod(); // tipo de contratação básica
 		this.nRegistro = nRegistro;
 		this.imagem = imagem;
 		this.imagem64 = imagem64;
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
+
 	}
 
 	public Long getId() {
@@ -137,6 +146,14 @@ public class Inquilino implements Serializable {
 
 	public void setDtAlteracao(LocalDateTime dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
+	}
+
+	public Set<String> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override

@@ -61,7 +61,7 @@ public class Paciente implements Serializable {
 	private Endereco endereco;
 
 	@ElementCollection
-	@CollectionTable(name = "TELEFONE")
+	@CollectionTable(name = "TELEFONE_PACIENTE")
 	private Set<String> telefones = new HashSet<>();
 
 	@JsonIgnore

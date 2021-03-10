@@ -79,6 +79,7 @@ public class DBService {
 		Inquilino inq1 = new Inquilino(null, "SMARTCLINMED", "SMARTICLINMED - SISTEMA INTELIGENTE PARA CLINICAS",
 				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
 				"imagem", "imagem64", LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), null);
+		inq1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
 		inquilinoRepository.save(inq1);
 
 		Usuario user1 = new Usuario(null, "sueliton", inq1, "suelitondeoliveira@gmail.com", TipoStatusComum.ATIVO,
