@@ -13,9 +13,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.smartclinmed.web.domain.Endereco;
 import br.com.smartclinmed.web.enums.Perfil;
 import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
@@ -45,18 +47,21 @@ public class Inquilino implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE_INQUILINO")
 	private Set<String> telefones = new HashSet<>();
-	
+
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "PERFIS_INQUILINO")
 	private Set<Integer> perfis = new HashSet<>();
+
+	@ManyToOne
+	private Set<Endereco> enderecos = new HashSet<>();
 
 	public Inquilino() {
 		addPerfil(Perfil.USUARIO);
 	}
 
 	public Inquilino(Long id, String fantasia, String razaoSocial, TipoCliente tipoCliente, TipoStatusComum statusComum,
-			TipoContratacaoInquilino tipoContratacao, String nRegistro, String imagem, String imagem64, String email, String senha,
-			LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
+			TipoContratacaoInquilino tipoContratacao, String nRegistro, String imagem, String imagem64, String email,
+			String senha, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
 		this.fantasia = fantasia;
@@ -74,7 +79,6 @@ public class Inquilino implements Serializable {
 		addPerfil(Perfil.USUARIO);
 
 	}
-	
 
 	public Long getId() {
 		return id;
@@ -188,14 +192,22 @@ public class Inquilino implements Serializable {
 		this.telefones = telefones;
 	}
 
-	public Set<Perfil> getPerfis(){
+	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
-	
+
 	public void addPerfil(Perfil perfil) {
 		perfis.add(perfil.getCod());
 	}
-	
+
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(Set<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
