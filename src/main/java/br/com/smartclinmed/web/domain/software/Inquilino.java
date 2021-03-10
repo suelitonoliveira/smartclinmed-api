@@ -12,9 +12,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
-import br.com.smartclinmed.web.enums.TipoCliente;
 
 @Entity
 public class Inquilino implements Serializable {

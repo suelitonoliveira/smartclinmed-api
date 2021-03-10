@@ -8,11 +8,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface InquilinoRepository  extends JpaRepository<Inquilino, Long> {
+public interface InquilinoRepository extends JpaRepository<Inquilino, Long> {
 
-	   @Transactional(readOnly = true)
-	    Optional<Inquilino> findById(Long id);
+	@Transactional(readOnly = true)
+	Optional<Inquilino> findById(Long id);
 
-	    @Transactional(readOnly = true)
-	    Optional<Inquilino> findBynRegistro(String nRegistro);
+	@Transactional(readOnly = true)
+	Optional<Inquilino> findBynRegistro(String nRegistro);
+
+	@Transactional(readOnly = true)
+	Inquilino findByEmail(String email);
+
 }
