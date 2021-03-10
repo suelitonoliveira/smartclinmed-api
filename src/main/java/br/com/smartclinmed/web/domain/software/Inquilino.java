@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
@@ -32,6 +34,8 @@ public class Inquilino implements Serializable {
 	private String imagem;
 	private String imagem64;
 	private String email;
+	@JsonIgnore
+	private String senha;
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
@@ -44,7 +48,7 @@ public class Inquilino implements Serializable {
 	}
 
 	public Inquilino(Long id, String fantasia, String razaoSocial, TipoCliente tipoCliente, TipoStatusComum statusComum,
-			TipoContratacaoInquilino tipoContratacao, String nRegistro, String imagem, String imagem64, String email,
+			TipoContratacaoInquilino tipoContratacao, String nRegistro, String imagem, String imagem64, String email, String senha,
 			LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
@@ -57,6 +61,7 @@ public class Inquilino implements Serializable {
 		this.imagem = imagem;
 		this.imagem64 = imagem64;
 		this.email = email;
+		this.senha = senha;
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
 
@@ -140,6 +145,14 @@ public class Inquilino implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public LocalDateTime getDtInclusao() {

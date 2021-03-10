@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
@@ -24,6 +25,9 @@ import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
 public class InquilinoService {
 	@Autowired
 	private InquilinoRepository repo;
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 
 	public Inquilino find(Long id) {
 		Optional<Inquilino> obj = repo.findById(id);
@@ -59,7 +63,7 @@ public class InquilinoService {
 	public Inquilino fromDTO(InquilinoNewDTO objDto) {
 		Inquilino obj = new Inquilino(null, objDto.getFantasia(), objDto.getRazaoSocial(),
 				objDto.getTipoCliente(), TipoStatusComum.ATIVO, objDto.getTipoContratacao(), objDto.getnRegistro(),
-				objDto.getImagem(), objDto.getImagem64(), objDto.getEmail(), LocalDateTime.now(), null );
+				objDto.getImagem(), objDto.getImagem64(), objDto.getEmail(),pe.encode(objDto.getSenha()), LocalDateTime.now(), null );
 		obj.getTelefones().addAll(objDto.getTelefones());
 		return obj;
 	}
@@ -68,7 +72,7 @@ public class InquilinoService {
 		Optional<Inquilino> objAtual = Optional.ofNullable(find(objDto.getId()));
 		Inquilino obj = new Inquilino(objDto.getId(), objDto.getFantasia(), objDto.getRazaoSocial(),
 				null, objDto.getStatusComum(), objDto.getTipoContratacao(), null,
-				objDto.getImagem(), objDto.getImagem64(),objDto.getEmail(), objAtual.get().getDtInclusao(), LocalDateTime.now());
+				objDto.getImagem(), objDto.getImagem64(),objDto.getEmail(),null,objAtual.get().getDtInclusao(), LocalDateTime.now());
 		obj.getTelefones().addAll(objDto.getTelefones());
 		return obj;
 	}

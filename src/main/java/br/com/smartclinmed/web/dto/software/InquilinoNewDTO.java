@@ -17,8 +17,8 @@ import br.com.smartclinmed.web.services.validation.software.InquilinoInsert;
 public class InquilinoNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@NotEmpty(message="Preenchimento obrigatório")
-	@Length(min=5, max = 200, message = "O tamanho deve ser entre 5 e 200 caracteres  ")
+	@NotEmpty(message = "Preenchimento obrigatório")
+	@Length(min = 5, max = 200, message = "O tamanho deve ser entre 5 e 200 caracteres  ")
 	private String fantasia;
 	private String razaoSocial;
 	private TipoCliente tipoCliente;
@@ -29,6 +29,8 @@ public class InquilinoNewDTO implements Serializable {
 	@Email(message = "Email inválido!")
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String email;
+	@NotEmpty(message = "Preenchimento obrigatório")
+	private String senha;
 
 	private Set<String> telefones = new HashSet<>();
 
@@ -106,6 +108,14 @@ public class InquilinoNewDTO implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 }
