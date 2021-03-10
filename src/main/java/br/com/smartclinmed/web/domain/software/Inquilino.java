@@ -4,16 +4,19 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.smartclinmed.web.enums.Perfil;
 import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
@@ -42,9 +45,13 @@ public class Inquilino implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE_INQUILINO")
 	private Set<String> telefones = new HashSet<>();
+	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS_INQUILINO")
+	private Set<Integer> perfis = new HashSet<>();
 
 	public Inquilino() {
-
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public Inquilino(Long id, String fantasia, String razaoSocial, TipoCliente tipoCliente, TipoStatusComum statusComum,
@@ -64,8 +71,10 @@ public class Inquilino implements Serializable {
 		this.senha = senha;
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
+		addPerfil(Perfil.USUARIO);
 
 	}
+	
 
 	public Long getId() {
 		return id;
@@ -179,6 +188,14 @@ public class Inquilino implements Serializable {
 		this.telefones = telefones;
 	}
 
+	public Set<Perfil> getPerfis(){
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

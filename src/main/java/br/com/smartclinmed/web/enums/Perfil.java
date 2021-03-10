@@ -4,6 +4,7 @@ package br.com.smartclinmed.web.enums;
 public enum Perfil {
 
 	ADMIN(1, "ROLE_ADMIN"), 
+	PACIENTE(1, "ROLE_PACIENTE"), 
 	USUARIO(2, "ROLE_USUARIO");
 
 	private int cod;
