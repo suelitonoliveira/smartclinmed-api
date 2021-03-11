@@ -2,16 +2,18 @@ package br.com.smartclinmed.web.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Entity
 public class Especialidade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 	private String nome;
 	private String cbosTiss2;
 	private String cbosTiss3;
@@ -19,7 +21,7 @@ public class Especialidade implements Serializable {
 	public Especialidade() {
 	}
 
-	public Especialidade(long id, String nome, String cbosTiss2, String cbosTiss3) {
+	public Especialidade(Long id, String nome, String cbosTiss2, String cbosTiss3) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -27,11 +29,11 @@ public class Especialidade implements Serializable {
 		this.cbosTiss3 = cbosTiss3;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -63,7 +65,7 @@ public class Especialidade implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -76,8 +78,13 @@ public class Especialidade implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Especialidade other = (Especialidade) obj;
-		if (id != other.id)
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
+
+	
 }
