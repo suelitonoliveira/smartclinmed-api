@@ -14,6 +14,7 @@ import br.com.smartclinmed.web.acessos.UsuarioPerfil;
 import br.com.smartclinmed.web.domain.Agendamento;
 import br.com.smartclinmed.web.domain.Cidade;
 import br.com.smartclinmed.web.domain.Endereco;
+import br.com.smartclinmed.web.domain.Especialidade;
 import br.com.smartclinmed.web.domain.Estado;
 import br.com.smartclinmed.web.domain.Indicacao;
 import br.com.smartclinmed.web.domain.Paciente;
@@ -29,6 +30,7 @@ import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.AgendamentoRepository;
 import br.com.smartclinmed.web.repositories.CidadeRepository;
 import br.com.smartclinmed.web.repositories.EnderecoRepository;
+import br.com.smartclinmed.web.repositories.EspecialidadeRepository;
 import br.com.smartclinmed.web.repositories.EstadoRepository;
 import br.com.smartclinmed.web.repositories.IndicacaoRepository;
 import br.com.smartclinmed.web.repositories.PacienteRepository;
@@ -62,6 +64,9 @@ public class DBService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private UsuarioPerfilRepository usuarioPerfilRepository;
+
+	@Autowired
+	private EspecialidadeRepository especialidadeRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -106,7 +111,7 @@ public class DBService {
 		user1.addPerfil(perf1);
 		user1.addPerfil(perf2);
 		user2.addPerfil(perf2);
-	
+
 		usuarioRepository.saveAll(Arrays.asList(user1, user2));
 
 		Pais p1 = new Pais(null, "Brasil", "BRA");
@@ -145,6 +150,10 @@ public class DBService {
 				null);
 		agendamentoRepository.saveAll(Arrays.asList(ag1, ag2));
 
+		Especialidade u1 = new Especialidade(null, "Neurologia", "225112", "22511");
+		Especialidade u2 = new Especialidade(null, "Cardiologia", "225120", "225120");
+
+		especialidadeRepository.saveAll(Arrays.asList(u1, u2));
 	}
 
 }
