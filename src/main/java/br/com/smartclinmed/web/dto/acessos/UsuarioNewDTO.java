@@ -10,13 +10,15 @@ import br.com.smartclinmed.web.acessos.UsuarioPerfil;
 
 public class UsuarioNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String nome;
 	@Email
 	private String email;
 	private String senha;
+	private String imagem;
+	private String imagem64;
 	private List<UsuarioPerfil> perfis = new ArrayList<>();
-	
+
 	public UsuarioNewDTO() {
 
 	}
@@ -60,8 +62,21 @@ public class UsuarioNewDTO implements Serializable {
 	public void setPerfis(List<UsuarioPerfil> perfis) {
 		this.perfis = perfis;
 	}
-	
-	
 
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public String getImagem64() {
+		return imagem64;
+	}
+
+	public void setImagem64(String imagem64) {
+		this.imagem64 = imagem64;
+	}
 
 }

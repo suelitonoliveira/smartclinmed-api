@@ -1,4 +1,4 @@
-package br.com.smartclinmed.web.services;
+package br.com.smartclinmed.web.services.email;
 
 import org.springframework.mail.MailSender;
 

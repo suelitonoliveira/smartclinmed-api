@@ -2,7 +2,6 @@ package br.com.smartclinmed.web.services;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +62,7 @@ public class DBService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private UsuarioPerfilRepository usuarioPerfilRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
@@ -78,37 +77,35 @@ public class DBService {
 
 		Inquilino inq1 = new Inquilino(null, "SMARTCLINMED", "SMARTICLINMED - SISTEMA INTELIGENTE PARA CLINICAS",
 				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
-				"imagem", "imagem64", "teste@email",pe.encode("1234"),LocalDateTime.now(), null);
+				"imagem", "imagem64", "teste@email", pe.encode("1234"), LocalDateTime.now(), null);
 		inq1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
 		inq1.addPerfil(Perfil.ADMIN);
-		
-		Inquilino inq2 = new Inquilino(null, "TESTE", "SISTEMA INTELIGENTE PARA CLINICAS",
-				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "95434958000105",
-				"imagem", "imagem64", "suelitondeoliveira@gmail.com",pe.encode("1234"),LocalDateTime.now(), null);
+
+		Inquilino inq2 = new Inquilino(null, "TESTE", "SISTEMA INTELIGENTE PARA CLINICAS", TipoCliente.PESSOA_JURIDICA,
+				TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "95434958000105", "imagem", "imagem64",
+				"suelitondeoliveira@gmail.com", pe.encode("1234"), LocalDateTime.now(), null);
 		inq2.addPerfil(Perfil.USUARIO);
 		inq1.getTelefones().addAll(Arrays.asList("6199999999", "61992532215"));
-		
-		inquilinoRepository.saveAll(Arrays.asList(inq1,inq2));
 
-		Usuario user1 = new Usuario(null, "sueliton", inq1, "suelitondeoliveira@gmail.com", TipoStatusComum.ATIVO,
-				pe.encode("102030"), LocalDateTime.now(), null);
-		user1.addPerfil(Perfil.ADMIN);
-		
-		Usuario user2 = new Usuario(null, "Usuario", inq1, "sueliton.oliveira@htomail.com", TipoStatusComum.ATIVO,
-				pe.encode("102030"), LocalDateTime.now(), null);
-		user2.addPerfil(Perfil.USUARIO);
-		
+		inquilinoRepository.saveAll(Arrays.asList(inq1, inq2));
+
+		Usuario user1 = new Usuario(null, inq1, "Sueliton", "suelitondeoliveira@gmail.com", TipoStatusComum.ATIVO,
+				pe.encode("102030"), "imagem", "imagem64", LocalDateTime.now(), null);
+
+		Usuario user2 = new Usuario(null, inq1, "Usuario", "sueliton.oliveira@htomail.com", TipoStatusComum.ATIVO,
+				pe.encode("102030"), "imagem", "imagem64", LocalDateTime.now(), null);
+
 		UsuarioPerfil perf1 = new UsuarioPerfil(null, "PROPRIETÁRIO", LocalDateTime.now(), null);
 		UsuarioPerfil perf2 = new UsuarioPerfil(null, "GESTOR", LocalDateTime.now(), null);
 		perf1.addPermissao(perm1);
 		perf1.addPermissao(perm2);
 		perf1.addPermissao(perm3);
 		perf1.addPermissao(perm4);
-				
+
 		usuarioPerfilRepository.saveAll(Arrays.asList(perf1, perf2));
-		/*
-		 * user1.addPerfil(perf1); user1.addPerfil(perf2);
-		 */
+		user1.addPerfil(perf1);
+		user1.addPerfil(perf2);
+		user2.addPerfil(perf2);
 	
 		usuarioRepository.saveAll(Arrays.asList(user1, user2));
 

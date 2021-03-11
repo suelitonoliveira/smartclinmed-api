@@ -39,7 +39,6 @@ public class UsuarioResource {
 
 	@Transactional
 	@RequestMapping(value = "/email", method = RequestMethod.GET)
-	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<Usuario> find(@RequestParam(value = "value") String email) {
 		Usuario obj = service.findMyEmail(email);
 		return ResponseEntity.ok().body(obj);
@@ -47,12 +46,12 @@ public class UsuarioResource {
 
 	@PreAuthorize("hasAnyRole('Usuario_List')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Long id) {
+	public ResponseEntity<?> find(@PathVariable Integer id) {
 		Optional<Usuario> obj = Optional.ofNullable(service.find(id));
 		return ResponseEntity.ok(obj);
 	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('Usuario_List')")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> findAll() {
 		List<Usuario> obj = service.findAll();
@@ -64,7 +63,8 @@ public class UsuarioResource {
 		Usuario user = service.findDadosUsuario();
 		return ResponseEntity.ok().body(user);
 	}
-	@PreAuthorize("hasAnyRole('ADMIN')")
+
+	@PreAuthorize("hasAnyRole('Usuario_List')")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<Usuario>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
 			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
@@ -73,54 +73,51 @@ public class UsuarioResource {
 		Page<Usuario> list = service.findPage(page, linesPerPage, orderBy, direction);
 		return ResponseEntity.ok().body(list);
 	}
-	/*
-	 * @PreAuthorize("hasAnyRole('ADMIN')")
-	 * 
-	 * @RequestMapping(value = "/permissoes", method = RequestMethod.GET) public
-	 * ResponseEntity<Set<Permissao>> findPermissoes() { Set<Permissao> list =
-	 * service.findPermissoes(); return ResponseEntity.ok().body(list); }
-	 */
 
-	/*
-	 * @PreAuthorize("hasAnyRole('Usuario_Update')")
-	 * 
-	 * @RequestMapping(value = "/{id}", method = RequestMethod.PUT) public
-	 * ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO
-	 * objDto, @PathVariable Long id) { objDto.setId(id); Usuario obj =
-	 * service.fromDTO(objDto); obj = service.update(obj); return
-	 * ResponseEntity.noContent().build(); }
-	 */
+	@RequestMapping(value = "/permissoes", method = RequestMethod.GET)
+	public ResponseEntity<Set<Permissao>> findPermissoes() {
+		Set<Permissao> list = service.findPermissoes();
+		return ResponseEntity.ok().body(list);
+	}
 
-	@PreAuthorize("hasAnyRole('ADMIN')")
+	@PreAuthorize("hasAnyRole('Usuario_Update')")
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody UsuarioDTO objDto, @PathVariable Integer id) {
+		objDto.setId(id);
+		Usuario obj = service.fromDTO(objDto);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PreAuthorize("hasAnyRole('Usuario_Delete')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Void> delete(@PathVariable Long id) {
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		Usuario obj = service.find(id);
 		obj.setStatusComum(TipoStatusComum.INATIVO);
 		service.update(obj);
 		return ResponseEntity.noContent().build();
 	}
 
-	/*
-	 * @PreAuthorize("hasAnyRole('Usuario_Insert')")
-	 * 
-	 * @RequestMapping(method = RequestMethod.POST) public ResponseEntity<Void>
-	 * insert(@Valid @RequestBody UsuarioNewDTO objDto) { Usuario obj =
-	 * service.fromDTO(objDto); obj = service.insert(obj); URI uri =
-	 * ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand
-	 * (obj.getId()).toUri(); return ResponseEntity.created(uri).build(); }
-	 */
+	@PreAuthorize("hasAnyRole('Usuario_Insert')")
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody UsuarioNewDTO objDto) {
+		Usuario obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}
 
-	/*
-	 * @RequestMapping(value = "/profile", method = RequestMethod.PUT) public
-	 * ResponseEntity<Void> updateProfile(@Valid @RequestBody UsuarioPerfilDTO
-	 * objDto) { // Usuario obj = service.fromDTO(objDto); obj =
-	 * service.update(obj); return ResponseEntity.noContent().build(); }
-	 */
+	@RequestMapping(value = "/profile", method = RequestMethod.PUT)
+	public ResponseEntity<Void> updateProfile(@Valid @RequestBody UsuarioPerfilDTO objDto) {
+		Usuario obj = service.fromDTO(objDto);
+		obj = service.update(obj);
+		return ResponseEntity.noContent().build();
+	}
 
 	@PreAuthorize("hasAnyRole('Usuario_Update')")
 	@RequestMapping(value = "/perfil", method = RequestMethod.POST)
 	public ResponseEntity<Void> insertPermissao(@Valid @RequestBody UsuarioPermissoesDTO obj) {
-		//obj = service.insertPerfil(obj);
+		obj = service.insertPerfil(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdUsuario())
 				.toUri();
 		return ResponseEntity.created(uri).build();
@@ -133,13 +130,13 @@ public class UsuarioResource {
 		return ResponseEntity.ok().body(list);
 	}
 
-	// @RequestMapping(value = "/imagem", method = RequestMethod.POST)
-	// public ResponseEntity<Void> uploadImage(@RequestParam MultipartFile obj) {
-	// obj = service.insertPerfil(obj);
-	// URI uri =
-	// ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdUsuario())
-	// .toUri();
-	// return ResponseEntity.created(uri).build();
-	// }
+	/*
+	 * @PreAuthorize("hasAnyRole('Usuario_Update')")
+	 * 
+	 * @RequestMapping(value = "/image/{id}", method = RequestMethod.POST) public
+	 * void uploadLocal(@PathVariable Integer id, @RequestParam("file")
+	 * MultipartFile multipartFile) { Usuario obj = service.find(id); obj =
+	 * service.update(obj, multipartFile); }
+	 */
 
 }

@@ -1,9 +1,10 @@
-package br.com.smartclinmed.web.services;
+package br.com.smartclinmed.web.services.email;
 
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.SimpleMailMessage;
 
+import br.com.smartclinmed.web.acessos.Usuario;
 import br.com.smartclinmed.web.domain.Agendamento;
 
 public interface EmailService {
@@ -15,4 +16,6 @@ public interface EmailService {
 	void sendOrderConfirmationHtmlEmail(Agendamento obj);
 
 	void sendHtmlEmail(MimeMessage msg);
+	
+	void sendNewPasswordEmail(Usuario usuario, String newPass);
 }

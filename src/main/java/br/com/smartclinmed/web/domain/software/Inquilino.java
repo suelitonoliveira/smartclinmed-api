@@ -13,11 +13,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.smartclinmed.web.domain.Endereco;
 import br.com.smartclinmed.web.enums.Perfil;
 import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
@@ -51,9 +49,6 @@ public class Inquilino implements Serializable {
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "PERFIS_INQUILINO")
 	private Set<Integer> perfis = new HashSet<>();
-
-	@ManyToOne
-	private Set<Endereco> enderecos = new HashSet<>();
 
 	public Inquilino() {
 		addPerfil(Perfil.USUARIO);
@@ -198,14 +193,6 @@ public class Inquilino implements Serializable {
 
 	public void addPerfil(Perfil perfil) {
 		perfis.add(perfil.getCod());
-	}
-
-	public Set<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(Set<Endereco> enderecos) {
-		this.enderecos = enderecos;
 	}
 
 	@Override

@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import br.com.smartclinmed.web.services.DBService;
-import br.com.smartclinmed.web.services.EmailService;
-import br.com.smartclinmed.web.services.MockEmailService;
+import br.com.smartclinmed.web.services.email.EmailService;
+import br.com.smartclinmed.web.services.email.MockEmailService;
 
 @Configuration
 @Profile("test")

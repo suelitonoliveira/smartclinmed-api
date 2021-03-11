@@ -8,6 +8,8 @@ public class UsuarioPerfilDTO implements Serializable {
 
 	private Integer id;
 	private String senha;
+	private String imagem;
+	private String imagem64;
 
 	public UsuarioPerfilDTO() {
 
@@ -27,6 +29,22 @@ public class UsuarioPerfilDTO implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public String getImagem64() {
+		return imagem64;
+	}
+
+	public void setImagem64(String imagem64) {
+		this.imagem64 = imagem64;
 	}
 
 }

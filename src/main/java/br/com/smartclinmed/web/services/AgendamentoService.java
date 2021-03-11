@@ -18,6 +18,7 @@ import br.com.smartclinmed.web.domain.Agendamento;
 import br.com.smartclinmed.web.dto.AgendamentoDTO;
 import br.com.smartclinmed.web.dto.AgendamentoNewDTO;
 import br.com.smartclinmed.web.repositories.AgendamentoRepository;
+import br.com.smartclinmed.web.services.email.EmailService;
 import br.com.smartclinmed.web.services.exceptions.DataIntegrityException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
 

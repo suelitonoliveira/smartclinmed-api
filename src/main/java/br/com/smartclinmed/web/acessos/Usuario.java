@@ -2,25 +2,24 @@ package br.com.smartclinmed.web.acessos;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
-import br.com.smartclinmed.web.enums.Perfil;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 
 @Entity
@@ -29,59 +28,55 @@ public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nome;
+	private Integer id;
 
 	@ManyToOne
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
-
-	@Column(unique = true)
+	private String nome;
+	@Email
 	private String email;
 	private Integer statusComum;
 	@JsonIgnore
+	@NotEmpty
 	private String senha;
+	private String imagem;
+	private String imagem64;
 
-	/*
-	 * @ManyToMany(fetch = FetchType.EAGER)
-	 * 
-	 * @JoinTable(name = "UsuarioPerfis", joinColumns = @JoinColumn(name =
-	 * "usuario_id"), inverseJoinColumns = @JoinColumn(name = "usuarioperfil_id"))
-	 * private List<UsuarioPerfil> perfis = new ArrayList<>();
-	 */
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "PERFIS")
-	private Set<Integer> perfis = new HashSet<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "UsuarioPerfis", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "usuarioperfil_id"))
+	private List<UsuarioPerfil> perfis = new ArrayList<>();
 
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
 	public Usuario() {
-		addPerfil(Perfil.USUARIO);
+
 	}
 
-	public Usuario(Long id,String nome, Inquilino inquilino, String email, TipoStatusComum statusComum, String senha,
-			LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
+	public Usuario(Integer id, Inquilino inquilino, String nome, String email, TipoStatusComum statusComum,
+			String senha, String imagem, String imagem64, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
-		this.nome = nome;
 		this.inquilino = inquilino;
+		this.nome =nome;
 		this.email = email;
 		this.statusComum = (statusComum == null) ? 1 : statusComum.getCod();
 		this.senha = senha;
+		this.imagem = imagem;
+		this.imagem64 = imagem64;
 		this.dtAlteracao = dtAlteracao;
 		this.dtInclusao = dtInclusao;
-		addPerfil(Perfil.USUARIO);
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -114,6 +109,22 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
+	public String getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
+	public String getImagem64() {
+		return imagem64;
+	}
+
+	public void setImagem64(String imagem64) {
+		this.imagem64 = imagem64;
+	}
+
 	public LocalDateTime getDtInclusao() {
 		return dtInclusao;
 	}
@@ -137,22 +148,19 @@ public class Usuario implements Serializable {
 	public void setInquilino(Inquilino inquilino) {
 		this.inquilino = inquilino;
 	}
-	/*
-	 * public List<UsuarioPerfil> getPerfis() { return perfis; }
-	 * 
-	 * public void setPerfis(List<UsuarioPerfil> perfis) { this.perfis = perfis; }
-	 * 
-	 * public void addPerfil(UsuarioPerfil perfil) { perfis.add(perfil); }
-	 */
 
-	public Set<Perfil> getPerfis(){
-		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	public List<UsuarioPerfil> getPerfis() {
+		return perfis;
 	}
-	
-	public void addPerfil(Perfil perfil) {
-		perfis.add(perfil.getCod());
+
+	public void setPerfis(List<UsuarioPerfil> perfis) {
+		this.perfis = perfis;
 	}
-	
+
+	public void addPerfil(UsuarioPerfil perfil) {
+		perfis.add(perfil);
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -177,7 +185,5 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
-
-
 
 }
