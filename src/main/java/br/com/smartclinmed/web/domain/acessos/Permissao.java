@@ -1,4 +1,4 @@
-package br.com.smartclinmed.web.acessos;
+package br.com.smartclinmed.web.domain.acessos;
 
 import java.io.Serializable;
 import java.util.List;

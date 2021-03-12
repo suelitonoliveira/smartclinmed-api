@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.smartclinmed.web.acessos.Usuario;
+import br.com.smartclinmed.web.domain.acessos.Usuario;
 import br.com.smartclinmed.web.domain.software.Inquilino;
 
 @Repository

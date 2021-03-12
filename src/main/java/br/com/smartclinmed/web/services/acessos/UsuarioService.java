@@ -13,9 +13,9 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.smartclinmed.web.acessos.Permissao;
-import br.com.smartclinmed.web.acessos.Usuario;
-import br.com.smartclinmed.web.acessos.UsuarioPerfil;
+import br.com.smartclinmed.web.domain.acessos.Permissao;
+import br.com.smartclinmed.web.domain.acessos.Usuario;
+import br.com.smartclinmed.web.domain.acessos.UsuarioPerfil;
 import br.com.smartclinmed.web.dto.acessos.UsuarioDTO;
 import br.com.smartclinmed.web.dto.acessos.UsuarioNewDTO;
 import br.com.smartclinmed.web.dto.acessos.UsuarioPerfilDTO;

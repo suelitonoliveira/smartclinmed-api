@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.smartclinmed.web.acessos.Usuario;
+import br.com.smartclinmed.web.domain.acessos.Usuario;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioRepository;
 import br.com.smartclinmed.web.services.email.EmailService;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;

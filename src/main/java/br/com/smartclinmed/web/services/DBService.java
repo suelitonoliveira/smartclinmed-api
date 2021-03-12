@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.smartclinmed.web.acessos.Permissao;
-import br.com.smartclinmed.web.acessos.Usuario;
-import br.com.smartclinmed.web.acessos.UsuarioPerfil;
 import br.com.smartclinmed.web.domain.Agendamento;
 import br.com.smartclinmed.web.domain.Cidade;
 import br.com.smartclinmed.web.domain.Endereco;
@@ -19,8 +16,10 @@ import br.com.smartclinmed.web.domain.Estado;
 import br.com.smartclinmed.web.domain.Indicacao;
 import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.domain.Pais;
+import br.com.smartclinmed.web.domain.acessos.Permissao;
+import br.com.smartclinmed.web.domain.acessos.Usuario;
+import br.com.smartclinmed.web.domain.acessos.UsuarioPerfil;
 import br.com.smartclinmed.web.domain.software.Inquilino;
-import br.com.smartclinmed.web.enums.Perfil;
 import br.com.smartclinmed.web.enums.TipoAgendamento;
 import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
@@ -84,12 +83,11 @@ public class DBService {
 				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
 				"imagem", "imagem64", "teste@email", pe.encode("1234"), LocalDateTime.now(), null);
 		inq1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
-		inq1.addPerfil(Perfil.ADMIN);
+		
 
 		Inquilino inq2 = new Inquilino(null, "TESTE", "SISTEMA INTELIGENTE PARA CLINICAS", TipoCliente.PESSOA_JURIDICA,
 				TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "95434958000105", "imagem", "imagem64",
 				"suelitondeoliveira@gmail.com", pe.encode("1234"), LocalDateTime.now(), null);
-		inq2.addPerfil(Perfil.USUARIO);
 		inq1.getTelefones().addAll(Arrays.asList("6199999999", "61992532215"));
 
 		inquilinoRepository.saveAll(Arrays.asList(inq1, inq2));

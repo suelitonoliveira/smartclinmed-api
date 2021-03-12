@@ -12,9 +12,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.smartclinmed.web.acessos.Permissao;
-import br.com.smartclinmed.web.acessos.Usuario;
-import br.com.smartclinmed.web.acessos.UsuarioPerfil;
+import br.com.smartclinmed.web.domain.acessos.Permissao;
+import br.com.smartclinmed.web.domain.acessos.Usuario;
+import br.com.smartclinmed.web.domain.acessos.UsuarioPerfil;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioRepository;
 import br.com.smartclinmed.web.security.UserSS;
 

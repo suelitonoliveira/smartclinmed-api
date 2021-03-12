@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.smartclinmed.web.acessos.Permissao;
-import br.com.smartclinmed.web.acessos.Usuario;
-import br.com.smartclinmed.web.acessos.UsuarioPerfil;
+import br.com.smartclinmed.web.domain.acessos.Permissao;
+import br.com.smartclinmed.web.domain.acessos.Usuario;
+import br.com.smartclinmed.web.domain.acessos.UsuarioPerfil;
 import br.com.smartclinmed.web.dto.acessos.UsuarioDTO;
 import br.com.smartclinmed.web.dto.acessos.UsuarioNewDTO;
 import br.com.smartclinmed.web.dto.acessos.UsuarioPerfilDTO;

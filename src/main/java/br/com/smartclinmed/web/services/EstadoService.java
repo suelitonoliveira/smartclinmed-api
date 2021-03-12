@@ -12,36 +12,36 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import br.com.smartclinmed.web.domain.Cidade;
-import br.com.smartclinmed.web.repositories.CidadeRepository;
+import br.com.smartclinmed.web.domain.Estado;
+import br.com.smartclinmed.web.repositories.EstadoRepository;
 import br.com.smartclinmed.web.services.exceptions.DataIntegrityException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class CidadeService {
+public class EstadoService {
 
 	@Autowired
-	private CidadeRepository repo;
+	private EstadoRepository repo;
 
-	public Cidade find(Long id) {
-		Optional<Cidade> obj = repo.findById(id);
+	public Estado find(Long id) {
+		Optional<Estado> obj = repo.findById(id);
 
 		if (obj.isEmpty()) {
 			throw new ObjectNotFoundException(
-					"Objeto não encontrato! ID: " + id + ", Tipo: " + Cidade.class.getName());
+					"Objeto não encontrato! ID: " + id + ", Tipo: " + Estado.class.getName());
 		}
 
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Not found"));
 	}
 
 	@Transactional
-	public Cidade insert(Cidade obj) {
+	public Estado insert(Estado obj) {
 		obj.setId(null);
 		return repo.save(obj);
 	}
 
 	@Transactional
-	public Cidade update(Cidade obj) {
+	public Estado update(Estado obj) {
 		try {
 			find(obj.getId());
 			return repo.save(obj);
@@ -62,15 +62,11 @@ public class CidadeService {
 
 	}
 
-	public List<Cidade> findAll() {
+	public List<Estado> findAll() {
 		return repo.findAllByOrderByNome();
 	}
 
-	/*
-	 * public List<Cidade> findByEstado(Long estadoId){ return
-	 * repo.finCidades(estadoId); }
-	 */
-	public Page<Cidade> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+	public Page<Estado> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 	}
