@@ -76,8 +76,9 @@ public class DBService {
 		Permissao perm2 = new Permissao(null, "ROLE_Usuario_Insert");
 		Permissao perm3 = new Permissao(null, "ROLE_Usuario_Update");
 		Permissao perm4 = new Permissao(null, "ROLE_Usuario_Delete");
+		Permissao perm5 = new Permissao(null, "ROLE_Especialidade_List");
 
-		permissoesRepository.saveAll(Arrays.asList(perm1, perm2, perm3, perm4));
+		permissoesRepository.saveAll(Arrays.asList(perm1, perm2, perm3, perm4, perm5));
 
 		Inquilino inq1 = new Inquilino(null, "SMARTCLINMED", "SMARTICLINMED - SISTEMA INTELIGENTE PARA CLINICAS",
 				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
@@ -104,6 +105,7 @@ public class DBService {
 		perf1.addPermissao(perm2);
 		perf1.addPermissao(perm3);
 		perf1.addPermissao(perm4);
+		perf1.addPermissao(perm5);
 
 		usuarioPerfilRepository.saveAll(Arrays.asList(perf1, perf2));
 		user1.addPerfil(perf1);
