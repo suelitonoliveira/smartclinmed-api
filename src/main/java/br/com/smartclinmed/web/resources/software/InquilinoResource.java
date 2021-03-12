@@ -52,7 +52,7 @@ public class InquilinoResource {
     }
     @PreAuthorize("hasAnyRole('Inquilino_Insert')")
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody InquilinoNewDTO objDto) {
+    public ResponseEntity<Inquilino> insert(@Valid @RequestBody InquilinoNewDTO objDto) {
     	Inquilino obj = service.fromDTO(objDto);
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id").buildAndExpand(obj.getId()).toUri();

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import br.com.smartclinmed.web.domain.Agendamento;
 import br.com.smartclinmed.web.domain.Cidade;
 import br.com.smartclinmed.web.domain.Endereco;
 import br.com.smartclinmed.web.domain.Especialidade;
@@ -19,6 +18,8 @@ import br.com.smartclinmed.web.domain.Pais;
 import br.com.smartclinmed.web.domain.acessos.Permissao;
 import br.com.smartclinmed.web.domain.acessos.Usuario;
 import br.com.smartclinmed.web.domain.acessos.UsuarioPerfil;
+import br.com.smartclinmed.web.domain.atendimento.Agendamento;
+import br.com.smartclinmed.web.domain.atendimento.Triagem;
 import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.TipoAgendamento;
 import br.com.smartclinmed.web.enums.TipoCliente;
@@ -26,7 +27,6 @@ import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
 import br.com.smartclinmed.web.enums.TipoPaciente;
 import br.com.smartclinmed.web.enums.TipoSexo;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
-import br.com.smartclinmed.web.repositories.AgendamentoRepository;
 import br.com.smartclinmed.web.repositories.CidadeRepository;
 import br.com.smartclinmed.web.repositories.EnderecoRepository;
 import br.com.smartclinmed.web.repositories.EspecialidadeRepository;
@@ -37,6 +37,8 @@ import br.com.smartclinmed.web.repositories.PaisRepository;
 import br.com.smartclinmed.web.repositories.acessos.PermissoesRepository;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioPerfilRepository;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioRepository;
+import br.com.smartclinmed.web.repositories.atendimento.AgendamentoRepository;
+import br.com.smartclinmed.web.repositories.atendimento.TriagemRepository;
 import br.com.smartclinmed.web.repositories.software.InquilinoRepository;
 
 @Service
@@ -63,9 +65,10 @@ public class DBService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private UsuarioPerfilRepository usuarioPerfilRepository;
-
 	@Autowired
 	private EspecialidadeRepository especialidadeRepository;
+	@Autowired
+	private TriagemRepository triagemRepository;
 
 	@Autowired
 	private BCryptPasswordEncoder pe;
@@ -77,14 +80,21 @@ public class DBService {
 		Permissao perm3 = new Permissao(null, "ROLE_Usuario_Update");
 		Permissao perm4 = new Permissao(null, "ROLE_Usuario_Delete");
 		Permissao perm5 = new Permissao(null, "ROLE_Especialidade_List");
+		Permissao perm6 = new Permissao(null, "ROLE_Triagem_List");
+		Permissao perm7 = new Permissao(null, "ROLE_Triagem_Insert");
+		Permissao perm8 = new Permissao(null, "ROLE_Triagem_Update");
+		Permissao perm9 = new Permissao(null, "ROLE_Inquilino_List");
+		Permissao perm10 = new Permissao(null, "ROLE_Inquilino_Insert");
+		Permissao perm11 = new Permissao(null, "ROLE_Inquilino_Update");
+		Permissao perm12 = new Permissao(null, "ROLE_Inquilino_Delete");
 
-		permissoesRepository.saveAll(Arrays.asList(perm1, perm2, perm3, perm4, perm5));
+		permissoesRepository.saveAll(
+				Arrays.asList(perm1, perm2, perm3, perm4, perm5, perm6, perm7, perm8, perm9, perm10, perm11, perm12));
 
 		Inquilino inq1 = new Inquilino(null, "SMARTCLINMED", "SMARTICLINMED - SISTEMA INTELIGENTE PARA CLINICAS",
 				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
 				"imagem", "imagem64", "teste@email", pe.encode("1234"), LocalDateTime.now(), null);
 		inq1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
-		
 
 		Inquilino inq2 = new Inquilino(null, "TESTE", "SISTEMA INTELIGENTE PARA CLINICAS", TipoCliente.PESSOA_JURIDICA,
 				TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "95434958000105", "imagem", "imagem64",
@@ -106,6 +116,13 @@ public class DBService {
 		perf1.addPermissao(perm3);
 		perf1.addPermissao(perm4);
 		perf1.addPermissao(perm5);
+		perf1.addPermissao(perm6);
+		perf1.addPermissao(perm7);
+		perf1.addPermissao(perm8);
+		perf1.addPermissao(perm9);
+		perf1.addPermissao(perm10);
+		perf1.addPermissao(perm11);
+		perf1.addPermissao(perm12);
 
 		usuarioPerfilRepository.saveAll(Arrays.asList(perf1, perf2));
 		user1.addPerfil(perf1);
@@ -154,6 +171,10 @@ public class DBService {
 		Especialidade u2 = new Especialidade(null, "Cardiologia", "225120", "");
 
 		especialidadeRepository.saveAll(Arrays.asList(u1, u2));
+
+		Triagem triagem = new Triagem(null, inq1, 87.0, 1.75, 12.8, 37.0, 26.5);
+		triagemRepository.save(triagem);
+
 	}
 
 }

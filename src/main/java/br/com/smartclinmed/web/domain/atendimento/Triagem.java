@@ -1,4 +1,4 @@
-package br.com.smartclinmed.web.domain;
+package br.com.smartclinmed.web.domain.atendimento;
 
 import java.io.Serializable;
 
@@ -11,12 +11,10 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.smartclinmed.web.domain.atendimento.Agendamento;
 import br.com.smartclinmed.web.domain.software.Inquilino;
-import br.com.smartclinmed.web.enums.EstadoPagamento;
 
 @Entity
-public class Pagamento implements Serializable {
+public class Triagem implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -27,21 +25,26 @@ public class Pagamento implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
+	private Double peso;
+	private Double altura;
+	private Double pressaoArterial;
+	private Double febre;
+	private Double imc;
 
-	private EstadoPagamento estadoPagamento;
-
-	private Agendamento agendamento;
-
-	public Pagamento() {
+	public Triagem() {
 
 	}
 
-	public Pagamento(Long id, Inquilino inquilino, EstadoPagamento estadoPagamento, Agendamento agendamento) {
+	public Triagem(Long id, Inquilino inquilino, Double peso, Double altura, Double pressaoArterial, Double febre,
+			Double imc) {
 		super();
 		this.id = id;
 		this.inquilino = inquilino;
-		this.estadoPagamento = estadoPagamento;
-		this.agendamento = agendamento;
+		this.peso = peso;
+		this.altura = altura;
+		this.pressaoArterial = pressaoArterial;
+		this.febre = febre;
+		this.imc = imc;
 	}
 
 	public Long getId() {
@@ -60,22 +63,51 @@ public class Pagamento implements Serializable {
 		this.inquilino = inquilino;
 	}
 
-	public EstadoPagamento getEstadoPagamento() {
-		return estadoPagamento;
+	public Double getPeso() {
+		return peso;
 	}
 
-	public void setEstadoPagamento(EstadoPagamento estadoPagamento) {
-		this.estadoPagamento = estadoPagamento;
+	public void setPeso(Double peso) {
+		this.peso = peso;
 	}
 
-	public Agendamento getAgendamento() {
-		return agendamento;
+	public Double getAltura() {
+		return altura;
 	}
 
-	public void setAgendamento(Agendamento agendamento) {
-		this.agendamento = agendamento;
+	public void setAltura(Double altura) {
+		this.altura = altura;
 	}
 
+	public Double getPressaoArterial() {
+		return pressaoArterial;
+	}
+
+	public void setPressaoArterial(Double pressaoArterial) {
+		this.pressaoArterial = pressaoArterial;
+	}
+
+	public Double getFebre() {
+		return febre;
+	}
+
+	public void setFebre(Double febre) {
+		this.febre = febre;
+	}
+
+	public Double getImc() {
+		return imc;
+	}
+
+	public void setImc(Double imc) {
+		this.imc = imc;
+	}
+
+	public Double cacularIMC() {
+		Double imc = peso / (altura *altura);
+			return Math.ceil(imc);
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -93,7 +125,7 @@ public class Pagamento implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Pagamento other = (Pagamento) obj;
+		Triagem other = (Triagem) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

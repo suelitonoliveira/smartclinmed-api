@@ -1,4 +1,4 @@
-package br.com.smartclinmed.web.dto;
+package br.com.smartclinmed.web.dto.atendimento;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -7,16 +7,24 @@ import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.domain.Pagamento;
 import br.com.smartclinmed.web.enums.TipoAgendamento;
 
-public class AgendamentoNewDTO implements Serializable {
+public class AgendamentoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	private Long id;
 	private LocalDateTime dataAgendamento;
 	private Pagamento pagamento;
 	private Paciente paciente;
 	private TipoAgendamento tipoAgendamento;
 
-	public AgendamentoNewDTO() {
+	public AgendamentoDTO() {
 
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public LocalDateTime getDataAgendamento() {
@@ -47,9 +55,8 @@ public class AgendamentoNewDTO implements Serializable {
 		return tipoAgendamento;
 	}
 
-	public void setTipoAgendamento(TipoAgendamento  tipoAgendamento) {
+	public void setTipoAgendamento(TipoAgendamento tipoAgendamento) {
 		this.tipoAgendamento = tipoAgendamento;
 	}
-
 
 }

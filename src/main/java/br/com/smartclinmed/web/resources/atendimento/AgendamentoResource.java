@@ -1,4 +1,4 @@
-package br.com.smartclinmed.web.resources;
+package br.com.smartclinmed.web.resources.atendimento;
 
 import java.net.URI;
 import java.util.List;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.smartclinmed.web.domain.Agendamento;
-import br.com.smartclinmed.web.dto.AgendamentoDTO;
-import br.com.smartclinmed.web.dto.AgendamentoNewDTO;
-import br.com.smartclinmed.web.services.AgendamentoService;
+import br.com.smartclinmed.web.domain.atendimento.Agendamento;
+import br.com.smartclinmed.web.dto.atendimento.AgendamentoDTO;
+import br.com.smartclinmed.web.dto.atendimento.AgendamentoNewDTO;
+import br.com.smartclinmed.web.services.atendimento.AgendamentoService;
 
 @RestController
 @RequestMapping(value = "/agendamentos")

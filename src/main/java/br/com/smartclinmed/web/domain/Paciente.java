@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.smartclinmed.web.domain.atendimento.Agendamento;
 import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.TipoPaciente;
 import br.com.smartclinmed.web.enums.TipoSexo;

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 
+import br.com.smartclinmed.web.domain.atendimento.Agendamento;
 import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.EstadoPagamento;
 

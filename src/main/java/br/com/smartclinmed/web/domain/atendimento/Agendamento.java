@@ -1,4 +1,4 @@
-package br.com.smartclinmed.web.domain;
+package br.com.smartclinmed.web.domain.atendimento;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.smartclinmed.web.domain.Paciente;
+import br.com.smartclinmed.web.domain.Pagamento;
 import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.TipoAgendamento;
 

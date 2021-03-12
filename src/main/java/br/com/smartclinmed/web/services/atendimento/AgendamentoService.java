@@ -1,4 +1,4 @@
-package br.com.smartclinmed.web.services;
+package br.com.smartclinmed.web.services.atendimento;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -14,10 +14,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
-import br.com.smartclinmed.web.domain.Agendamento;
-import br.com.smartclinmed.web.dto.AgendamentoDTO;
-import br.com.smartclinmed.web.dto.AgendamentoNewDTO;
-import br.com.smartclinmed.web.repositories.AgendamentoRepository;
+import br.com.smartclinmed.web.domain.atendimento.Agendamento;
+import br.com.smartclinmed.web.dto.atendimento.AgendamentoDTO;
+import br.com.smartclinmed.web.dto.atendimento.AgendamentoNewDTO;
+import br.com.smartclinmed.web.repositories.atendimento.AgendamentoRepository;
 import br.com.smartclinmed.web.services.email.EmailService;
 import br.com.smartclinmed.web.services.exceptions.DataIntegrityException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;

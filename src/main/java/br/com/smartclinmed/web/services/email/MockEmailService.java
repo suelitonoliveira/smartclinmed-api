@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
 
-import br.com.smartclinmed.web.domain.Agendamento;
+import br.com.smartclinmed.web.domain.atendimento.Agendamento;
 
 public class MockEmailService extends AbstractEmailService {
 
