@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import br.com.smartclinmed.web.acessos.Permissao;
+import br.com.smartclinmed.web.domain.acessos.Permissao;
 import br.com.smartclinmed.web.domain.software.Inquilino;
 
 public class UserSS implements UserDetails {

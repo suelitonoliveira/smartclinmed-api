@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 
-import br.com.smartclinmed.web.acessos.UsuarioPerfil;
+import br.com.smartclinmed.web.domain.acessos.UsuarioPerfil;
 
 public class UsuarioNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

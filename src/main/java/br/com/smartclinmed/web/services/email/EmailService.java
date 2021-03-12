@@ -4,8 +4,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.SimpleMailMessage;
 
-import br.com.smartclinmed.web.acessos.Usuario;
 import br.com.smartclinmed.web.domain.Agendamento;
+import br.com.smartclinmed.web.domain.acessos.Usuario;
 
 public interface EmailService {
 

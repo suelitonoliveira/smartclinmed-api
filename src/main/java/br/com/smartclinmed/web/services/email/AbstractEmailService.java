@@ -13,8 +13,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import br.com.smartclinmed.web.acessos.Usuario;
 import br.com.smartclinmed.web.domain.Agendamento;
+import br.com.smartclinmed.web.domain.acessos.Usuario;
 
 public abstract class AbstractEmailService implements EmailService {
 	

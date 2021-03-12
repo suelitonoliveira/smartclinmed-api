@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.smartclinmed.web.acessos.UsuarioPerfil;
+import br.com.smartclinmed.web.domain.acessos.UsuarioPerfil;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 
 //@UsuarioUpdate
