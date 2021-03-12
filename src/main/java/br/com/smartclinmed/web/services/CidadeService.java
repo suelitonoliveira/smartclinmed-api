@@ -63,9 +63,13 @@ public class CidadeService {
 	}
 
 	public List<Cidade> findAll() {
-		return repo.findAll();
+		return repo.findAllByOrderByNome();
 	}
 
+	/*
+	 * public List<Cidade> findByEstado(Long estadoId){ return
+	 * repo.finCidades(estadoId); }
+	 */
 	public Page<Cidade> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
