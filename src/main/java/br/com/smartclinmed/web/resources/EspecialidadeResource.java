@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+//import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -35,13 +35,17 @@ public class EspecialidadeResource {
 		List<Especialidade> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	@GetMapping(value = "/{id}")
+	
+	
+	@PreAuthorize("hasAnyRole('Especialidade_List')")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Especialidade> findById(@PathVariable Long id){
 		Especialidade obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@PostMapping
+	@PreAuthorize("hasAnyRole('Especialidade_List')")
+	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Especialidade> insert(@RequestBody Especialidade obj){
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -55,10 +59,11 @@ public class EspecialidadeResource {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PutMapping(value = "/{id}")
+	@PreAuthorize("hasAnyRole('Especialidade_List')")
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Especialidade> update(@PathVariable Long id, @RequestBody Especialidade obj){
 		obj = service.update(id, obj);
-		return ResponseEntity.ok().body(obj);
+		return ResponseEntity.noContent().build();
 		}
 	}
 

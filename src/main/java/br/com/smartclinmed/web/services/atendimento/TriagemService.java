@@ -72,7 +72,6 @@ public class TriagemService {
 	}
 	
 	
-
 	public Triagem fromDto(TriagemDTO objDto) {
 		UserSS user = UserService.authenticated();
 		Triagem obj = new Triagem(objDto.getId(), user.getInquilino(), objDto.getPeso(), objDto.getAltura(),

@@ -6,6 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.smartclinmed.web.domain.software.Inquilino;
 
 @Entity
 public class Especialidade implements Serializable {
@@ -14,6 +20,11 @@ public class Especialidade implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "inquilino_id")
+	private Inquilino inquilino;
 	private String nome;
 	private String cbosTiss2;
 	private String cbosTiss3;
@@ -21,9 +32,10 @@ public class Especialidade implements Serializable {
 	public Especialidade() {
 	}
 
-	public Especialidade(Long id, String nome, String cbosTiss2, String cbosTiss3) {
+	public Especialidade(Long id, Inquilino inquilino, String nome, String cbosTiss2, String cbosTiss3) {
 		super();
 		this.id = id;
+		this.inquilino = inquilino;
 		this.nome = nome;
 		this.cbosTiss2 = cbosTiss2;
 		this.cbosTiss3 = cbosTiss3;
@@ -36,6 +48,15 @@ public class Especialidade implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public Inquilino getInquilino() {
+		return inquilino;
+	}
+
+	public void setInquilino(Inquilino inquilino) {
+		this.inquilino = inquilino;
+	}
+
 
 	public String getNome() {
 		return nome;

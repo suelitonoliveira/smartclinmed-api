@@ -167,8 +167,8 @@ public class DBService {
 				null);
 		agendamentoRepository.saveAll(Arrays.asList(ag1, ag2));
 
-		Especialidade u1 = new Especialidade(null, "Neurologia", "225112", "");
-		Especialidade u2 = new Especialidade(null, "Cardiologia", "225120", "");
+		Especialidade u1 = new Especialidade(null, inq1, "Neurologia", "225112", "");
+		Especialidade u2 = new Especialidade(null, inq1, "Cardiologia", "225120", "");
 
 		especialidadeRepository.saveAll(Arrays.asList(u1, u2));
 
