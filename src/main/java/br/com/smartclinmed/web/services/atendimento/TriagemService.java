@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.domain.atendimento.Triagem;
 import br.com.smartclinmed.web.dto.atendimento.TriagemDTO;
 import br.com.smartclinmed.web.dto.atendimento.TriagemNewDTO;
@@ -29,7 +30,8 @@ public class TriagemService {
 		Optional<Triagem> obj = Optional.ofNullable(repo.findByIdAndInquilino(id, user.getInquilino()));
 
 		if (obj.isEmpty()) {
-			throw new ObjectNotFoundException("Not Found");
+			throw new ObjectNotFoundException(
+					"Objeto não encontrato! ID: " + id + ", Tipo: " + Paciente.class.getName());
 		}
 		return Optional.of(obj.orElseThrow(() -> new ObjectNotFoundException("Not Found")));
 	}
@@ -46,10 +48,10 @@ public class TriagemService {
 	}
 
 	@Transactional
-	public Triagem insert(TriagemNewDTO objDto) {
-		Triagem obj = fromDTO(objDto);
-		obj = repo.save(obj);
-		return obj;
+	public Triagem insert(Triagem obj) {
+		obj.setId(null);
+		obj.setInquilino(obj.getInquilino());
+		return repo.save(obj);
 	}
 
 	@Transactional

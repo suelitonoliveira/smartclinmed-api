@@ -87,9 +87,13 @@ public class DBService {
 		Permissao perm10 = new Permissao(null, "ROLE_Inquilino_Insert");
 		Permissao perm11 = new Permissao(null, "ROLE_Inquilino_Update");
 		Permissao perm12 = new Permissao(null, "ROLE_Inquilino_Delete");
+		Permissao perm13 = new Permissao(null, "ROLE_Paciente_List");
+		Permissao perm14 = new Permissao(null, "ROLE_Paciente_Insert");
+		Permissao perm15 = new Permissao(null, "ROLE_Paciente_Update");
+		Permissao perm16 = new Permissao(null, "ROLE_Paciente_Delete");
 
 		permissoesRepository.saveAll(
-				Arrays.asList(perm1, perm2, perm3, perm4, perm5, perm6, perm7, perm8, perm9, perm10, perm11, perm12));
+				Arrays.asList(perm1, perm2, perm3, perm4, perm5, perm6, perm7, perm8, perm9, perm10, perm11, perm12, perm13, perm14, perm15, perm16));
 
 		Inquilino inq1 = new Inquilino(null, "SMARTCLINMED", "SMARTICLINMED - SISTEMA INTELIGENTE PARA CLINICAS",
 				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
@@ -123,6 +127,10 @@ public class DBService {
 		perf1.addPermissao(perm10);
 		perf1.addPermissao(perm11);
 		perf1.addPermissao(perm12);
+		perf1.addPermissao(perm13);
+		perf1.addPermissao(perm14);
+		perf1.addPermissao(perm15);
+		perf1.addPermissao(perm16);
 
 		usuarioPerfilRepository.saveAll(Arrays.asList(perf1, perf2));
 		user1.addPerfil(perf1);

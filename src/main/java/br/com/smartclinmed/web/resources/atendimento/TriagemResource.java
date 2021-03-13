@@ -58,7 +58,8 @@ public class TriagemResource {
 	@PreAuthorize("hasAnyRole('Triagem_Insert')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody TriagemNewDTO objDto) {
-		Triagem obj = service.insert(objDto);
+		Triagem obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}

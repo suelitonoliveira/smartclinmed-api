@@ -2,7 +2,6 @@ package br.com.smartclinmed.web.dto;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,9 +19,9 @@ import br.com.smartclinmed.web.enums.TipoSexo;
 
 public class PacienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@NotEmpty(message = "Preenchimento obrigatório")
-	@Length(min=5, max = 300, message = "O tamanho deve ser entre 5 e 300 caracteres")
+	@Length(min = 5, max = 300, message = "O tamanho deve ser entre 5 e 300 caracteres")
 	private String nome;
 	@Length(max = 300, message = "O tamanho maximo 300 caracteres")
 	private String nomeSocial;
@@ -40,14 +39,10 @@ public class PacienteNewDTO implements Serializable {
 	private String nomeTitular;
 
 	private Indicacao indicacao;
-
-	private LocalDateTime dtInclusao;
-	private LocalDateTime dtAlteracao;
-
 	private Endereco endereco;
 
 	private Set<String> telefones = new HashSet<>();
-	
+
 	public PacienteNewDTO() {
 
 	}
@@ -132,22 +127,6 @@ public class PacienteNewDTO implements Serializable {
 		this.indicacao = indicacao;
 	}
 
-	public LocalDateTime getDtInclusao() {
-		return dtInclusao;
-	}
-
-	public void setDtInclusao(LocalDateTime dtInclusao) {
-		this.dtInclusao = dtInclusao;
-	}
-
-	public LocalDateTime getDtAlteracao() {
-		return dtAlteracao;
-	}
-
-	public void setDtAlteracao(LocalDateTime dtAlteracao) {
-		this.dtAlteracao = dtAlteracao;
-	}
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -164,5 +143,4 @@ public class PacienteNewDTO implements Serializable {
 		this.telefones = telefones;
 	}
 
-	
 }

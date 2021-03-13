@@ -19,6 +19,8 @@ import br.com.smartclinmed.web.dto.PacienteDTO;
 import br.com.smartclinmed.web.dto.PacienteNewDTO;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.PacienteRepository;
+import br.com.smartclinmed.web.security.UserSS;
+import br.com.smartclinmed.web.services.acessos.UserService;
 import br.com.smartclinmed.web.services.exceptions.DataIntegrityException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
 
@@ -28,15 +30,27 @@ public class PacienteService {
 	@Autowired
 	private PacienteRepository repo;
 
-	public Paciente find(Long id) {
-		Optional<Paciente> obj = repo.findById(id);
+	public Optional<Paciente> find(Long id) {
+		UserSS user = UserService.authenticated();
+		Optional<Paciente> obj = Optional.ofNullable(repo.findByIdAndInquilino(id, user.getInquilino()));
 
 		if (obj.isEmpty()) {
 			throw new ObjectNotFoundException(
 					"Objeto não encontrato! ID: " + id + ", Tipo: " + Paciente.class.getName());
 		}
 
-		return obj.orElseThrow(() -> new ObjectNotFoundException("Not found"));
+		return Optional.of(obj.orElseThrow(() -> new ObjectNotFoundException("Not Found")));
+	}
+
+	public List<Paciente> findAll() {
+		UserSS user = UserService.authenticated();
+		return repo.findByInquilino(user.getInquilino());
+	}
+
+	public Page<Paciente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		return repo.findByInquilino(pageRequest, user.getInquilino());
 	}
 
 	@Transactional
@@ -49,7 +63,7 @@ public class PacienteService {
 
 	@Transactional
 	public Paciente update(Paciente obj) {
-
+		obj.setDtAlteracao(LocalDateTime.now());
 		find(obj.getId());
 		return repo.save(obj);
 
@@ -57,38 +71,34 @@ public class PacienteService {
 
 	@Transactional
 	public void delete(Long id) {
-		Paciente obj = find(id);
+		Optional<Paciente> obj = find(id);
 		try {
-			obj.setStatusComum(TipoStatusComum.INATIVO);
-			obj.setDtAlteracao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
-			repo.save(obj);
+			obj.get().setStatusComum(TipoStatusComum.INATIVO);
+			obj.get().setDtAlteracao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+			repo.save(obj.get());
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Exclusão não permitida, itens vinculados");
 		}
 
 	}
 
-	public List<Paciente> findAll() {
-		return repo.findAll();
-	}
-
-	public Page<Paciente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		return repo.findAll(pageRequest);
-	}
-
 	public Paciente fromDTO(PacienteNewDTO objDto) {
-		return new Paciente(null, null, objDto.getNome(), objDto.getNomeSocial(), objDto.getRg(), objDto.getCpf(),
-				objDto.getEmail(), objDto.getDataNascimento(), objDto.getSexo(), objDto.getTipoPaciente(),
-				TipoStatusComum.ATIVO, null, objDto.getNomeTitular(), objDto.getIndicacao(), objDto.getEndereco(), null,
-				null);
+		UserSS user = UserService.authenticated();
+		Paciente obj = new Paciente(null, user.getInquilino(), objDto.getNome(), objDto.getNomeSocial(), objDto.getRg(),
+				objDto.getCpf(), objDto.getEmail(), objDto.getDataNascimento(), objDto.getSexo(),
+				objDto.getTipoPaciente(), TipoStatusComum.ATIVO, null, objDto.getNomeTitular(), objDto.getIndicacao(),
+				objDto.getEndereco(), LocalDateTime.now(), null);
+		return obj;
 	}
-	
+
 	public Paciente fromDto(PacienteDTO objDto) {
-		return new Paciente(null, null, objDto.getNome(), objDto.getNomeSocial(), objDto.getRg(), objDto.getCpf(),
-				objDto.getEmail(), objDto.getDataNascimento(), objDto.getSexo(), objDto.getTipoPaciente(),
-				objDto.getStatusComum(), null, objDto.getNomeTitular(), objDto.getIndicacao(), objDto.getEndereco(), null,
-				null);
+		UserSS user = UserService.authenticated();
+		Optional<Paciente> objAtual = find(objDto.getId());
+		Paciente obj = new Paciente(objDto.getId(), user.getInquilino(), objDto.getNome(), objDto.getNomeSocial(),
+				objDto.getRg(), objDto.getCpf(), objDto.getEmail(), objDto.getDataNascimento(), objDto.getSexo(),
+				objDto.getTipoPaciente(), objDto.getStatusComum(), null, objDto.getNomeTitular(), objDto.getIndicacao(),
+				objDto.getEndereco(), objAtual.get().getDtInclusao(), LocalDateTime.now());
+		return obj;
 	}
 
 }
