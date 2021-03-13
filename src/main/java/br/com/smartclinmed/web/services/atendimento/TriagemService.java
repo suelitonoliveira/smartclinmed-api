@@ -70,7 +70,8 @@ public class TriagemService {
 	}
 
 	private Double cacularIMC(Triagem triagem) {
-		return triagem.cacularIMC();
+		Double imc =  triagem.getPeso() / (triagem.getAltura() * triagem.getAltura());
+		 return Math.ceil(imc);
 	}
 	
 	

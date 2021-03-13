@@ -103,11 +103,6 @@ public class Triagem implements Serializable {
 		this.imc = imc;
 	}
 
-	public Double cacularIMC() {
-		Double imc = peso / (altura *altura);
-			return Math.ceil(imc);
-	}
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
