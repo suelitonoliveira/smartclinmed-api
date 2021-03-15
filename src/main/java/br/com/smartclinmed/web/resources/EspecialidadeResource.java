@@ -17,11 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+
+
 import br.com.smartclinmed.web.domain.Especialidade;
 import br.com.smartclinmed.web.services.EspecialidadeService;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping(value = "/especialidades")
@@ -55,16 +54,12 @@ public class EspecialidadeResource {
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	@ApiOperation(value="Remover especialidade")
-	@ApiResponses(value = {
-			@ApiResponse(code = 400, message = "Não é possível excluir uma especialidade que possui médicos"),
-			@ApiResponse(code = 404, message = "Código inexistente") })
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PreAuthorize("hasAnyRole('Especialidade_Delete')")
+	@PreAuthorize("hasAnyRole('Especialidade_List')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Especialidade> update(@PathVariable Long id, @RequestBody Especialidade obj){
 		obj = service.update(id, obj);

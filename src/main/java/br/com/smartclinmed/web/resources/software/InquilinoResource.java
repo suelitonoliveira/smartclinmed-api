@@ -27,6 +27,7 @@ import br.com.smartclinmed.web.dto.software.InquilinoNewDTO;
 @RestController
 @RequestMapping(value = "/inquilinos")
 public class InquilinoResource {
+	
     @Autowired
     private InquilinoService service;
 
@@ -36,13 +37,15 @@ public class InquilinoResource {
         Inquilino obj = service.find(id);
         return ResponseEntity.ok(obj);
     }
+    
     @PreAuthorize("hasAnyRole('Inquilino_List')")
      @RequestMapping(method = RequestMethod.GET)
     public List<Inquilino> List() {
         return service.findAll();
     }
+    
     @PreAuthorize("hasAnyRole('Inquilino_List')")
-     @RequestMapping(value = "/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
     public ResponseEntity<Page<Inquilino>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
             @RequestParam(value = "orderBy", defaultValue = "id") String orderBy,
@@ -50,6 +53,7 @@ public class InquilinoResource {
         Page<Inquilino> list = service.findPage(page, linesPerPage, orderBy, direction);
         return ResponseEntity.ok().body(list);
     }
+    
     @PreAuthorize("hasAnyRole('Inquilino_Insert')")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Inquilino> insert(@Valid @RequestBody InquilinoNewDTO objDto) {
