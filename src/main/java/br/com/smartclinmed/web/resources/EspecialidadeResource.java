@@ -63,7 +63,7 @@ public class EspecialidadeResource {
 	@PreAuthorize("hasAnyRole('Especialidade_Update')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Especialidade> update(@PathVariable Long id, @RequestBody Especialidade obj){
-		obj = service.update(id, obj);
+		obj = service.update(obj);
 		return ResponseEntity.noContent().build();
 		}
 	}

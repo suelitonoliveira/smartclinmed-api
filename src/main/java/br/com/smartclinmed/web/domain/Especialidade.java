@@ -2,6 +2,7 @@ package br.com.smartclinmed.web.domain;
 
 import java.io.Serializable;
 
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
+
 
 @Entity
 public class Especialidade implements Serializable {
@@ -106,6 +108,5 @@ public class Especialidade implements Serializable {
 			return false;
 		return true;
 	}
-
 	
 }
