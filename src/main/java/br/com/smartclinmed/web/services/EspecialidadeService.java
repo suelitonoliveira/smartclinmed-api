@@ -67,7 +67,7 @@ public class EspecialidadeService {
 			throw new DataIntegrityException("Exclusão não permitida, itens vinculados");
 		}
 	}
-	
+	/*
 	@Transactional
 	public Especialidade update(Especialidade obj) {
 		try {
@@ -75,9 +75,9 @@ public class EspecialidadeService {
 		}catch (Exception e) {
 			throw new ObjectNotFoundException("Not Found");
 		}
-	}
+	}*/
 
-	/*
+	
 	 public Especialidade update(Long id, Especialidade obj) {
 				Especialidade entity = repo.getOne(id);
 				updateData(entity, obj);
@@ -89,6 +89,6 @@ public class EspecialidadeService {
 		entity.setNome(obj.getNome());
 		entity.setCbosTiss2(obj.getCbosTiss2());
 		entity.setCbosTiss3(obj.getCbosTiss3());
-	}*/
+	}
 	
 }
