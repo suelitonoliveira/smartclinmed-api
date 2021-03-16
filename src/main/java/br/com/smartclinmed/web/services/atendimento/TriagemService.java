@@ -51,6 +51,7 @@ public class TriagemService {
 	public Triagem insert(Triagem obj) {
 		obj.setId(null);
 		obj.setInquilino(obj.getInquilino());
+		obj.setImc(cacularIMC(obj));
 		return repo.save(obj);
 	}
 
