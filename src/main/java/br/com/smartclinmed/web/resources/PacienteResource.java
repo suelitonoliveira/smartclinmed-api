@@ -45,6 +45,7 @@ public class PacienteResource {
 		return ResponseEntity.ok().body(obj);
 
 	}
+	
 	@PreAuthorize("hasAnyRole('Paciente_List')")
 	@RequestMapping(value = "/page", method = RequestMethod.GET)
 	public ResponseEntity<Page<PacienteFindDTO>> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -55,6 +56,7 @@ public class PacienteResource {
 		Page<PacienteFindDTO> listDto = list.map(obj -> new PacienteFindDTO(obj));
 		return ResponseEntity.ok().body(listDto);
 	}
+	
 	@PreAuthorize("hasAnyRole('Paciente_Insert')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody PacienteNewDTO objDto) {
