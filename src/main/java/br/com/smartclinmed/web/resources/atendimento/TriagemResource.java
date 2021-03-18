@@ -30,7 +30,7 @@ public class TriagemResource {
 	@Autowired
 	private TriagemService service;
 
-	@PreAuthorize("hasAnyRole('Triagem_List')")
+	 @PreAuthorize("hasAnyRole('Triagem_List')")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<Triagem>> findAll() {
 		List<Triagem> list = service.findAll();
