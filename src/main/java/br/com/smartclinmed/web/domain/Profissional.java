@@ -38,7 +38,7 @@ public class Profissional implements Serializable {
 	private Integer sexo;
 	private String cpf;
 	private String rg;
-	private String idade;
+	private String idade;//idade tem que ter só o atributo
 	private LocalDate dataNascimento;
 	private String email;
 	private Integer tipoProfissional;
@@ -77,7 +77,7 @@ public class Profissional implements Serializable {
 		this.sexo = sexo;
 		this.cpf = cpf;
 		this.rg = rg;
-		this.idade = idade;
+		this.idade = idade; 
 		this.dataNascimento = dataNascimento;
 		this.email = email;
 		this.tipoProfissional = tipoProfissional;
