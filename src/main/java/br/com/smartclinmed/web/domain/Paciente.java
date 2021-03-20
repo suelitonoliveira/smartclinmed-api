@@ -48,7 +48,7 @@ public class Paciente implements Serializable {
 	private Integer sexo;
 	private Integer tipoPaciente;
 	private Integer statusComum;
-	private String idade;
+	private Integer idade;
 	private String nomeTitular;
 
 	@ManyToOne
@@ -76,7 +76,7 @@ public class Paciente implements Serializable {
 
 	public Paciente(Long id, Inquilino inquilino, String nome, String nomeSocial, String rg, String cpf, String email,
 			LocalDate dataNascimento, TipoSexo sexo, TipoPaciente tipoPaciente, TipoStatusComum statusComum,
-			String idade, String nomeTitular, Indicacao indicacao, Endereco endereco, LocalDateTime dtInclusao,
+			Integer idade, String nomeTitular, Indicacao indicacao, Endereco endereco, LocalDateTime dtInclusao,
 			LocalDateTime dtAlteracao) {
 		super();
 		this.id = id;
@@ -178,11 +178,11 @@ public class Paciente implements Serializable {
 		this.statusComum = statusComum.getCod();
 	}
 
-	public String getIdade() {
+	public Integer getIdade() {
 		return idade;
 	}
 
-	public void setIdade(String idade) {
+	public void setIdade(Integer idade) {
 		this.idade = idade;
 	}
 

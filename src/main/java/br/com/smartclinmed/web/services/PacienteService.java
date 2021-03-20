@@ -1,6 +1,8 @@
 package br.com.smartclinmed.web.services;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -58,6 +60,7 @@ public class PacienteService {
 		obj.setDtInclusao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 		obj.setId(null);
 		obj.setInquilino(obj.getInquilino());
+		obj.setIdade(calcularIdade(obj));
 		return repo.save(obj);
 	}
 
@@ -65,6 +68,7 @@ public class PacienteService {
 	public Paciente update(Paciente obj) {
 		obj.setDtAlteracao(LocalDateTime.now());
 		find(obj.getId());
+		obj.setIdade(calcularIdade(obj));
 		return repo.save(obj);
 
 	}
@@ -88,6 +92,7 @@ public class PacienteService {
 				objDto.getCpf(), objDto.getEmail(), objDto.getDataNascimento(), objDto.getSexo(),
 				objDto.getTipoPaciente(), TipoStatusComum.ATIVO, null, objDto.getNomeTitular(), objDto.getIndicacao(),
 				objDto.getEndereco(), LocalDateTime.now(), null);
+		obj.setIdade(calcularIdade(obj));
 		return obj;
 	}
 
@@ -98,7 +103,27 @@ public class PacienteService {
 				objDto.getRg(), objDto.getCpf(), objDto.getEmail(), objDto.getDataNascimento(), objDto.getSexo(),
 				objDto.getTipoPaciente(), objDto.getStatusComum(), null, objDto.getNomeTitular(), objDto.getIndicacao(),
 				objDto.getEndereco(), objAtual.get().getDtInclusao(), LocalDateTime.now());
+		obj.setIdade(calcularIdade(obj));
 		return obj;
+	}
+
+	private Integer calcularIdade(Paciente paciente) {
+
+		if (paciente.getDataNascimento() != null) {
+			Integer idadeAno = LocalDate.now().getYear() - paciente.getDataNascimento().getYear();
+			if (LocalDate.now().getMonthValue() < paciente.getDataNascimento().getMonthValue()) {
+				idadeAno--;
+			} else {
+				if (LocalDate.now().getMonthValue() == paciente.getDataNascimento().getMonthValue()
+						&& LocalDate.now().getDayOfMonth() < paciente.getDataNascimento().getDayOfMonth()) {
+					idadeAno--;
+				}
+			}
+			return idadeAno;
+		} else {
+			throw new ObjectNotFoundException("DataNascimento obrigatório");
+		}
+
 	}
 
 }

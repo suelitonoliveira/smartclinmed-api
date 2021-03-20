@@ -162,12 +162,12 @@ public class DBService {
 		Endereco e2 = new Endereco(null, inq1, "cep", "logradouro", "numero", "complemento", "bairro", cid1);
 
 		Paciente pac1 = new Paciente(null, inq1, "Maria", "nomeSocial", "rg", "cpf", "suelitondeoliveira@gmail.com",
-				null, TipoSexo.FEMININO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1, e2,
+				null, TipoSexo.FEMININO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, null, "nomeTitular", ind1, e2,
 				LocalDateTime.now(), null);
 		pac1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
 
 		Paciente pac2 = new Paciente(null, inq1, "Jose", "Jade", "rg", "cpf", "suelitondeoliveira@gmail.com", null,
-				TipoSexo.MASCULINO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, "idade", "nomeTitular", ind1, e1,
+				TipoSexo.MASCULINO, TipoPaciente.TITULAR, TipoStatusComum.ATIVO, null, "nomeTitular", ind1, e1,
 				LocalDateTime.now(), null);
 		pac2.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
 
