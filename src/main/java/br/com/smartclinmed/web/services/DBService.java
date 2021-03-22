@@ -184,8 +184,9 @@ public class DBService {
 
 		Especialidade u1 = new Especialidade(null, inq1, "Neurologia", "225112", "");
 		Especialidade u2 = new Especialidade(null, inq1, "Cardiologia", "225120", "");
+		Especialidade u3 = new Especialidade(null, inq1, "Psiquiatria", "225133", "");
 
-		especialidadeRepository.saveAll(Arrays.asList(u1, u2));
+		especialidadeRepository.saveAll(Arrays.asList(u1, u2, u3));
 
 		Triagem triagem = new Triagem(null, inq1, 87.0, 1.75, 12.8, 37.0, 26.5);
 		triagemRepository.save(triagem);

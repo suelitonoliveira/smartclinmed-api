@@ -3,7 +3,9 @@ package br.com.smartclinmed.web.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -14,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,7 +48,10 @@ public class Profissional implements Serializable {
 	private String assinatura;
 	private Integer statusComum;
 	private Integer status;
-
+	
+	@ManyToMany(mappedBy="categorias")
+	private List<Especialidade> especialidade = new ArrayList<>();
+	
 	@ManyToOne
 	@JoinColumn(name = "indicacao_id")
 	private Indicacao indicacao;
@@ -234,6 +240,14 @@ public class Profissional implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
+	
+	public List<Especialidade> getEspecialidade() {
+		return especialidade;
+	}
+
+	public void setEspecialidade(List<Especialidade> especialidade) {
+		this.especialidade = especialidade;
+	} 
 
 	@Override
 	public int hashCode() {
@@ -260,6 +274,5 @@ public class Profissional implements Serializable {
 			return false;
 		return true;
 	}
-
 	
 }

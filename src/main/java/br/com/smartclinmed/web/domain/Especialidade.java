@@ -1,13 +1,16 @@
 package br.com.smartclinmed.web.domain;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,6 +33,13 @@ public class Especialidade implements Serializable {
 	private String nome;
 	private String cbosTiss2;
 	private String cbosTiss3;
+	
+	@ManyToMany
+	@JoinTable(name = "ESPECIALIDADE_PROFISSIONAL",
+			joinColumns = @JoinColumn(name = "especialidade_id"),
+			inverseJoinColumns = @JoinColumn(name = "profissional_id")
+	)
+	private List<Profissional> profissional = new ArrayList<>();
 	
 	public Especialidade() {
 	}
@@ -83,8 +93,15 @@ public class Especialidade implements Serializable {
 	public void setCbosTiss3(String cbosTiss3) {
 		this.cbosTiss3 = cbosTiss3;
 	}
+	public List<Profissional> getProfissional() {
+		return profissional;
+	}
 
-	@Override
+	public void setProfissional(List<Profissional> profissional) {
+		this.profissional = profissional;
+	}
+	 
+		@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -108,5 +125,5 @@ public class Especialidade implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
