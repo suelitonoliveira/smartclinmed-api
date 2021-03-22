@@ -38,7 +38,6 @@ public class Profissional implements Serializable {
 	private Integer sexo;
 	private String cpf;
 	private String rg;
-	private String idade;//idade tem que ter só o atributo
 	private LocalDate dataNascimento;
 	private String email;
 	private Integer tipoProfissional;
@@ -66,7 +65,7 @@ public class Profissional implements Serializable {
 	public Profissional() {
 	}
 
-	public Profissional(Long id, Inquilino inquilino, String nome, Integer sexo, String cpf, String rg, String idade,
+	public Profissional(Long id, Inquilino inquilino, String nome, Integer sexo, String cpf, String rg,
 			LocalDate dataNascimento, String email, Integer tipoProfissional, String numeroConsenho, String assinatura,
 			Integer statusComum, Integer status, Indicacao indicacao, LocalDateTime dtInclusao,
 			LocalDateTime dtAlteracao, Endereco endereco, Set<String> telefones) {
@@ -76,8 +75,7 @@ public class Profissional implements Serializable {
 		this.nome = nome;
 		this.sexo = sexo;
 		this.cpf = cpf;
-		this.rg = rg;
-		this.idade = idade; 
+		this.rg = rg; 
 		this.dataNascimento = dataNascimento;
 		this.email = email;
 		this.tipoProfissional = tipoProfissional;
@@ -139,14 +137,6 @@ public class Profissional implements Serializable {
 
 	public void setRg(String rg) {
 		this.rg = rg;
-	}
-
-	public String getIdade() {
-		return idade;
-	}
-
-	public void setIdade(String idade) {
-		this.idade = idade;
 	}
 
 	public LocalDate getDataNascimento() {
