@@ -49,7 +49,7 @@ public class Profissional implements Serializable {
 	private Integer statusComum;
 	private Integer status;
 	
-	@ManyToMany(mappedBy="categorias")
+	@ManyToMany(mappedBy="profissional")
 	private List<Especialidade> especialidade = new ArrayList<>();
 	
 	@ManyToOne
