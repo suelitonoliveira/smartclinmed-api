@@ -43,7 +43,7 @@ public class Profissional implements Serializable {
 	private String rg;
 	private LocalDate dataNascimento;
 	private String email;
-	private Integer tipoProfissional;
+	private Integer TipoProfissional;
 	private String numeroConsenho;
 	private String assinatura;
 	private Integer statusComum;
@@ -84,7 +84,7 @@ public class Profissional implements Serializable {
 		this.rg = rg; 
 		this.dataNascimento = dataNascimento;
 		this.email = email;
-		this.tipoProfissional = tipoProfissional;
+		this.TipoProfissional = tipoProfissional;
 		this.numeroConsenho = numeroConsenho;
 		this.assinatura = assinatura;
 		this.statusComum = statusComum;
@@ -162,11 +162,11 @@ public class Profissional implements Serializable {
 	}
 
 	public Integer getTipoProfissional() {
-		return tipoProfissional;
+		return TipoProfissional;
 	}
 
 	public void setTipoProfissional(Integer tipoProfissional) {
-		this.tipoProfissional = tipoProfissional;
+		this.TipoProfissional = tipoProfissional;
 	}
 
 	public String getNumeroConsenho() {

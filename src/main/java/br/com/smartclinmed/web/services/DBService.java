@@ -15,6 +15,7 @@ import br.com.smartclinmed.web.domain.Estado;
 import br.com.smartclinmed.web.domain.Indicacao;
 import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.domain.Pais;
+import br.com.smartclinmed.web.domain.Profissional;
 import br.com.smartclinmed.web.domain.acessos.Permissao;
 import br.com.smartclinmed.web.domain.acessos.Usuario;
 import br.com.smartclinmed.web.domain.acessos.UsuarioPerfil;
@@ -25,6 +26,7 @@ import br.com.smartclinmed.web.enums.TipoAgendamento;
 import br.com.smartclinmed.web.enums.TipoCliente;
 import br.com.smartclinmed.web.enums.TipoContratacaoInquilino;
 import br.com.smartclinmed.web.enums.TipoPaciente;
+import br.com.smartclinmed.web.enums.TipoProfissional;
 import br.com.smartclinmed.web.enums.TipoSexo;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.CidadeRepository;
@@ -34,6 +36,7 @@ import br.com.smartclinmed.web.repositories.EstadoRepository;
 import br.com.smartclinmed.web.repositories.IndicacaoRepository;
 import br.com.smartclinmed.web.repositories.PacienteRepository;
 import br.com.smartclinmed.web.repositories.PaisRepository;
+import br.com.smartclinmed.web.repositories.ProfissionalRepository;
 import br.com.smartclinmed.web.repositories.acessos.PermissoesRepository;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioPerfilRepository;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioRepository;
@@ -69,7 +72,9 @@ public class DBService {
 	private EspecialidadeRepository especialidadeRepository;
 	@Autowired
 	private TriagemRepository triagemRepository;
-
+	//@Autowired
+	//private ProfissionalRepository profissionalRepository;
+	
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
@@ -94,9 +99,13 @@ public class DBService {
 		Permissao perm17 = new Permissao(null, "ROLE_Especialidade_Insert");
 		Permissao perm18 = new Permissao(null, "ROLE_Especialidade_Update");
 		Permissao perm19 = new Permissao(null, "ROLE_Especialidade_Delete");
-
+		Permissao perm20 = new Permissao(null, "ROLE_Profissional_Insert");
+		Permissao perm21 = new Permissao(null, "ROLE_Profissional_Update");
+		Permissao perm22 = new Permissao(null, "ROLE_Profissionale_Delete");
+		
+		
 		permissoesRepository.saveAll(Arrays.asList(perm1, perm2, perm3, perm4, perm5, perm6, perm7, perm8, perm9,
-				perm10, perm11, perm12, perm13, perm14, perm15, perm16,perm17, perm18, perm19));
+				perm10, perm11, perm12, perm13, perm14, perm15, perm16,perm17, perm18, perm19, perm20, perm21, perm22));
 
 		Inquilino inq1 = new Inquilino(null, "SMARTCLINMED", "SMARTICLINMED - SISTEMA INTELIGENTE PARA CLINICAS",
 				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
@@ -137,7 +146,9 @@ public class DBService {
 		perf1.addPermissao(perm17);
 		perf1.addPermissao(perm18);
 		perf1.addPermissao(perm19);
-		
+		perf1.addPermissao(perm20);
+		perf1.addPermissao(perm21);
+		perf1.addPermissao(perm22);
 
 		usuarioPerfilRepository.saveAll(Arrays.asList(perf1, perf2));
 		user1.addPerfil(perf1);
@@ -182,14 +193,30 @@ public class DBService {
 				null);
 		agendamentoRepository.saveAll(Arrays.asList(ag1, ag2));
 
+		
+		//Profissional pro1 = new Profissional(null, inq1 "Maria", TipoSexo.FEMININO, "cpf", "rg", "", "suelitondeoliveira@gmail.com",
+			//	 TipoProfissional.MEDICO, "9895", "", TipoStatusComum.ATIVO, "", null, ind1, e2,
+				//LocalDateTime.now(), null);
+		//pro1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
+		
+		
+		
 		Especialidade u1 = new Especialidade(null, inq1, "Neurologia", "225112", "");
 		Especialidade u2 = new Especialidade(null, inq1, "Cardiologia", "225120", "");
 		Especialidade u3 = new Especialidade(null, inq1, "Psiquiatria", "225133", "");
-
+		//Especialidade u4 = new Especialidade(null, inq1, "ClinicaMedica", "225125", "");
+		
+		//pro1.getEspecialidade().addAll(Arrays.asList(u1, u4));
+		//pro2.getEspecialidade().addAll(Arrays.asList(u2));
+		
 		especialidadeRepository.saveAll(Arrays.asList(u1, u2, u3));
+		
 
 		Triagem triagem = new Triagem(null, inq1, 87.0, 1.75, 12.8, 37.0, 26.5);
 		triagemRepository.save(triagem);
+		
+		
+		
 
 	}
 
