@@ -1,12 +1,9 @@
 package br.com.smartclinmed.web.enums;
 
-
 public enum TipoProfissional {
 
-	MEDICO(1, "Medico"),
-	FONO(2, "Fono");
-	
-	
+	MEDICO(1, "Médico"), TECNICO(2, "Técnico"), FONO(3, "Fono");
+
 	private int cod;
 	private String descricao;
 
@@ -36,6 +33,4 @@ public enum TipoProfissional {
 		throw new IllegalArgumentException("Invalid ID");
 	}
 
-
-	
 }

@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
+import br.com.smartclinmed.web.enums.TipoProfissional;
 import br.com.smartclinmed.web.enums.TipoSexo;
 import br.com.smartclinmed.web.enums.TipoStatusComum;
 
@@ -43,11 +44,10 @@ public class Profissional implements Serializable {
 	private String rg;
 	private LocalDate dataNascimento;
 	private String email;
-	private Integer TipoProfissional;
+	private Integer tipoProfissional;
 	private String numeroConsenho;
 	private String assinatura;
 	private Integer statusComum;
-	
 
 	@ManyToMany(mappedBy = "profissional")
 	private List<Especialidade> especialidade = new ArrayList<>();
@@ -67,20 +67,20 @@ public class Profissional implements Serializable {
 	@CollectionTable(name = "TELEFONE_Profissional")
 	private Set<String> telefones = new HashSet<>();
 
-	public Profissional(Long id, Inquilino inquilino, String nome, Integer sexo, String cpf, String rg,
-			LocalDate dataNascimento, String email, Integer tipoProfissional, String numeroConsenho, String assinatura,
-			TipoStatusComum statusComum, Indicacao indicacao, LocalDateTime dtInclusao,
-			LocalDateTime dtAlteracao, Endereco endereco, Set<String> telefones) {
+	public Profissional(Long id, Inquilino inquilino, String nome, TipoSexo sexo, String cpf, String rg,
+			LocalDate dataNascimento, String email, TipoProfissional tipoProfissional, String numeroConsenho,
+			String assinatura, TipoStatusComum statusComum, Indicacao indicacao, LocalDateTime dtInclusao,
+			LocalDateTime dtAlteracao, Endereco endereco) {
 		super();
 		this.id = id;
 		this.inquilino = inquilino;
 		this.nome = nome;
-		this.sexo = sexo;
+		this.sexo = (sexo == null) ? 1 : sexo.getCod();
 		this.cpf = cpf;
 		this.rg = rg;
 		this.dataNascimento = dataNascimento;
 		this.email = email;
-		this.TipoProfissional = tipoProfissional;
+		this.tipoProfissional = (tipoProfissional == null) ? 1 : tipoProfissional.getCod();
 		this.numeroConsenho = numeroConsenho;
 		this.assinatura = assinatura;
 		this.statusComum = (statusComum == null) ? 1 : statusComum.getCod();
@@ -88,7 +88,7 @@ public class Profissional implements Serializable {
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
 		this.endereco = endereco;
-		this.telefones = telefones;
+
 	}
 
 	public Long getId() {
@@ -115,12 +115,12 @@ public class Profissional implements Serializable {
 		this.nome = nome;
 	}
 
-	public Integer getSexo() {
-		return sexo;
+	public TipoSexo getSexo() {
+		return TipoSexo.toEnum(sexo);
 	}
 
-	public void setSexo(Integer sexo) {
-		this.sexo = sexo;
+	public void setSexo(TipoSexo sexo) {
+		this.sexo = sexo.getCod();
 	}
 
 	public String getCpf() {
@@ -155,12 +155,12 @@ public class Profissional implements Serializable {
 		this.email = email;
 	}
 
-	public Integer getTipoProfissional() {
-		return TipoProfissional;
+	public TipoProfissional getTipoProfissional() {
+		return TipoProfissional.toEnum(tipoProfissional);
 	}
 
-	public void setTipoProfissional(Integer tipoProfissional) {
-		this.TipoProfissional = tipoProfissional;
+	public void setTipoProfissional(TipoProfissional tipoProfissional) {
+		this.tipoProfissional = tipoProfissional.getCod();
 	}
 
 	public String getNumeroConsenho() {
@@ -179,13 +179,14 @@ public class Profissional implements Serializable {
 		this.assinatura = assinatura;
 	}
 
-	public Integer getStatusComum() {
-		return statusComum;
+	public TipoStatusComum getStatusComum() {
+		return TipoStatusComum.toEnum(statusComum);
 	}
 
-	public void setStatusComum(Integer statusComum) {
-		this.statusComum = statusComum;
+	public void setStatusComum(TipoStatusComum statusComum) {
+		this.statusComum = statusComum.getCod();
 	}
+
 	public Indicacao getIndicacao() {
 		return indicacao;
 	}
