@@ -72,9 +72,9 @@ public class DBService {
 	private EspecialidadeRepository especialidadeRepository;
 	@Autowired
 	private TriagemRepository triagemRepository;
-	//@Autowired
-	//private ProfissionalRepository profissionalRepository;
-	
+	// @Autowired
+	// private ProfissionalRepository profissionalRepository;
+
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
@@ -193,11 +193,13 @@ public class DBService {
 				null);
 		agendamentoRepository.saveAll(Arrays.asList(ag1, ag2));
 
-		
-		//Profissional pro1 = new Profissional(null, inq1 "Maria", TipoSexo.FEMININO, "cpf", "rg", "", "suelitondeoliveira@gmail.com",
-			//	 TipoProfissional.MEDICO, "9895", "", TipoStatusComum.ATIVO, "", null, ind1, e2,
-				//LocalDateTime.now(), null);
-		//pro1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
+		/*
+		 * Profissional pro1 = new Profissional(null, inq1,"Maria", TipoSexo.FEMININO,
+		 * "cpf", "rg", "", "suelitondeoliveira@gmail.com", TipoProfissional.MEDICO,
+		 * "9895", "", TipoStatusComum.ATIVO, "", null, ind1, e2, LocalDateTime.now(),
+		 * null); pro1.getTelefones().addAll(Arrays.asList("61992532326",
+		 * "61992532327"));
+		 */
 		
 		
 		

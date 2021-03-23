@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -21,22 +20,23 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 import br.com.smartclinmed.web.domain.software.Inquilino;
+import br.com.smartclinmed.web.enums.TipoSexo;
+import br.com.smartclinmed.web.enums.TipoStatusComum;
 
 @Entity
 public class Profissional implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
-	
+
 	private String nome;
 	private Integer sexo;
 	private String cpf;
@@ -47,11 +47,11 @@ public class Profissional implements Serializable {
 	private String numeroConsenho;
 	private String assinatura;
 	private Integer statusComum;
-	private Integer status;
 	
-	@ManyToMany(mappedBy="profissional")
+
+	@ManyToMany(mappedBy = "profissional")
 	private List<Especialidade> especialidade = new ArrayList<>();
-	
+
 	@ManyToOne
 	@JoinColumn(name = "indicacao_id")
 	private Indicacao indicacao;
@@ -67,13 +67,9 @@ public class Profissional implements Serializable {
 	@CollectionTable(name = "TELEFONE_Profissional")
 	private Set<String> telefones = new HashSet<>();
 
-
-	public Profissional() {
-	}
-
 	public Profissional(Long id, Inquilino inquilino, String nome, Integer sexo, String cpf, String rg,
 			LocalDate dataNascimento, String email, Integer tipoProfissional, String numeroConsenho, String assinatura,
-			Integer statusComum, Integer status, Indicacao indicacao, LocalDateTime dtInclusao,
+			TipoStatusComum statusComum, Indicacao indicacao, LocalDateTime dtInclusao,
 			LocalDateTime dtAlteracao, Endereco endereco, Set<String> telefones) {
 		super();
 		this.id = id;
@@ -81,21 +77,19 @@ public class Profissional implements Serializable {
 		this.nome = nome;
 		this.sexo = sexo;
 		this.cpf = cpf;
-		this.rg = rg; 
+		this.rg = rg;
 		this.dataNascimento = dataNascimento;
 		this.email = email;
 		this.TipoProfissional = tipoProfissional;
 		this.numeroConsenho = numeroConsenho;
 		this.assinatura = assinatura;
-		this.statusComum = statusComum;
-		this.status = status;
+		this.statusComum = (statusComum == null) ? 1 : statusComum.getCod();
 		this.indicacao = indicacao;
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
 		this.endereco = endereco;
 		this.telefones = telefones;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -192,15 +186,6 @@ public class Profissional implements Serializable {
 	public void setStatusComum(Integer statusComum) {
 		this.statusComum = statusComum;
 	}
-
-	public Integer getStatus() {
-		return status;
-	}
-
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-
 	public Indicacao getIndicacao() {
 		return indicacao;
 	}
@@ -208,7 +193,7 @@ public class Profissional implements Serializable {
 	public void setIndicacao(Indicacao indicacao) {
 		this.indicacao = indicacao;
 	}
-	
+
 	public LocalDateTime getDtInclusao() {
 		return dtInclusao;
 	}
@@ -240,14 +225,14 @@ public class Profissional implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
+
 	public List<Especialidade> getEspecialidade() {
 		return especialidade;
 	}
 
 	public void setEspecialidade(List<Especialidade> especialidade) {
 		this.especialidade = especialidade;
-	} 
+	}
 
 	@Override
 	public int hashCode() {
@@ -256,7 +241,6 @@ public class Profissional implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -274,5 +258,5 @@ public class Profissional implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }
