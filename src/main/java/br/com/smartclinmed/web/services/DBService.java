@@ -97,16 +97,18 @@ public class DBService {
 		Permissao perm14 = new Permissao(null, "ROLE_Paciente_Insert");
 		Permissao perm15 = new Permissao(null, "ROLE_Paciente_Update");
 		Permissao perm16 = new Permissao(null, "ROLE_Paciente_Delete");
-		Permissao perm17 = new Permissao(null, "ROLE_Especialidade_Insert");
-		Permissao perm18 = new Permissao(null, "ROLE_Especialidade_Update");
-		Permissao perm19 = new Permissao(null, "ROLE_Especialidade_Delete");
-		Permissao perm20 = new Permissao(null, "ROLE_Profissional_Insert");
-		Permissao perm21 = new Permissao(null, "ROLE_Profissional_Update");
-		Permissao perm22 = new Permissao(null, "ROLE_Profissionale_Delete");
+		Permissao perm17 = new Permissao(null, "ROLE_Especialidad_List");
+		Permissao perm18 = new Permissao(null, "ROLE_Especialidade_Insert");
+		Permissao perm19 = new Permissao(null, "ROLE_Especialidade_Update");
+		Permissao perm20 = new Permissao(null, "ROLE_Especialidade_Delete");
+		Permissao perm21 = new Permissao(null, "ROLE_Profissional_List");
+		Permissao perm22 = new Permissao(null, "ROLE_Profissional_Insert");
+		Permissao perm23 = new Permissao(null, "ROLE_Profissional_Update");
+		Permissao perm24 = new Permissao(null, "ROLE_Profissionale_Delete");
 
 		permissoesRepository
 				.saveAll(Arrays.asList(perm1, perm2, perm3, perm4, perm5, perm6, perm7, perm8, perm9, perm10, perm11,
-						perm12, perm13, perm14, perm15, perm16, perm17, perm18, perm19, perm20, perm21, perm22));
+						perm12, perm13, perm14, perm15, perm16, perm17, perm18, perm19, perm20, perm21, perm22, perm23, perm24));
 
 		Inquilino inq1 = new Inquilino(null, "SMARTCLINMED", "SMARTICLINMED - SISTEMA INTELIGENTE PARA CLINICAS",
 				TipoCliente.PESSOA_JURIDICA, TipoStatusComum.ATIVO, TipoContratacaoInquilino.FULL, "24861750000116",
