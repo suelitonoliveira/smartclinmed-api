@@ -19,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.TipoProfissional;
@@ -48,7 +49,8 @@ public class Profissional implements Serializable {
 	private String numeroConsenho;
 	private String assinatura;
 	private Integer statusComum;
-
+	
+	@JsonManagedReference
 	@ManyToMany(mappedBy = "profissional")
 	private List<Especialidade> especialidade = new ArrayList<>();
 

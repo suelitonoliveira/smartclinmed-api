@@ -202,11 +202,12 @@ public class DBService {
 		Especialidade u1 = new Especialidade(null, inq1, "Neurologia", "225112", "");
 		Especialidade u2 = new Especialidade(null, inq1, "Cardiologia", "225120", "");
 		Especialidade u3 = new Especialidade(null, inq1, "Psiquiatria", "225133", "");
-		// Especialidade u4 = new Especialidade(null, inq1, "ClinicaMedica", "225125",
-		// "");
+		
 
 		prof1.getEspecialidade().addAll(Arrays.asList(u1, u2));
-		// pro2.getEspecialidade().addAll(Arrays.asList(u2));
+		u1.getProfissional().addAll(Arrays.asList(prof1));
+		u2.getProfissional().addAll(Arrays.asList(prof1));
+		
 		profissionalRepository.save(prof1);
 		especialidadeRepository.saveAll(Arrays.asList(u1, u2, u3));
 

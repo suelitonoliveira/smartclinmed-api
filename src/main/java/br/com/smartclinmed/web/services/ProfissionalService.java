@@ -1,9 +1,11 @@
 package br.com.smartclinmed.web.services;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
-
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +26,12 @@ public class ProfissionalService {
 
 	@Autowired
 	private ProfissionalRepository repo;
+	
+	/*public Profissional find(Integer id){
+		Optional<Categoria> obj = repo.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+					"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName())); 
+	}*/
 
 	public Optional<Profissional> find(Long id) {
 		UserSS user = UserService.authenticated();
@@ -47,5 +55,14 @@ public class ProfissionalService {
 		return repo.findByInquilino(pageRequest, user.getInquilino());
 	}
 
+	@Transactional
+	public Profissional insert(Profissional obj) {
+		obj.setDtInclusao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+		obj.setId(null);
+		obj.setInquilino(obj.getInquilino());
+		return repo.save(obj);
+	}
+
 	
 }
+	

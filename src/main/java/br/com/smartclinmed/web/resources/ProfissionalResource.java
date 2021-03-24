@@ -28,7 +28,7 @@ import br.com.smartclinmed.web.services.ProfissionalService;
 //import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(value = "/profissionaes")
+@RequestMapping(value = "/profissionais")
 public class ProfissionalResource {
 
 	@Autowired
