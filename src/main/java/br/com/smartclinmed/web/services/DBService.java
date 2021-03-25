@@ -201,17 +201,14 @@ public class DBService {
 				LocalDateTime.now(), null, e1);
 		prof1.getTelefones().addAll(Arrays.asList("61992532326", "61992532327"));
 
-		Especialidade u1 = new Especialidade(null, inq1, "Neurologia", "225112", "");
-		Especialidade u2 = new Especialidade(null, inq1, "Cardiologia", "225120", "");
-		Especialidade u3 = new Especialidade(null, inq1, "Psiquiatria", "225133", "");
+		Especialidade esp1 = new Especialidade(null, inq1, "Neurologia", "225112", "");
+		Especialidade esp2 = new Especialidade(null, inq1, "Cardiologia", "225120", "");
+		Especialidade esp3 = new Especialidade(null, inq1, "Psiquiatria", "225133", "");
 		
-
-		//prof1.getEspecialidades().addAll(Arrays.asList(u1, u2));
-		u1.getProfissionais().addAll(Arrays.asList(prof1));
-		u2.getProfissionais().addAll(Arrays.asList(prof1));
+		//prof1.getEspecialidades().addAll(Arrays.asList(esp1, esp2));
 		
 		profissionalRepository.save(prof1);
-		especialidadeRepository.saveAll(Arrays.asList(u1, u2, u3));
+		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2, esp3));
 
 		Triagem triagem = new Triagem(null, inq1, 87.0, 1.75, 12.8, 37.0, 26.5);
 		triagemRepository.save(triagem);

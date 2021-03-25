@@ -9,13 +9,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
 
@@ -36,12 +37,8 @@ public class Especialidade implements Serializable {
 	private String cbosTiss2;
 	private String cbosTiss3;
 	
-	@JsonBackReference
-	@ManyToMany
-	@JoinTable(name = "ESPECIALIDADE_PROFISSIONAL",
-			joinColumns = @JoinColumn(name = "especialidade_id"),
-			inverseJoinColumns = @JoinColumn(name = "profissional_id")
-	)
+
+	@ManyToMany(mappedBy = "especialidades")
 	private List<Profissional> profissionais = new ArrayList<>();
 	
 	public Especialidade() {

@@ -15,12 +15,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.TipoProfissional;
@@ -51,8 +52,13 @@ public class Profissional implements Serializable {
 	private String assinatura;
 	private Integer statusComum;
 	
-	@JsonManagedReference
-	@ManyToMany(mappedBy = "profissionais")
+	
+	
+	@ManyToMany
+	@JoinTable(name = "ESPECIALIDADE_PROFISSIONAL",
+			joinColumns = @JoinColumn(name = "profissional_id"),
+			inverseJoinColumns = @JoinColumn(name = "especialidade_id")
+	)
 	private List<Especialidade> especialidades = new ArrayList<>();
 
 	@ManyToOne
@@ -234,7 +240,7 @@ public class Profissional implements Serializable {
 		return especialidades;
 	}
 
-	public void setEspecialidade(List<Especialidade> especialidades) {
+	public void setEspecialidades(List<Especialidade> especialidades) {
 		this.especialidades = especialidades;
 	}
 
