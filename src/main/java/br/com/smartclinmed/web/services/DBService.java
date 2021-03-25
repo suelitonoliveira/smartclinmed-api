@@ -206,9 +206,9 @@ public class DBService {
 		Especialidade u3 = new Especialidade(null, inq1, "Psiquiatria", "225133", "");
 		
 
-		prof1.getEspecialidade().addAll(Arrays.asList(u1, u2));
-		u1.getProfissional().addAll(Arrays.asList(prof1));
-		u2.getProfissional().addAll(Arrays.asList(prof1));
+		//prof1.getEspecialidades().addAll(Arrays.asList(u1, u2));
+		u1.getProfissionais().addAll(Arrays.asList(prof1));
+		u2.getProfissionais().addAll(Arrays.asList(prof1));
 		
 		profissionalRepository.save(prof1);
 		especialidadeRepository.saveAll(Arrays.asList(u1, u2, u3));

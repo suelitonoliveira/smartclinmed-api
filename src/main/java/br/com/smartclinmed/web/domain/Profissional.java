@@ -18,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -51,8 +52,8 @@ public class Profissional implements Serializable {
 	private Integer statusComum;
 	
 	@JsonManagedReference
-	@ManyToMany(mappedBy = "profissional")
-	private List<Especialidade> especialidade = new ArrayList<>();
+	@ManyToMany(mappedBy = "profissionais")
+	private List<Especialidade> especialidades = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "indicacao_id")
@@ -229,12 +230,12 @@ public class Profissional implements Serializable {
 		this.telefones = telefones;
 	}
 
-	public List<Especialidade> getEspecialidade() {
-		return especialidade;
+	public List<Especialidade> getEspecialidades() {
+		return especialidades;
 	}
 
-	public void setEspecialidade(List<Especialidade> especialidade) {
-		this.especialidade = especialidade;
+	public void setEspecialidade(List<Especialidade> especialidades) {
+		this.especialidades = especialidades;
 	}
 
 	@Override

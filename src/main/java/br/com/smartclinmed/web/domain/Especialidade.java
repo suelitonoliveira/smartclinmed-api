@@ -1,4 +1,4 @@
-package br.com.smartclinmed.web.domain;
+package br.com.smartclinmed.web.domain; 
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -41,7 +42,7 @@ public class Especialidade implements Serializable {
 			joinColumns = @JoinColumn(name = "especialidade_id"),
 			inverseJoinColumns = @JoinColumn(name = "profissional_id")
 	)
-	private List<Profissional> profissional = new ArrayList<>();
+	private List<Profissional> profissionais = new ArrayList<>();
 	
 	public Especialidade() {
 	}
@@ -95,12 +96,12 @@ public class Especialidade implements Serializable {
 	public void setCbosTiss3(String cbosTiss3) {
 		this.cbosTiss3 = cbosTiss3;
 	}
-	public List<Profissional> getProfissional() {
-		return profissional;
+	public List<Profissional> getProfissionais() {
+		return profissionais;
 	}
 
-	public void setProfissional(List<Profissional> profissional) {
-		this.profissional = profissional;
+	public void setProfissional(List<Profissional> profissionais) {
+		this.profissionais = profissionais;
 	}
 	 
 		@Override
