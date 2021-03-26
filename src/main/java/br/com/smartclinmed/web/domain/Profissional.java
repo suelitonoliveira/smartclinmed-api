@@ -66,6 +66,9 @@ public class Profissional implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE_Profissional")
 	private Set<String> telefones = new HashSet<>();
+	
+	public Profissional() {
+	}
 
 	public Profissional(Long id, Inquilino inquilino, String nome, TipoSexo sexo, String cpf, String rg,
 			LocalDate dataNascimento, String email, TipoProfissional tipoProfissional, String numeroConsenho,
