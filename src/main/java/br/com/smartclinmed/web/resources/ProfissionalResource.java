@@ -1,6 +1,6 @@
 package br.com.smartclinmed.web.resources;
 
-//import java.net.URI;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,12 +12,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-//import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 //import br.com.smartclinmed.web.domain.Especialidade;
 import br.com.smartclinmed.web.domain.Profissional;
@@ -59,7 +59,7 @@ public class ProfissionalResource {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	/*
+	
 	@PreAuthorize("hasAnyRole('Profissional_List')")
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Profissional> insert(@RequestBody Profissional obj){
@@ -70,7 +70,7 @@ public class ProfissionalResource {
 	}
 	
 
-	
+	/*
 	@PreAuthorize("hasAnyRole('Especialidade_Delete')")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ApiOperation ( value = " Remover especialidade " )

@@ -1,11 +1,10 @@
-package br.com.smartclinmed.web.services;
+package br.com.smartclinmed.web.services; 
 
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+
 
 import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.domain.Profissional;
@@ -54,12 +54,11 @@ public class ProfissionalService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findByInquilino(pageRequest, user.getInquilino());
 	}
-
-	@Transactional
+	
 	public Profissional insert(Profissional obj) {
-		obj.setDtInclusao(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+		UserSS user = UserService.authenticated();
 		obj.setId(null);
-		obj.setInquilino(obj.getInquilino());
+		obj.setInquilino(user.getInquilino());
 		return repo.save(obj);
 	}
 
