@@ -3,6 +3,7 @@ package br.com.smartclinmed.web.services;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,6 +205,11 @@ public class DBService {
 		Especialidade esp1 = new Especialidade(null, inq1, "Neurologia", "225112", "");
 		Especialidade esp2 = new Especialidade(null, inq1, "Cardiologia", "225120", "");
 		Especialidade esp3 = new Especialidade(null, inq1, "Psiquiatria", "225133", "");
+		
+		esp1.getProfissionais().addAll(Arrays.asList(prof1));
+		esp2.getProfissionais().addAll(Arrays.asList(prof1));
+		
+		prof1.getEspecialidades().addAll(Arrays.asList(esp1, esp2));
 		
 		profissionalRepository.save(prof1);
 		especialidadeRepository.saveAll(Arrays.asList(esp1, esp2, esp3));

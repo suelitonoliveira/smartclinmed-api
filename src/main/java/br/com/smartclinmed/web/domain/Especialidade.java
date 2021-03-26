@@ -1,19 +1,21 @@
 package br.com.smartclinmed.web.domain; 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
 
@@ -34,6 +36,15 @@ public class Especialidade implements Serializable {
 	private String cbosTiss2;
 	private String cbosTiss3;
 	
+	//@ManyToMany(mappedBy = "especialidades")
+	
+	@JsonBackReference
+	@JsonManagedReference
+	@ManyToMany
+	@JoinTable(name = "PROFISSIONAL_ESPECIALIDADE",
+			joinColumns = @JoinColumn(name = "especialidade_id"),
+			inverseJoinColumns = @JoinColumn(name = "profissional_id"))
+	private List<Profissional> profissionais = new ArrayList<>();
 	
 	public Especialidade() {
 	}
@@ -87,13 +98,13 @@ public class Especialidade implements Serializable {
 	public void setCbosTiss3(String cbosTiss3) {
 		this.cbosTiss3 = cbosTiss3;
 	}
-	/*public List<Profissional> getProfissionais() {
+	public List<Profissional> getProfissionais() {
 		return profissionais;
 	}
 
 	public void setProfissional(List<Profissional> profissionais) {
 		this.profissionais = profissionais;
-	}*/
+	}
 	 
 		@Override
 	public int hashCode() {
