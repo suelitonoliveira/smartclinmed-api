@@ -73,7 +73,7 @@ public class ProfissionalResource {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	@ApiOperation ( value = " Remover Profissional " )
 	@ApiResponses ( value  = {
-			@ApiResponse ( code  =  400 , message  =  " Não é possível excluir uma Profissional que possui médicos " ),
+			@ApiResponse ( code  =  400 , message  =  " Não é possível excluir uma Profissional que possui especialidades " ),
 			@ApiResponse ( code  =  404 , message  =  " Código inexistente " )})
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);
