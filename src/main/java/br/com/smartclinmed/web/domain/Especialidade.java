@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,9 +14,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
 
@@ -38,9 +37,8 @@ public class Especialidade implements Serializable {
 	
 	//@ManyToMany(mappedBy = "especialidades")
 	
-	@JsonBackReference
-	@JsonManagedReference
-	@ManyToMany
+	
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "PROFISSIONAL_ESPECIALIDADE",
 			joinColumns = @JoinColumn(name = "especialidade_id"),
 			inverseJoinColumns = @JoinColumn(name = "profissional_id"))

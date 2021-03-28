@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -18,9 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.enums.TipoProfissional;
@@ -56,8 +55,9 @@ public class Profissional implements Serializable {
 			joinColumns = @JoinColumn(name = "profissional_id"),
 			inverseJoinColumns = @JoinColumn(name = "especialidade_id"))*/
 	
-	@JsonBackReference
-	@ManyToMany(mappedBy = "profissionais")
+	//@JsonManagedReference
+	@JsonIgnore
+	@ManyToMany(mappedBy = "profissionais", cascade = CascadeType.ALL)
 	private List<Especialidade> especialidades = new ArrayList<>();
 	
 
