@@ -105,7 +105,7 @@ public class DBService {
 		Permissao perm21 = new Permissao(null, "ROLE_Profissional_List");
 		Permissao perm22 = new Permissao(null, "ROLE_Profissional_Insert");
 		Permissao perm23 = new Permissao(null, "ROLE_Profissional_Update");
-		Permissao perm24 = new Permissao(null, "ROLE_Profissionale_Delete");
+		Permissao perm24 = new Permissao(null, "ROLE_Profissional_Delete");
 
 		permissoesRepository
 				.saveAll(Arrays.asList(perm1, perm2, perm3, perm4, perm5, perm6, perm7, perm8, perm9, perm10, perm11,
@@ -153,7 +153,9 @@ public class DBService {
 		perf1.addPermissao(perm20);
 		perf1.addPermissao(perm21);
 		perf1.addPermissao(perm22);
-
+		perf1.addPermissao(perm23);
+		perf1.addPermissao(perm24);
+		
 		usuarioPerfilRepository.saveAll(Arrays.asList(perf1, perf2));
 		user1.addPerfil(perf1);
 		user1.addPerfil(perf2);
