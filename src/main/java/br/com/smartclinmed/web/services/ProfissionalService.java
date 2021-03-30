@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.smartclinmed.web.domain.Paciente;
 import br.com.smartclinmed.web.domain.Profissional;
+import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.ProfissionalRepository;
 import br.com.smartclinmed.web.security.UserSS;
 import br.com.smartclinmed.web.services.acessos.UserService;
@@ -60,9 +61,11 @@ public class ProfissionalService {
 
 	@Transactional
 	public void delete(Long id) {
-		find(id);
+		Optional<Profissional> obj = find(id);
 		try {
-			repo.deleteById(id);
+			
+			obj.get().setStatusComum(TipoStatusComum.INATIVO);
+			repo.save(obj.get());
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Exclusão não permitida, itens vinculados");
 		}
