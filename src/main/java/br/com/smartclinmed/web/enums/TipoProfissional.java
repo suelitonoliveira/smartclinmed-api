@@ -20,13 +20,13 @@ public enum TipoProfissional {
 		return descricao;
 	}
 
-	public static TipoProfissional toEnum(Integer sexo) {
-		if (sexo == null) {
+	public static TipoProfissional toEnum(Integer cod) {
+		if (cod == null) {
 			return null;
 		}
 
 		for (TipoProfissional x : TipoProfissional.values()) {
-			if (sexo.equals(x.getCod())) {
+			if (cod.equals(x.getCod())) {
 				return x;
 			}
 		}

@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 import br.com.smartclinmed.web.domain.software.Inquilino;
 
 
@@ -37,7 +38,7 @@ public class Especialidade implements Serializable {
 	
 	//@ManyToMany(mappedBy = "especialidades")
 	
-	
+	//@JsonManagedReference
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "PROFISSIONAL_ESPECIALIDADE",
 			joinColumns = @JoinColumn(name = "especialidade_id"),
