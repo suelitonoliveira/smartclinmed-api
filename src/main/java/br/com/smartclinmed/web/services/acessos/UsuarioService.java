@@ -24,7 +24,6 @@ import br.com.smartclinmed.web.enums.TipoStatusComum;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioPerfilRepository;
 import br.com.smartclinmed.web.repositories.acessos.UsuarioRepository;
 import br.com.smartclinmed.web.security.UserSS;
-import br.com.smartclinmed.web.services.FileUploadService;
 import br.com.smartclinmed.web.services.exceptions.AuthorizationException;
 import br.com.smartclinmed.web.services.exceptions.ObjectNotFoundException;
 
@@ -38,9 +37,6 @@ public class UsuarioService {
 
 	@Autowired
 	private BCryptPasswordEncoder pe;
-
-	@Autowired
-	private FileUploadService fileUploadService;
 
 	public Usuario find(Integer id) {
 		Optional<Usuario> obj = repo.findById(id);
@@ -160,20 +156,19 @@ public class UsuarioService {
 	public Usuario fromDTO(UsuarioPerfilDTO objDto) {
 		UserSS user = UserService.authenticated();
 		Optional<Usuario> objAtual = repo.findByIdAndInquilino(user.getId(), user.getInquilino());
-		Usuario obj = new Usuario(user.getId(), user.getInquilino(),null, objAtual.get().getEmail(),
-				objAtual.get().getStatusComum(), objDto.getSenha(), objDto.getImagem(),
-				objDto.getImagem64(), objAtual.get().getDtInclusao(), LocalDateTime.now());
+		Usuario obj = new Usuario(user.getId(), user.getInquilino(), null, objAtual.get().getEmail(),
+				objAtual.get().getStatusComum(), objDto.getSenha(), objDto.getImagem(), objDto.getImagem64(),
+				objAtual.get().getDtInclusao(), LocalDateTime.now());
 		obj.setPerfis(objAtual.get().getPerfis());
 		return obj;
 	}
 
 	public Usuario fromDTO(UsuarioNewDTO objDto) {
 		UserSS user = UserService.authenticated();
-		Usuario obj = new Usuario(null, user.getInquilino(),objDto.getNome(), objDto.getEmail(), TipoStatusComum.ATIVO,
+		Usuario obj = new Usuario(null, user.getInquilino(), objDto.getNome(), objDto.getEmail(), TipoStatusComum.ATIVO,
 				objDto.getSenha(), objDto.getImagem(), objDto.getImagem64(), LocalDateTime.now(), null);
 		obj.setPerfis(objDto.getPerfis());
 		return obj;
 	}
-
 
 }
