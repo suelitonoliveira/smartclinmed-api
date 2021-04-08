@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.smartclinmed.web.domain.software.Inquilino;
-import br.com.smartclinmed.web.enums.TipoStatusComum;
 
 @Entity
 public class ConvenioCategoria implements Serializable {
@@ -26,75 +25,197 @@ public class ConvenioCategoria implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "inquilino_id")
 	private Inquilino inquilino;
-
+	
+	private String razaoSocial;
 	private String nomeConvenio;
+	private String codigoUsoInterno;
+	private String contratoVenceEn;
+	private String destrato;
+	private String reajuste;
+	private String inscriçaoEstadual;
+	private String email;
+	private String site;
+	private String cnpj;
 	private Integer statusComum;
 	private LocalDateTime dtInclusao;
 	private LocalDateTime dtAlteracao;
 
 	public ConvenioCategoria() {
-
 	}
 
-	public ConvenioCategoria(Long id, Inquilino inquilino, String nomeConvenio, TipoStatusComum statusComum,
-			LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
-
+	public ConvenioCategoria(Long id, Inquilino inquilino, String razaoSocial, String nomeConvenio,
+			String codigoUsoInterno, String contratoVenceEn, String destrato, String reajuste, String inscriçaoEstadual,
+			String email, String site, String cnpj, Integer statusComum, LocalDateTime dtInclusao,
+			LocalDateTime dtAlteracao) {
+		super();
 		this.id = id;
 		this.inquilino = inquilino;
+		this.razaoSocial = razaoSocial;
 		this.nomeConvenio = nomeConvenio;
-		this.statusComum = (statusComum == null) ? 1 :statusComum.getCod();
+		this.codigoUsoInterno = codigoUsoInterno;
+		this.contratoVenceEn = contratoVenceEn;
+		this.destrato = destrato;
+		this.reajuste = reajuste;
+		this.inscriçaoEstadual = inscriçaoEstadual;
+		this.email = email;
+		this.site = site;
+		this.cnpj = cnpj;
+		this.statusComum = statusComum;
 		this.dtInclusao = dtInclusao;
 		this.dtAlteracao = dtAlteracao;
-
 	}
+
+
 
 	public Long getId() {
 		return id;
 	}
 
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 	public Inquilino getInquilino() {
 		return inquilino;
 	}
 
+
 	public void setInquilino(Inquilino inquilino) {
 		this.inquilino = inquilino;
 	}
+
+
+	public String getRazaoSocial() {
+		return razaoSocial;
+	}
+
+
+	public void setRazaoSocial(String razaoSocial) {
+		this.razaoSocial = razaoSocial;
+	}
+
 
 	public String getNomeConvenio() {
 		return nomeConvenio;
 	}
 
+
 	public void setNomeConvenio(String nomeConvenio) {
 		this.nomeConvenio = nomeConvenio;
 	}
 
-	public TipoStatusComum getStatusComum() {
-		return TipoStatusComum.toEnum(statusComum);
+
+	public String getCodigoUsoInterno() {
+		return codigoUsoInterno;
 	}
 
-	public void setStatusComum(TipoStatusComum statusComum) {
-		this.statusComum = statusComum.getCod();
+
+	public void setCodigoUsoInterno(String codigoUsoInterno) {
+		this.codigoUsoInterno = codigoUsoInterno;
 	}
+
+
+	public String getContratoVenceEn() {
+		return contratoVenceEn;
+	}
+
+
+	public void setContratoVenceEn(String contratoVenceEn) {
+		this.contratoVenceEn = contratoVenceEn;
+	}
+
+
+	public String getDestrato() {
+		return destrato;
+	}
+
+
+	public void setDestrato(String destrato) {
+		this.destrato = destrato;
+	}
+
+
+	public String getReajuste() {
+		return reajuste;
+	}
+
+
+	public void setReajuste(String reajuste) {
+		this.reajuste = reajuste;
+	}
+
+
+	public String getInscriçaoEstadual() {
+		return inscriçaoEstadual;
+	}
+
+
+	public void setInscriçaoEstadual(String inscriçaoEstadual) {
+		this.inscriçaoEstadual = inscriçaoEstadual;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getSite() {
+		return site;
+	}
+
+
+	public void setSite(String site) {
+		this.site = site;
+	}
+
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
+
+
+	public Integer getStatusComum() {
+		return statusComum;
+	}
+
+
+	public void setStatusComum(Integer statusComum) {
+		this.statusComum = statusComum;
+	}
+
 
 	public LocalDateTime getDtInclusao() {
 		return dtInclusao;
 	}
 
+
 	public void setDtInclusao(LocalDateTime dtInclusao) {
 		this.dtInclusao = dtInclusao;
 	}
+
 
 	public LocalDateTime getDtAlteracao() {
 		return dtAlteracao;
 	}
 
+
 	public void setDtAlteracao(LocalDateTime dtAlteracao) {
 		this.dtAlteracao = dtAlteracao;
 	}
+
 
 	@Override
 	public int hashCode() {
