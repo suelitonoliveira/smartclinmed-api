@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface InquilinoRepository extends JpaRepository<Inquilino, Long> {
 
 	@Transactional(readOnly = true)
-	Optional<Inquilino> findById(Long id);
+	Optional<Inquilino> findById(Integer integer);
 
 	@Transactional(readOnly = true)
 	Optional<Inquilino> findBynRegistro(String nRegistro);

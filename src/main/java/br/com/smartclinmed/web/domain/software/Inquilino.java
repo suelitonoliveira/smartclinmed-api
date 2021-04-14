@@ -24,7 +24,7 @@ public class Inquilino implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String fantasia;
 	private String razaoSocial;
 	private Integer tipoCliente;
@@ -48,7 +48,7 @@ public class Inquilino implements Serializable {
 
 	}
 
-	public Inquilino(Long id, String fantasia, String razaoSocial, TipoCliente tipoCliente, TipoStatusComum statusComum,
+	public Inquilino(Integer id, String fantasia, String razaoSocial, TipoCliente tipoCliente, TipoStatusComum statusComum,
 			TipoContratacaoInquilino tipoContratacao, String nRegistro, String imagem, String imagem64, String email,
 			String senha, LocalDateTime dtInclusao, LocalDateTime dtAlteracao) {
 		super();
@@ -68,11 +68,11 @@ public class Inquilino implements Serializable {
 
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

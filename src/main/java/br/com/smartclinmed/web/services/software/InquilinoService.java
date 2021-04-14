@@ -29,7 +29,7 @@ public class InquilinoService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
-	public Inquilino find(Long id) {
+	public Inquilino find(Integer id) {
 		Optional<Inquilino> obj = repo.findById(id);
 
 		if (obj.isEmpty()) {
@@ -78,7 +78,7 @@ public class InquilinoService {
 	}
 
 	@Transactional
-	public void delete(Long id) {
+	public void delete(Integer id) {
 		try {
 			Inquilino obj = find(id);
 			obj.setDtAlteracao(LocalDateTime.now());

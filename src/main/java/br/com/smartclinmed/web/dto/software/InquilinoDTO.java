@@ -12,7 +12,7 @@ import br.com.smartclinmed.web.enums.TipoStatusComum;
 public class InquilinoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private Long id;
+	private Integer id;
 	private String fantasia;
 	private String razaoSocial;
 	private TipoStatusComum statusComum;
@@ -28,11 +28,11 @@ public class InquilinoDTO implements Serializable {
 
 	}
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
