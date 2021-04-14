@@ -1,5 +1,6 @@
 package br.com.smartclinmed.web.services;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,6 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Optional;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,5 +120,28 @@ public class FileUploadService {
 	// return (MultipartFile) outputfile;
 
 	// }
+	/*
+	 * BufferedImage image = ImageIO.read(new File(baseFolderPath));
+	 * ImageIO.write(image, "webp", new File("output.webp"));
+	 */
+	
+	public void uploadToFile(MultipartFile file, String uploadFolderPath, String uploadFileName, BufferedImage image) {
 
+		try {
+			ImageIO.write(image, "webp", (ImageOutputStream) file);
+			ImageIO.write(image, uploadFileName, new File(uploadFileName));
+			File diretorio = new File(baseFolderPath + uploadFolderPath);
+			if (!diretorio.exists()) {
+				diretorio.mkdirs();
+			}
+			byte[] data = file.getBytes();
+			Path path = Paths.get(baseFolderPath + uploadFolderPath + uploadFileName);
+			Files.write(path, data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
 }

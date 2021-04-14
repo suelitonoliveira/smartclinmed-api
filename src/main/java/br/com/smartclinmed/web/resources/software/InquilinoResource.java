@@ -1,8 +1,10 @@
 package br.com.smartclinmed.web.resources.software;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,11 +85,12 @@ public class InquilinoResource {
         return ResponseEntity.noContent().build();
     }
 	@RequestMapping(value = "/image/{id}", method = RequestMethod.POST)
-	public void uploadLocal(@PathVariable Integer id, @RequestParam("file") MultipartFile multipartFile) {
+	public void uploadLocal(@PathVariable Integer id, @RequestParam("file") MultipartFile multipartFile , BufferedImage image) {
 		Inquilino obj = service.find(id);
 		String Path = id.toString() + "/";
 		String Name = "Logo.jpg";
-		fileUploadService.uploadToFile(multipartFile, Path, Name);
+		//fileUploadService.uploadToFile(multipartFile, Path, Name);
+		fileUploadService.uploadToFile(multipartFile, Path, Name, image);
 		obj.setImagem("http://localhost:8080" + Path + Name);
 		obj = service.update(obj);
 	}
