@@ -1,22 +1,17 @@
 package br.com.smartclinmed.web.services;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Optional;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.imageio.stream.FileImageOutputStream;
@@ -63,7 +58,8 @@ public class FileUploadService {
 			WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
 			writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 			writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSLESS_COMPRESSION]);
-			writer.setOutput(new FileImageOutputStream(new File("output.webp")));
+			writeParam.setCompressionQuality(0.01f);
+			writer.setOutput(new FileImageOutputStream(new File("foto.webp")));
 			writer.write(null, new IIOImage(image, null, null), writeParam);
 			ImageOutputStream path = (ImageOutputStream) Paths.get(baseFolderPath + uploadFolderPath + uploadFileName);
 			ImageIO.write(image, "webp", path);
@@ -144,35 +140,6 @@ public class FileUploadService {
 	 * BufferedImage image = ImageIO.read(new File(baseFolderPath));
 	 * ImageIO.write(image, "webp", new File("output.webp"));
 	 */
-
-	public void uploadToImage(MultipartFile file, String uploadFolderPath, String uploadFileName) {
-
-		try {
-
-			File diretorio = new File(baseFolderPath + uploadFolderPath);
-			if (!diretorio.exists()) {
-				diretorio.mkdirs();
-			}
-			BufferedImage originalImage = ImageIO.read(new File(""));
-			ImageReader reader = ImageIO.getImageReadersByMIMEType("image/webp").next();
-
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			ImageIO.write(originalImage, "webp", baos);
-			baos.flush();
-			MultipartFile multipartFile = MockMultipartFile(uploadFileName, baos.toByteArray());
-			byte[] data = multipartFile.getBytes();
-			Path path = Paths.get(baseFolderPath + uploadFolderPath + uploadFileName);
-			Files.write(path, data);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	private MultipartFile MockMultipartFile(String uploadFileName, byte[] byteArray) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }
