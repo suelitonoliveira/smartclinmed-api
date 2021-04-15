@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Iterator;
@@ -17,16 +19,12 @@ import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
-import javax.imageio.metadata.IIOMetadata;
-import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.luciad.imageio.webp.WebPWriteParam;
 
 import br.com.smartclinmed.web.domain.FileUpload;
 import br.com.smartclinmed.web.domain.software.Inquilino;
@@ -55,17 +53,8 @@ public class FileUploadService {
 				diretorio.mkdirs();
 			}
 			byte[] data = file.getBytes();
-			// convert byte[] to a bufferedImage
-			InputStream is = new ByteArrayInputStream(data);
-			BufferedImage image = ImageIO.read(is);
-			ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
-			WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
-			writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
-			writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSLESS_COMPRESSION]);
-			writeParam.setCompressionQuality(0.01f);
-			writer.setOutput(new FileImageOutputStream(new File( "/var/www/html/images/foto.webp")));
-			writer.write(null, new IIOImage(image, null, null), writeParam);
-		
+			Path path = Paths.get(baseFolderPath + uploadFolderPath + uploadFileName);
+			Files.write(path, data);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -141,8 +130,7 @@ public class FileUploadService {
 	 * BufferedImage image = ImageIO.read(new File(baseFolderPath));
 	 * ImageIO.write(image, "webp", new File("output.webp"));
 	 */
-	
-	
+
 	public void uploadImg(MultipartFile file, String uploadFolderPath, String uploadFileName) {
 
 		try {

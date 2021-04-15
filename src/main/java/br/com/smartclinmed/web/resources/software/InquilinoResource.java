@@ -92,13 +92,5 @@ public class InquilinoResource {
 		obj = service.update(obj);
 	}
 	
-	/*
-	 * @RequestMapping(value = "/foto/{id}", method = RequestMethod.POST) public
-	 * void uploadImage(@PathVariable Integer id, @RequestParam("file")
-	 * MultipartFile multipartFile) { Inquilino obj = service.find(id); String Path
-	 * = id.toString() + "/"; String Name = "Logo.webp";
-	 * fileUploadService.uploadToImage(multipartFile, Path, Name);
-	 * obj.setImagem("http://localhost:8080" + Path + Name); obj =
-	 * service.update(obj); }
-	 */
+
 }
