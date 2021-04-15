@@ -3,11 +3,14 @@ package br.com.smartclinmed.web.services;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.imageio.IIOImage;
@@ -138,5 +141,39 @@ public class FileUploadService {
 	 * BufferedImage image = ImageIO.read(new File(baseFolderPath));
 	 * ImageIO.write(image, "webp", new File("output.webp"));
 	 */
+	
+	
+	public void uploadImg(MultipartFile file, String uploadFolderPath, String uploadFileName) {
+
+		try {
+			File diretorio = new File(baseFolderPath + uploadFolderPath);
+			if (!diretorio.exists()) {
+				diretorio.mkdirs();
+			}
+			byte[] data = file.getBytes();
+			// convert byte[] to a bufferedImage
+			InputStream is = new ByteArrayInputStream(data);
+			BufferedImage image = ImageIO.read(is);
+			File compressedImageFile = new File("/var/www/html/images/compressed_image.jpg");
+			OutputStream os = new FileOutputStream(compressedImageFile);
+			Iterator<ImageWriter> writers = ImageIO.getImageWritersByFormatName("jpg");
+			ImageWriter writer = (ImageWriter) writers.next();
+
+			ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+			writer.setOutput(ios);
+			ImageWriteParam param = writer.getDefaultWriteParam();
+
+			param.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+			param.setCompressionQuality(0.01f); // Change the quality value you prefer
+			writer.write(null, new IIOImage(image, null, null), param);
+			os.close();
+			ios.close();
+			writer.dispose();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 }
