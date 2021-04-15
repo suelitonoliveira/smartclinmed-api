@@ -1,10 +1,8 @@
 package br.com.smartclinmed.web.resources.software;
 
-import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.com.smartclinmed.web.services.FileUploadService;
-import br.com.smartclinmed.web.services.software.InquilinoService;
 import br.com.smartclinmed.web.domain.software.Inquilino;
 import br.com.smartclinmed.web.dto.software.InquilinoDTO;
 import br.com.smartclinmed.web.dto.software.InquilinoNewDTO;
+import br.com.smartclinmed.web.services.FileUploadService;
+import br.com.smartclinmed.web.services.software.InquilinoService;
 
 
 
@@ -85,12 +83,21 @@ public class InquilinoResource {
         return ResponseEntity.noContent().build();
     }
 	@RequestMapping(value = "/image/{id}", method = RequestMethod.POST)
-	public void uploadLocal(@PathVariable Integer id, @RequestParam("file") MultipartFile multipartFile , BufferedImage image) {
+	public void uploadLocal(@PathVariable Integer id, @RequestParam("file") MultipartFile multipartFile) {
 		Inquilino obj = service.find(id);
 		String Path = id.toString() + "/";
 		String Name = "Logo.jpg";
-		//fileUploadService.uploadToFile(multipartFile, Path, Name);
-		fileUploadService.uploadToFile(multipartFile, Path, Name, image);
+		fileUploadService.uploadToFile(multipartFile, Path, Name);
+		obj.setImagem("http://localhost:8080" + Path + Name);
+		obj = service.update(obj);
+	}
+	
+	@RequestMapping(value = "/foto/{id}", method = RequestMethod.POST)
+	public void uploadImage(@PathVariable Integer id, @RequestParam("file") MultipartFile multipartFile) {
+		Inquilino obj = service.find(id);
+		String Path = id.toString() + "/";
+		String Name = "Logo.webp";
+		fileUploadService.uploadToImage(multipartFile, Path, Name);
 		obj.setImagem("http://localhost:8080" + Path + Name);
 		obj = service.update(obj);
 	}

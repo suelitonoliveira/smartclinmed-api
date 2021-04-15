@@ -1,8 +1,12 @@
 package br.com.smartclinmed.web.services;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,13 +14,20 @@ import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Optional;
 
+import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.luciad.imageio.webp.WebPWriteParam;
 
 import br.com.smartclinmed.web.domain.FileUpload;
 import br.com.smartclinmed.web.domain.software.Inquilino;
@@ -30,14 +41,12 @@ import br.com.smartclinmed.web.services.exceptions.AuthorizationException;
 public class FileUploadService {
 
 	private String baseFolderPath = "/var/www/html/images/";
-	
 
 	@Autowired
 	private FileUploadRepository repo;
 
 	@Autowired
 	private InquilinoRepository inquilinoRepository;
-
 
 	public void uploadToFile(MultipartFile file, String uploadFolderPath, String uploadFileName) {
 
@@ -47,8 +56,19 @@ public class FileUploadService {
 				diretorio.mkdirs();
 			}
 			byte[] data = file.getBytes();
-			Path path = Paths.get(baseFolderPath + uploadFolderPath + uploadFileName);
-			Files.write(path, data);
+			//convert byte[] to a bufferedImage
+			InputStream is = new ByteArrayInputStream(data);
+			BufferedImage image = ImageIO.read(is);
+			ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
+			WebPWriteParam writeParam = new WebPWriteParam(writer.getLocale());
+			writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+			writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSLESS_COMPRESSION]);
+			writer.setOutput(new FileImageOutputStream(new File("output.webp")));
+			writer.write(null, new IIOImage(image, null, null), writeParam);
+			ImageOutputStream path = (ImageOutputStream) Paths.get(baseFolderPath + uploadFolderPath + uploadFileName);
+			ImageIO.write(image, "webp", path);
+			//Files.write(path, data);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -124,24 +144,35 @@ public class FileUploadService {
 	 * BufferedImage image = ImageIO.read(new File(baseFolderPath));
 	 * ImageIO.write(image, "webp", new File("output.webp"));
 	 */
-	
-	public void uploadToFile(MultipartFile file, String uploadFolderPath, String uploadFileName, BufferedImage image) {
+
+	public void uploadToImage(MultipartFile file, String uploadFolderPath, String uploadFileName) {
 
 		try {
-			ImageIO.write(image, "webp", (ImageOutputStream) file);
-			ImageIO.write(image, uploadFileName, new File(uploadFileName));
+
 			File diretorio = new File(baseFolderPath + uploadFolderPath);
 			if (!diretorio.exists()) {
 				diretorio.mkdirs();
 			}
-			byte[] data = file.getBytes();
+			BufferedImage originalImage = ImageIO.read(new File(""));
+			ImageReader reader = ImageIO.getImageReadersByMIMEType("image/webp").next();
+
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(originalImage, "webp", baos);
+			baos.flush();
+			MultipartFile multipartFile = MockMultipartFile(uploadFileName, baos.toByteArray());
+			byte[] data = multipartFile.getBytes();
 			Path path = Paths.get(baseFolderPath + uploadFolderPath + uploadFileName);
 			Files.write(path, data);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
-	
-	
+
+	private MultipartFile MockMultipartFile(String uploadFileName, byte[] byteArray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
