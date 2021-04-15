@@ -14,6 +14,7 @@ import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
+import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.imageio.stream.ImageOutputStream;
 
@@ -51,7 +52,7 @@ public class FileUploadService {
 				diretorio.mkdirs();
 			}
 			byte[] data = file.getBytes();
-			//convert byte[] to a bufferedImage
+			// convert byte[] to a bufferedImage
 			InputStream is = new ByteArrayInputStream(data);
 			BufferedImage image = ImageIO.read(is);
 			ImageWriter writer = ImageIO.getImageWritersByMIMEType("image/webp").next();
@@ -59,12 +60,9 @@ public class FileUploadService {
 			writeParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 			writeParam.setCompressionType(writeParam.getCompressionTypes()[WebPWriteParam.LOSSLESS_COMPRESSION]);
 			writeParam.setCompressionQuality(0.01f);
-			writer.setOutput(new FileImageOutputStream(new File("foto.webp")));
+			writer.setOutput(new FileImageOutputStream(new File( "/var/www/html/images/foto.webp")));
 			writer.write(null, new IIOImage(image, null, null), writeParam);
-			ImageOutputStream path = (ImageOutputStream) Paths.get(baseFolderPath + uploadFolderPath + uploadFileName);
-			ImageIO.write(image, "webp", path);
-			//Files.write(path, data);
-
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -140,6 +138,5 @@ public class FileUploadService {
 	 * BufferedImage image = ImageIO.read(new File(baseFolderPath));
 	 * ImageIO.write(image, "webp", new File("output.webp"));
 	 */
-	
 
 }
