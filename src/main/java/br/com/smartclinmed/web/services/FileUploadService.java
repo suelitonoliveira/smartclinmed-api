@@ -1,5 +1,8 @@
 package br.com.smartclinmed.web.services;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -161,6 +164,19 @@ public class FileUploadService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	public void textImg(BufferedImage bufferedImage) throws IOException {
+
+		String key = "Lucas Caresia";
+		//BufferedImage bufferedImage = ImageIO.read(new File("recibo.png"));
+		Graphics graphics = bufferedImage.getGraphics();
+		graphics.setColor(Color.BLACK);
+		graphics.setFont(new Font("Arial Black", Font.PLAIN, 15));
+		graphics.drawString(key, 420, 560);
+		ImageIO.write(bufferedImage, "png", new File("text.jpg"));
+		//System.out.println("Image Created");
 
 	}
 
