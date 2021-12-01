@@ -46,7 +46,7 @@ public class SwaggerConfig {
 	}
 
 	private ApiInfo apiInfo() {
-		return new ApiInfo("API Membbers", "API REST solução SMARTCLINMED", "Versão 1.0", "http://www.smartclinmed.com",
+		return new ApiInfo("API SmartClinMed", "API REST solução SMARTCLINMED", "Versão 1.0", "http://www.smartclinmed.com",
 				new Contact("SCM", "http://www.smartclinmed.com", "smartclinmed@gmail.com"), "",
 				"http://www.smartclinmed.com/terms", Collections.emptyList());
 	}
