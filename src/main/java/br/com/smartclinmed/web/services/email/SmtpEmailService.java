@@ -12,7 +12,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import br.com.smartclinmed.web.domain.atendimento.Agendamento;
+import org.springframework.stereotype.Service;
 
+@Service
 public class SmtpEmailService extends AbstractEmailService{
 	
 	@Autowired
