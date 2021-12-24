@@ -2,6 +2,7 @@ package br.com.smartclinmed.web.config;
 
 import java.text.ParseException;
 
+import br.com.smartclinmed.web.services.email.MockEmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -31,20 +32,9 @@ public class DevConfig {
 		return true;
 	}
 	@Bean
-	public EmailService smtpemailService() {
-		return new SmtpEmailService();
+	public EmailService emailService() {
+		return new MockEmailService();
 	}
 
-	
 
-	/*
-	 * @Bean public EmailService emailService() { return new SmtpEmailService(); }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * @Bean public boolean instatiateDatabase() throws ParseException {
-	 * dbservice.instantiateTestDatabase(); return true; }
-	 * 
-	 */
 }
